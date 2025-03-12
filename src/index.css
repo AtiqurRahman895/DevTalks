@@ -1,115 +1,83 @@
 @import url("https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap");
 @import url('https://fonts.googleapis.com/css2?family=Fugaz+One&display=swap');
 
-@import "tailwindcss";
-@plugin "daisyui";
-@custom-variant dark (&:where(.dark, .dark *));
-
-
-/* Tailwind directives */
-
-/* Custom theme configuration */
-@theme {
-  
-  /* Fonts */
-  --font-family-manrope: "Manrope", sans-serif;
-  --font-family-fugaz: "Fugaz One", serif;
-
-  /* Breakpoints */
-  --breakpoint-xs: 490px;
-  --breakpoint-sm: 640px;
-  --breakpoint-md: 768px;
-  --breakpoint-lg: 1024px;
-  --breakpoint-xl: 1280px;
-  --breakpoint-2xl: 1536px;
-
-  /* Colors */
-  --color-custom-primary: #352cd4;
-  --color-custom-half-primary: rgb(53 44 212 / 30%);
-  --color-custom-gray: #e6e6e6;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 /* Custom base styles */
 
-/* * {
-  @apply scroll-smooth;
-} */
+@layer base{
+* {
+    @apply scroll-smooth;
+}
 
 body {
-  @apply min-h-dvh text-white bg-black overflow-x-hidden font-family-manrope font-medium;
-}
-
-.container {
-  margin-inline: auto;
-  padding-inline: 5%;
-}
-
-@media (min-width: 490px) {
-  .container {
-    padding-inline: 1rem !important;
-  }
+    @apply min-h-dvh text-white bg-black overflow-x-hidden font-manrope font-medium;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  @apply font-bold;
+    @apply font-bold;
 }
 h1 {
-  @apply text-[clamp(1.75rem,1.1578947368421053rem+2.9605263157894735vw,4rem)];
+    @apply text-[clamp(1.75rem,1.1578947368421053rem+2.9605263157894735vw,4rem)];
 }
 h2 {
-  @apply text-[clamp(1.7rem,1.3285714285714285rem+1.8571428571428572vw,3rem)];
+        @apply text-[clamp(1.7rem,1.3285714285714285rem+1.8571428571428572vw,3rem)];
 }
 h3 {
-  @apply text-[clamp(1.6rem,1.342857142857143rem+1.2857142857142856vw,2.5rem)] ;
+    @apply text-[clamp(1.6rem,1.342857142857143rem+1.2857142857142856vw,2.5rem)] ;
 }
 h4 {
-  @apply text-[1.4rem] ;
+    @apply text-[1.4rem] ;
 }
 h5 {
-  @apply text-[1.25rem];
+    @apply text-[1.25rem];
 }
 h6 {
-  @apply text-[1rem];
+    @apply text-[1rem];
 }
 
 p,
 span,
 li,
 a,b {
-  @apply text-[14px] leading-loose;
+    @apply text-[14px] leading-loose;
 }
 a{
-  @apply hover:scale-105 duration-500
+    @apply hover:scale-105 duration-500
 }
 header a{
-  @apply hover:text-inherit duration-500
+    @apply hover:text-inherit duration-500
 }
 footer a{
-  @apply hover:font-bold 
+    @apply hover:font-bold 
 }
 
 ul,ol{
-  @apply space-y-1 mb-1.5 ml-8
+    @apply space-y-1 mb-1.5 ml-8
 }
 ul{
-  list-style: outside;
-  /* margin-left: 2rem; */
+    list-style: outside;
+    /* margin-left: 2rem; */
 }
 ol{
-  list-style: decimal;
-  /* margin-left: 1rem; */
+    list-style: decimal;
+    /* margin-left: 1rem; */
 }
-
-
+}
 
 
 /* Custom utilities */
 
+@layer utilities{
+
 .primaryButton{
-  @apply cursor-pointer px-4 py-2 text-center text-sm text-nowrap font-bold rounded-md duration-500 text-white bg-custom-primary border border-custom-primary hover:shadow-sm 
+    @apply cursor-pointer px-4 py-2 text-center text-sm text-nowrap font-bold rounded-md duration-500 text-white bg-custom-primary border border-custom-primary hover:shadow-sm 
 }
 
 .outlineButton{
-  @apply cursor-pointer px-4 py-2 text-center text-sm text-nowrap font-bold rounded-md duration-500 text-white  border border-white hover:shadow-sm 
+    @apply cursor-pointer px-4 py-2 text-center text-sm text-nowrap font-bold rounded-md duration-500 text-white  border border-white hover:shadow-sm 
 }
-
+      
+}
