@@ -108,13 +108,8 @@ ol{
 .primaryButton{
   @apply cursor-pointer px-4 py-2 text-center text-sm text-nowrap font-bold rounded-md duration-500 text-white bg-custom-primary border border-custom-primary hover:shadow-sm 
 }
-.activePrimaryButton{
-  @apply hover:bg-custom-half-primary
-}
 
 .outlineButton{
-  @apply cursor-pointer px-4 py-2 text-center text-sm text-nowrap font-bold rounded-md duration-500 bg-custom-primary text-white  border hover:shadow-sm 
+  @apply cursor-pointer px-4 py-2 text-center text-sm text-nowrap font-bold rounded-md duration-500 text-white  border border-white hover:shadow-sm 
 }
-.activeOutlineButton{
-  @apply hover:bg-black dark:hover:bg-transparent
-}
+

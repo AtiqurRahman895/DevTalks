@@ -22,6 +22,12 @@ const router = createBrowserRouter([
             <Home />
         ),
       },
+
+      // Authentication
+      {
+        path: "/login",
+        element: <Login />,
+      },
     ],
   },
 ]);
