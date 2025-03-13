@@ -17,7 +17,7 @@ export default function SignInAndSignUp() {
   const containerClass =
     "from-wrapper " + (type === "signUp" ? "right-panel-active" : "");
   return (
-    <section className="!container pt-16 place-items-center">
+    <section className="!container py-16 place-items-center">
       {/* <h2 className="text-center mb-5 text-4xl pt-5">Start your journey..</h2> */}
       <div className={containerClass} id="from-wrapper">
         <SignUpForm />

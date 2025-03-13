@@ -14,16 +14,14 @@ import Questions from './components/QuestionsPageComponents.jsx/Questions';
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: '/',
     element: <Base />,
     errorElement: <ErrorPage />,
 
     children: [
       {
-        path: "/",
-        element: (
-            <Home />
-        ),
+        path: '/',
+        element: <Home />
       },
       {
         path: "/questions",
