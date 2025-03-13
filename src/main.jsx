@@ -12,16 +12,14 @@ import Login from './components/AuthenticationComponents/Login';
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: '/',
     element: <Base />,
     errorElement: <ErrorPage />,
 
     children: [
       {
-        path: "/",
-        element: (
-            <Home />
-        ),
+        path: '/',
+        element: <Home />
       },
 
       // Authentication
