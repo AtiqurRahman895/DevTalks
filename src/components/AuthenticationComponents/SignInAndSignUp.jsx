@@ -15,11 +15,11 @@ export default function SignInAndSignUp() {
     }
   };
   const containerClass =
-    "container " + (type === "signUp" ? "right-panel-active" : "");
+    "from-wrapper " + (type === "signUp" ? "right-panel-active" : "");
   return (
-    <section className="App pt-16">
+    <section className="pt-16 place-items-center">
       {/* <h2 className="text-center mb-5 text-4xl pt-5">Start your journey..</h2> */}
-      <div className={containerClass} id="container">
+      <div className={containerClass} id="from-wrapper">
         <SignUpForm />
         <SignInForm />
         <div className="overlay-container">
