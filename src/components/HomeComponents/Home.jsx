@@ -1,11 +1,12 @@
 import PageTitle from "../CommonComponents/PageTitle";
+import Hero_section from "./Hero_section";
 
 const Home = () => {
   return (
     <>
       <PageTitle title="Home"/>
       <main>
-        <h1>Hello, World</h1>
+         <Hero_section></Hero_section>
       </main>
     </>
   );
