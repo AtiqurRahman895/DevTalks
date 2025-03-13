@@ -66,7 +66,7 @@ function SignUpForm() {
           placeholder="Password"
           className="text-black"
         />
-        <button>Sign Up</button>
+        <button className="primaryButton !rounded-full !px-6 !py-2.5 !mt-3">Sign Up</button>
       </form>
     </div>
   );

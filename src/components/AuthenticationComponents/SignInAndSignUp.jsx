@@ -17,31 +17,31 @@ export default function SignInAndSignUp() {
   const containerClass =
     "container " + (type === "signUp" ? "right-panel-active" : "");
   return (
-    <div className="App">
-      <h2 className="text-center mb-5 text-4xl pt-5">Start your journey..</h2>
+    <section className="App pt-16">
+      {/* <h2 className="text-center mb-5 text-4xl pt-5">Start your journey..</h2> */}
       <div className={containerClass} id="container">
         <SignUpForm />
         <SignInForm />
         <div className="overlay-container">
-          <div className="overlay">
-            <div className="overlay-panel overlay-left">
-              <h1>Welcome Back!</h1>
+          <div className="overlay bg-custom-primary">
+            <div className="overlay-panel overlay-left bg-custom-primary">
+              <h2>Welcome Back!</h2>
               <p>
                 To keep connected with us please login with your personal info
               </p>
               <button
-                className="ghost"
+                className="outlineButton !rounded-full !px-6 !py-2.5 !mt-3"
                 id="signIn"
                 onClick={() => handleOnClick("signIn")}
               >
                 Sign In
               </button>
             </div>
-            <div className="overlay-panel overlay-right">
-              <h1>Hello, Friend!</h1>
+            <div className="overlay-panel overlay-right bg-custom-primary">
+              <h2>Hello, Friend!</h2>
               <p>Enter your personal details and start journey with us</p>
               <button
-                className="ghost "
+                className="outlineButton !rounded-full !px-6 !py-2.5 !mt-3"
                 id="signUp"
                 onClick={() => handleOnClick("signUp")}
               >
@@ -51,6 +51,6 @@ export default function SignInAndSignUp() {
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 }

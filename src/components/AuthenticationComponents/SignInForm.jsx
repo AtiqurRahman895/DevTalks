@@ -61,7 +61,7 @@ function SignInForm() {
           className="text-black"
         />
         <a href="#" className="text-black">Forgot your password?</a>
-        <button>Sign In</button>
+        <button className="primaryButton !rounded-full !px-6 !py-2.5 !mt-3">Sign In</button>
       </form>
     </div>
   );
