@@ -3,37 +3,29 @@ import bg from '../../assets/background-4.jpg'
 
 const Join_developer = () => {
     return (
-        <div>
-            <div
-                className="relative bg-cover bg-bottom bg-no-repeat text-white py-20 px-6 md:px-16"
-                style={{ backgroundImage: `url('${bg}')` }}
-            >
-                {/* Overlay */}
-                <div className="absolute inset-0 bg-black bg-opacity-50"></div>
+        <section className="relative bg-cover bg-no-repeat bg-fixed py-24 before:bg-custom-primary/60 before:absolute before:inset-0 before:z-10 " style={{ backgroundImage: `url('${bg}')` }}>
 
-                {/* Content */}
-                <div className='container'>
-                <div className="relative z-10  mx-auto text-left">
-                    <h1 className="text-3xl md:text-3xl font-semibold">
+            <div className='container'>
+                <div className="relative z-10 space-y-2">
+                    <h3 className="">
                         Join Our Developer Community Today
-                    </h1>
-                    <p className="mt-4 text-lg text-gray-300">
+                    </h3>
+                    <h6 className="">
                         Sign up now to connect, share knowledge, and grow with fellow developers in our forum.
-                    </p>
+                    </h6>
 
                     {/* Buttons */}
-                    <div className="mt-6 flex justify-start gap-4">
-                        <button className="bg-custom-primary text-white font-semibold py-2 px-6 rounded-lg shadow-md  ">
+                    <div className="pt-4 space-x-4">
+                        <button className="primaryButton">
                             Sign Up
                         </button>
-                        <button className="border text-white font-semibold py-2 px-6 rounded-lg hover:bg-gray-600">
+                        <button className="outlineButton">
                             Learn More
                         </button>
                     </div>
                 </div>
-                </div>
             </div>
-        </div>
+        </section>
     );
 };
 

@@ -52,11 +52,11 @@ const LatestNews = () => {
       <h3 className="">
         📰 Latest News
       </h3>
-      <div className="space-y-6 bg-[rgba(71,71,71,0.40)] rounded-lg p-6">
+      <div className="space-y-6 bg-Custom-half-Gray border border-Custom-half-Gray rounded-lg p-6">
         {latestNews.map((news) => (
           <div
             key={news.id}
-            className="py-6 px-4 bg-[linear-gradient(175deg,rgba(0,0,0,1)0%,rgba(55,55,55,.3)75%);] rounded-lg space-y-2"
+            className="py-6 px-4 bg-[linear-gradient(175deg,rgba(0,0,0,1)0%,rgba(55,55,55,.3)75%);] border border-Custom-half-Gray rounded-lg space-y-2"
           >
             <Link to="#" className="text-custom-primary hover:underline cursor-pointer">
               <h5>{news.title}</h5>

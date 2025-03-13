@@ -4,53 +4,51 @@ import { FaCube, FaCubes } from 'react-icons/fa';
 
 const Developer_Community_support = () => {
     return (
-        <div className='container'>
-            <div className="bg-black text-white py-16  rounded-lg">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-         
-        <div>
-          <h2 className="text-3xl md:text-5xl font-bold">
-            Unlock Your Potential: Join Our Developer Community Today!
-          </h2>
-          <p className="text-gray-300 mt-4">
-            Become part of a vibrant community where developers support each other.
-            Gain insights on a variety of programming topics and enhance your skills.
-          </p>
+        <section>
+          <div className='container'>
+            <div className="">
+                <div className="flex flex-col md:flex-row gap-x-6 gap-y-8 items-center">
+                  
+                  <div className='md:w-7/12 space-y-2'>
+                    <h3>
+                      Unlock Your Potential with Our Developer Community
+                    </h3>
+                    <h6>
+                      Join a thriving space where developers support each other, explore diverse topics, and enhance their skills.
+                    </h6>
+                    
+                    <div className="pt-6 flex justify-between items-start gap-4">
+                      <div className="space-y-3">
+                        <FaCube className="text-5xl" />
+                        <div>
+                          <h3 className="text-lg font-semibold">Peer Support</h3>
+                          <p className="text-Custom-Gray">
+                            Connect with like-minded developers and grow together.
+                          </p>
+                        </div>
+                      </div>
+                      <div className="space-y-3">
+                        <FaCubes className="text-5xl" />
+                        <div>
+                          <h3 className="text-lg font-semibold">Diverse Topics</h3>
+                          <p className="text-Custom-Gray">
+                            Learn about the latest trends, tools, and best practices.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                
+                  <img
+                    src={developer_img}
+                    alt="Developer Community support"
+                    className=" md:w-5/12 rounded-lg"
+                  />
 
-          
-          <div className="mt-6 space-y-4 flex justify-between items-center">
-            <div className="flex items-start flex-col gap-4">
-              <FaCube className="w-8 h-8 text-white" />
-              <div>
-                <h3 className="text-lg font-semibold">Peer Support</h3>
-                <p className="text-gray-400">
-                  Connect with fellow developers who share your challenges and triumphs.
-                </p>
-              </div>
-            </div>
-            <div className="flex items-start flex-col gap-4">
-              <FaCubes className="w-8 h-8 text-white" />
-              <div>
-                <h3 className="text-lg font-semibold">Diverse Topics</h3>
-                <p className="text-gray-400">
-                  Explore a vast array of programming subjects tailored to your interests.
-                </p>
-              </div>
+                </div>
             </div>
           </div>
-        </div>
-
-       
-        <div className="flex justify-center">
-          <img
-            src={developer_img}
-            alt="Developer Community support"
-            className="rounded-lg shadow-lg"
-          />
-        </div>
-      </div>
-    </div>
-        </div>
+        </section>
     );
 };
 
