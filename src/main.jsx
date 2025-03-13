@@ -8,7 +8,9 @@ import Base from './components/BaseComponents/Base';
 import Home from './components/HomeComponents/Home';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import ErrorPage from './components/ErrorPageComponent/ErrorPage';
-import Login from './components/AuthenticationComponents/Login';
+//import Login from './components/AuthenticationComponents/Login';
+import SignInAndSignUp from './components/AuthenticationComponents/SignInAndSignUp';
+import Questions from './components/QuestionsPageComponents.jsx/Questions';
 
 const router = createBrowserRouter([
   {
@@ -23,11 +25,17 @@ const router = createBrowserRouter([
             <Home />
         ),
       },
+      {
+        path: "/questions",
+        element: (
+            <Questions />
+        ),
+      },
 
       // Authentication
       {
         path: "/login",
-        element: <Login />,
+        element: <SignInAndSignUp />,
       },
     ],
   },

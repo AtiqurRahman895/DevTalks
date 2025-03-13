@@ -25,7 +25,8 @@ export default {
       colors: {
         'custom-primary': '#352cd4',
         'custom-half-primary': 'rgba(52, 44, 212, 0.3)',
-        'font-color':'#767582',
+        'Custom-Gray':'#767582',
+        'Custom-half-Gray': 'rgba(118, 117, 130, 0.15)'
       },
     },
   },
