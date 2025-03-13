@@ -7,7 +7,7 @@ const Developer_Community_support = () => {
         <div className='container'>
             <div className="bg-black text-white py-16  rounded-lg">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-        {/* Left Section */}
+         
         <div>
           <h2 className="text-3xl md:text-5xl font-bold">
             Unlock Your Potential: Join Our Developer Community Today!
@@ -17,7 +17,7 @@ const Developer_Community_support = () => {
             Gain insights on a variety of programming topics and enhance your skills.
           </p>
 
-          {/* Features Section */}
+          
           <div className="mt-6 space-y-4 flex justify-between items-center">
             <div className="flex items-start flex-col gap-4">
               <FaCube className="w-8 h-8 text-white" />
@@ -40,7 +40,7 @@ const Developer_Community_support = () => {
           </div>
         </div>
 
-        {/* Right Section - Image */}
+       
         <div className="flex justify-center">
           <img
             src={developer_img}
