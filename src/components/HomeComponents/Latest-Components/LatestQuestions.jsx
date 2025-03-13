@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router";
 
 const latestQuestions = [
   {
@@ -54,36 +55,39 @@ const latestQuestions = [
 
 const LatestQuestions = () => {
   return (
-    <div className="p-8 bg-black rounded-lg shadow-lg">
-      <h2 className="text-2xl md:text-3xl font-extrabold mb-6 text-white">
+    <div className="space-y-6">
+      <h3 className="">
         🚀 Latest Questions
-      </h2>
+      </h3>
       <div className="space-y-6">
         {latestQuestions.map((q) => (
-          <div
-            key={q.id}
-            className="p-6 border-b  border-orange-600 rounded-xl shadow-md hover:shadow-2xl transition-all duration-300"
-          >
-            <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-orange-400 hover:underline cursor-pointer">
-              {q.title}
-            </h3>
-            <div className="flex justify-between items-center mt-4">
-              <p className="text-sm sm:text-base md:text-lg text-gray-400 mb-3">
-                👤 <span className="font-medium text-white">{q.user}</span> • ⏳
-                {q.time}
-              </p>
-              <div className="flex flex-wrap gap-2 mt-2">
-                {q.categories.map((category, index) => (
-                  <span
-                    key={index}
-                    className="px-3 py-1 text-xs sm:text-sm md:text-base font-semibold bg-orange-600 text-white rounded-full shadow-sm hover:bg-orange-500 transition"
-                  >
-                    {category}
-                  </span>
-                ))}
+            <div key={q.id} className="py-6 px-4 bg-Custom-half-Gray border border-Custom-half-Gray rounded-lg space-y-2">
+
+              <Link to="#" className="text-custom-primary hover:underline cursor-pointer">
+                <h5>{q.title}</h5>
+              </Link>
+
+              <div className="flex justify-between flex-wrap items-center gap-x-6 gap-y-3">
+
+                <div className="text-Custom-Gray flex gap-2">
+                  <b className="">👤 {q.user}</b> 
+                  <span>⏳{q.time}</span>
+                </div>
+
+                <div className="flex gap-2">
+                  {q.categories.map((category, index) => (
+                    <b
+                      key={index}
+                      className="px-3 py-1 bg-custom-primary hover:bg-custom-half-primary border border-custom-primary rounded-full shadow-sm transition"
+                    >
+                      {category}
+                    </b>
+                  ))}
+                </div>
+
               </div>
+
             </div>
-          </div>
         ))}
       </div>
     </div>
