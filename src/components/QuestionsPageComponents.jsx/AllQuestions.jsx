@@ -1,7 +1,7 @@
 import React from "react";
-import QuestionCard from "../../CommonComponents/QuestionCard";
+import QuestionCard from "../CommonComponents/QuestionCard";
 
-const latestQuestions = [
+const allQuestions = [
   {
     id: 1,
     title: "How to optimize React performance?",
@@ -44,28 +44,20 @@ const latestQuestions = [
     time: "1 week ago",
     categories: ["#nextjs", "#api"],
   },
-  {
-    id: 7,
-    title: "How to implement authentication in MERN stack?",
-    user: "DavidStack",
-    time: "2 weeks ago",
-    categories: ["#mern", "#authentication"],
-  },
 ];
 
-const LatestQuestions = () => {
+const AllQuestions = () => {
   return (
-    <div className="space-y-6">
-      <h3 className="">
-        🚀 Latest Questions
-      </h3>
-      <div className="space-y-6">
-        {latestQuestions.map((q,index) => (
-          <QuestionCard key={index} question={q}/>
-        ))}
-      </div>
+    <div className="space-y-4">
+        <h5>4 questions</h5>
+
+        <div className="space-y-6">
+            {allQuestions.map((q,index) => (
+                <QuestionCard key={index} question={q}/>
+            ))}
+        </div>
     </div>
   );
 };
 
-export default LatestQuestions;
+export default AllQuestions;

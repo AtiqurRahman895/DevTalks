@@ -21,7 +21,7 @@ const Navbar = () => {
 
                     <div className="hidden lg:flex items-center space-x-6">
                         <Link to="/" className="text-white  font-semibold">Home</Link>
-                        <Link to="/question" className="text-white  font-semibold">Question</Link>
+                        <Link to="/questions" className="text-white  font-semibold">Questions</Link>
                         <Link to="/about" className="text-white  font-semibold">About Us</Link>
                         <Link to="/contact" className="text-white   font-semibold">Contact Us</Link>
                     </div>
@@ -50,7 +50,7 @@ const Navbar = () => {
                             {menu ? <RxCross2 className="text-3xl text-white" /> : <IoMenu className="text-3xl text-white" />}
                         </button>
                         <Link to="/" className="text-white text-2xl" onClick={() => setMenu(false)}>Home</Link>
-                        <Link to="/Question" className="text-white text-2xl" onClick={() => setMenu(false)}>Question</Link>
+                        <Link to="/questions" className="text-white text-2xl" onClick={() => setMenu(false)}>Questions</Link>
                         <Link to="/about" className="text-white text-2xl" onClick={() => setMenu(false)}>About Us</Link>
                         <Link to="/contact" className="text-white text-2xl" onClick={() => setMenu(false)}>Contact Us</Link>
                         <Link to="/login">
