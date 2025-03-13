@@ -4,70 +4,65 @@ import { Link } from 'react-router';
 
 const Footer = () => {
     return (
-        <div>
-            <div>
-                <div className='bg-custom-half-primary'>
-                    <div className=" py-8">
-                        <div className="container px-4 sm:px-6 text-gray-800 grid lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-1 mx-auto">
-                            <div className="p-5">
-                                <img src='' alt="" />
-                                <h4 className='text-white'>DevTalks</h4>
+
+            <section className="relative pt-10 pb-8 bg-[url('http://www.transparenttextures.com/patterns/cubes.png')] before:bg-black/45 before:absolute before:inset-0 before:z-10">
+                <div className='container relative !z-10'>
+                    <div className="space-y-12 text-center">
+                        <div className="">
+                            <Link to="/" className='inline-block '>
+                                <h1 className='w-fit font-fugaz'>DevTalks</h1>
+                            </Link>
+                            <div className="flex gap-3 items-center justify-center">
+                                <a href="" target='_blank'>
+                                    <FaGithub className='text-2xl' />
+                                </a>
+                                <a href="" target='_blank'>
+                                    <FaLinkedin className='text-2xl' />
+                                </a>
+                                <a href="" target='_blank'>
+                                    <FaFacebook className='text-2xl' />
+                                </a>
+                                <a href="" target='_blank'>
+                                    <FaYoutube className='text-2xl' />
+                                </a>
+
                             </div>
-                            <div className="p-5">
-                                <div className="text-sm uppercase text-white font-bold">Resources</div>
-                                <Link className="my-3 block text-white"  >Home<span className="text-white text-xs p-1"></span></Link>
-                                <Link className="my-3 block text-white" >Brands <span className="text-white text-xs p-1"></span></Link>
-                                <Link className="my-3 block text-white"  >Contact Us <span className="text-white text-xs p-1"></span></Link>
-                                <Link className="my-3 block text-white"  >About Dev<span className="text-white text-xs p-1"></span></Link>
-                                <Link className="my-3 block text-white" >Support <span className="text-white text-xs p-1">New</span></Link>
+                        </div>
+
+                        
+                        <div className="flex flex-wrap justify-center items-start gap-x-60 gap-y-6">
+
+                            <div className="flex flex-col gap-1">
+                                <h5 className="uppercase text-custom-primary mb-2">Resources</h5>
+                                <Link className=""  >Home</Link>
+                                <Link className="" >Brands </Link>
+                                <Link className=""  >Contact Us </Link>
+                                <Link className=""  >About Dev</Link>
+                                <Link className="" >Support New</Link>
                             </div>
-                            <div className="p-5">
-                                <div className="text-sm uppercase text-white font-bold">Support</div>
-                                <a className="my-3 text-white block" href="/#">Help Center <span className="text-white text-xs p-1"></span></a>
-                                <a className="my-3 text-white block" href="/#">Privacy Policy <span className="text-white text-xs p-1"></span></a>
-                                <a className="my-3 text-white block" href="/#">Conditions <span className="text-white text-xs p-1"></span></a>
+                            <div className="flex flex-col gap-1">
+                                <h5 className="uppercase text-custom-primary mb-2">Support</h5>
+                                <a className="" href="/#">Help Center</a>
+                                <a className="" href="/#">Privacy Policy</a>
+                                <a className="" href="/#">Conditions</a>
                             </div>
-                            <div className="p-5">
-                                <div className="text-sm uppercase text-white font-bold">Contact us</div>
-                                <a className="my-3 block text-white" href="/#">DevTalks Developer
-                                    
-                                    <span className="text-white text-xs p-1"></span></a>
+                            <div className="flex flex-col gap-1">
+                                <h5 className="uppercase text-custom-primary mb-2">Contact us</h5>
+                                <a className="" href="/#">DevTalks Developer</a>
                             </div>
                         </div>
                     </div>
 
-                    <div className="  pt-2 ">
-                        <div className="flex pb-5 px-3  pt-5 container border-t text-gray-800 text-sm flex-col
-       items-center">
-                            <div className="md:flex-auto md:flex-row-reverse mt-2 flex-row flex">
-                                <a href=" " target='_blank' className="w-6  text-3xl mx-3">
-                                    <FaGithub className='text-white' />
-                                </a>
-                                <a href=' ' target='_blank' className="w-6 text-3xl mx-3">
+                    <div className="divider before:bg-white after:bg-white"></div>
 
-                                    <FaLinkedin className='text-white' />
-
-                                </a>
-                                <a className="w-6 text-3xl mx-3">
-
-
-                                    <FaFacebook className='text-white' />
-                                </a>
-                                <a className="w-6 text-3xl mx-3">
-
-                                    <FaYoutube className='text-white' />
-
-                                </a>
-
-                            </div>
-                            <div className="my-5 text-white">© Copyright 2025. All Rights Reserved.</div>
-                        </div>
+                    <div className="flex flex-col items-center text-center gap-4">
+                        <div className="">© Copyright 2025. All Rights Reserved.</div>
                     </div>
 
 
                 </div>
-            </div>
-        </div>
+            </section>
+
     );
 };
 

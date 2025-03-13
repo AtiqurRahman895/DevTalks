@@ -7,14 +7,14 @@ const Navbar = () => {
     const [menu, setMenu] = useState(false);
 
     return (
-        <div className="bg-black">
-            <div className="container mx-auto px-6">
+        <section className="sticky top-0 z-50 w-full pt-3">
+            <div className="container blurNavbar px-6 rounded-full">
                 <div className="flex justify-between items-center py-4">
 
 
                     <div>
                         <Link to="/">
-                            <h4 className="text-white text-2xl font-bold">DevTalks</h4>
+                            <h4 className="font-fugaz">DevTalks</h4>
                         </Link>
                     </div>
 
@@ -29,8 +29,8 @@ const Navbar = () => {
 
                     <div className="hidden lg:flex">
                         <Link to="/login">
-                            <button className="bg-custom-primary text-white   font-semibold px-6 py-2  ">
-                                Join
+                            <button className="primaryButton">
+                                Login
                             </button>
                         </Link>
                     </div>
@@ -54,15 +54,15 @@ const Navbar = () => {
                         <Link to="/about" className="text-white text-2xl" onClick={() => setMenu(false)}>About Us</Link>
                         <Link to="/contact" className="text-white text-2xl" onClick={() => setMenu(false)}>Contact Us</Link>
                         <Link to="/login">
-                            <button className="bg-custom-primary text-white   font-semibold px-6 py-2" onClick={() => setMenu(false)}>
-                                Join
+                            <button className="primaryButton" onClick={() => setMenu(false)}>
+                                Login
                             </button>
                         </Link>
 
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
     );
 };
 
