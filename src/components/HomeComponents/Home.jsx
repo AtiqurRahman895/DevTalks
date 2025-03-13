@@ -9,8 +9,8 @@ const Home = () => {
     <>
       <PageTitle title="Home" />
       <main className="space-y-10">
-         <Hero_section></Hero_section>
-         <Developer_Community></Developer_Community>
+        <Hero_section></Hero_section>
+        <Developer_Community></Developer_Community>
         <LatestQuestionsAndNewsComponent/>
       </main>
     </>

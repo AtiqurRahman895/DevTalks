@@ -10,6 +10,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import ErrorPage from './components/ErrorPageComponent/ErrorPage';
 //import Login from './components/AuthenticationComponents/Login';
 import SignInAndSignUp from './components/AuthenticationComponents/SignInAndSignUp';
+import Questions from './components/QuestionsPageComponents.jsx/Questions';
 
 const router = createBrowserRouter([
   {
@@ -22,6 +23,12 @@ const router = createBrowserRouter([
         path: "/",
         element: (
             <Home />
+        ),
+      },
+      {
+        path: "/questions",
+        element: (
+            <Questions />
         ),
       },
 
