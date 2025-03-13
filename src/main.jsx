@@ -8,7 +8,8 @@ import Base from './components/BaseComponents/Base';
 import Home from './components/HomeComponents/Home';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import ErrorPage from './components/ErrorPageComponent/ErrorPage';
-import Login from './components/AuthenticationComponents/Login';
+//import Login from './components/AuthenticationComponents/Login';
+import SignInAndSignUp from './components/AuthenticationComponents/SignInAndSignUp';
 
 const router = createBrowserRouter([
   {
@@ -27,7 +28,7 @@ const router = createBrowserRouter([
       // Authentication
       {
         path: "/login",
-        element: <Login />,
+        element: <SignInAndSignUp />,
       },
     ],
   },
