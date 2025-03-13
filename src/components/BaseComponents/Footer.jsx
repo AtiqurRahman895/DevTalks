@@ -38,7 +38,7 @@ const Footer = () => {
 
                     <div className="  pt-2 ">
                         <div className="flex pb-5 px-3  pt-5 container border-t text-gray-800 text-sm flex-col
-      max-w-screen-lg items-center">
+       items-center">
                             <div className="md:flex-auto md:flex-row-reverse mt-2 flex-row flex">
                                 <a href=" " target='_blank' className="w-6  text-3xl mx-3">
                                     <FaGithub className='text-white' />
