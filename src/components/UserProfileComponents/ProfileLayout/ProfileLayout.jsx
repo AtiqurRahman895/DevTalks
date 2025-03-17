@@ -4,10 +4,12 @@ import { Outlet } from 'react-router'
 
 const ProfileLayout = () => {
   return (
-    <div>
+    <>
+      {/* profile navbar */}
       <ProfileNav />
+
       <Outlet />
-    </div>
+    </>
   )
 }
 

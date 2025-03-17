@@ -13,7 +13,7 @@ const ProfilePage = () => {
             {/* user information */}
             <UserInfo />
 
-            
+            {/* user all activity */}
             <div className='flex-1'>
             <ProfileLayout />
             </div>
