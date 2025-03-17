@@ -12,6 +12,7 @@ import ErrorPage from './components/ErrorPageComponent/ErrorPage';
 import SignInAndSignUp from './components/AuthenticationComponents/SignInAndSignUp';
 import Questions from './components/QuestionsPageComponents.jsx/Questions';
 import ProfilePage from './components/UserProfileComponents/ProfilePage';
+import PfpAllQuestion from './components/UserProfileComponents/ProfileLayout/PfpAllQuestion';
 
 const router = createBrowserRouter([
   {
@@ -35,6 +36,16 @@ const router = createBrowserRouter([
         element: (
             <ProfilePage />
         ),
+        children:[
+          {
+            index: true, // This ensures PfpAllQuestion is shown by default
+            element: <PfpAllQuestion />,
+          },
+          {
+            path: "/profile/questions",
+            element: <PfpAllQuestion />
+          }
+        ]
       },
 
       // Authentication
