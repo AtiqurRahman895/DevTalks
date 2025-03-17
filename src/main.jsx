@@ -14,6 +14,7 @@ import Questions from './components/QuestionsPageComponents.jsx/Questions';
 import ProfilePage from './components/UserProfileComponents/ProfilePage';
 import PfpAllQuestion from './components/UserProfileComponents/ProfileLayout/PfpAllQuestion';
 import PfpAllAnswer from './components/UserProfileComponents/ProfileLayout/PfpAllAnswer';
+import PfpAllBadges from './components/UserProfileComponents/ProfileLayout/PfpAllBadges';
 
 const router = createBrowserRouter([
   {
@@ -49,6 +50,10 @@ const router = createBrowserRouter([
           {
             path: "/profile/answers",
             element: <PfpAllAnswer />
+          },
+          {
+            path: "/profile/badges",
+            element: <PfpAllBadges />
           },
         ]
       },
