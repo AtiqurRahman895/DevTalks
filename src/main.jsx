@@ -11,6 +11,7 @@ import ErrorPage from './components/ErrorPageComponent/ErrorPage';
 //import Login from './components/AuthenticationComponents/Login';
 import SignInAndSignUp from './components/AuthenticationComponents/SignInAndSignUp';
 import Questions from './components/QuestionsPageComponents.jsx/Questions';
+import ProfilePage from './components/UserProfileComponents/ProfilePage';
 
 const router = createBrowserRouter([
   {
@@ -27,6 +28,12 @@ const router = createBrowserRouter([
         path: "/questions",
         element: (
             <Questions />
+        ),
+      },
+      {
+        path: "/profile",
+        element: (
+            <ProfilePage />
         ),
       },
 
