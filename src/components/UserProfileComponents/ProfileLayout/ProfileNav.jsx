@@ -5,7 +5,7 @@ import { FaQuestionCircle, FaCheckCircle, FaMedal } from "react-icons/fa";
 const ProfileNav = () => {
     const navLinks = [
       { name: "All Questions", path: "/profile/questions", icon: <FaQuestionCircle /> },
-      { name: "All Answers", path: "answers", icon: <FaCheckCircle /> },
+      { name: "All Answers", path: "/profile/answers", icon: <FaCheckCircle /> },
       { name: "All Badges", path: "badges", icon: <FaMedal /> },
     ];
   
@@ -22,8 +22,6 @@ const ProfileNav = () => {
             </NavLink>
           ))}
         </nav>
-
-          <Outlet />
       </div>
     );
   };

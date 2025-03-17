@@ -13,6 +13,7 @@ import SignInAndSignUp from './components/AuthenticationComponents/SignInAndSign
 import Questions from './components/QuestionsPageComponents.jsx/Questions';
 import ProfilePage from './components/UserProfileComponents/ProfilePage';
 import PfpAllQuestion from './components/UserProfileComponents/ProfileLayout/PfpAllQuestion';
+import PfpAllAnswer from './components/UserProfileComponents/ProfileLayout/PfpAllAnswer';
 
 const router = createBrowserRouter([
   {
@@ -44,7 +45,11 @@ const router = createBrowserRouter([
           {
             path: "/profile/questions",
             element: <PfpAllQuestion />
-          }
+          },
+          {
+            path: "/profile/answers",
+            element: <PfpAllAnswer />
+          },
         ]
       },
 
