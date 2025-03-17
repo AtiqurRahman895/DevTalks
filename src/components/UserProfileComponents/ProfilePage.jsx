@@ -8,7 +8,7 @@ const ProfilePage = () => {
         {/* user banner image and profile image */}
         <UserBanner />
 
-        <div>
+        <div className='container'>
             {/* user information */}
             <UserInfo />
         </div>
