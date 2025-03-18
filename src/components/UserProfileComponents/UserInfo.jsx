@@ -4,7 +4,7 @@ import UserBadge from "./UserBadge";
 
 const UserInfo = () => {
   return (
-    <div className="lg:w-96 lg:ml-16 md:ml-6">
+    <div className="lg:w-96 lg:ml-10 md:ml-6">
       {/* user Information */}
       <h2 className="md:text-left text-center">Jhon Wick</h2>
       <h5 className="md:text-left text-center text-custom-primary">Frontend Developer</h5>

@@ -9,7 +9,7 @@ const ProfilePage = () => {
         {/* user banner image and profile image */}
         <UserBanner />
 
-        <div className='container flex md:flex-row flex-col items-start gap-8'>
+        <div className='flex md:flex-row flex-col items-start gap-8'>
             {/* user information */}
             <UserInfo />
 
