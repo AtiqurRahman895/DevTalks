@@ -1,6 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router";
 import { FaQuestionCircle, FaCheckCircle, FaMedal } from "react-icons/fa";
+import ActionButton from "../ActionButton";
 
 const ProfileNav = () => {
     const navLinks = [
@@ -10,8 +11,8 @@ const ProfileNav = () => {
     ];
   
     return (
-      <>
-        <nav className="flex gap-10 border rounded-2xl py-2 px-6 mb-4 text-base bg-gray-800 text-white md:max-w-[440px] w-full">
+      <div className="flex lg:flex-row flex-col-reverse lg:items-center items-end lg:justify-between">
+        <nav className="flex gap-10 border rounded-2xl py-2 px-6 mb-4 text-base bg-gray-800 text-white md:max-w-[370px] w-full">
           {navLinks.map((link, index) => (
             <NavLink
               key={index}
@@ -22,7 +23,11 @@ const ProfileNav = () => {
             </NavLink>
           ))}
         </nav>
-      </>
+
+        {/* Message and Add friend button only for mid and large devices */}
+        <ActionButton className="max-[500px]:hidden" />
+
+      </div>
     );
   };
   

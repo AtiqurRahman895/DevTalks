@@ -2,7 +2,7 @@ import React from "react";
 
 const UserBanner = () => {
   return (
-    <div className="relative md:mb-24 mb-12">
+    <div className="relative">
       {/* user banner */}
       <img
         src="https://i.etsystatic.com/30097568/r/il/71a49c/5958491123/il_570xN.5958491123_lhzi.jpg"
