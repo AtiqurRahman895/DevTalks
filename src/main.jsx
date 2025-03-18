@@ -11,6 +11,8 @@ import ErrorPage from './components/ErrorPageComponent/ErrorPage';
 //import Login from './components/AuthenticationComponents/Login';
 import SignInAndSignUp from './components/AuthenticationComponents/SignInAndSignUp';
 import Questions from './components/QuestionsPageComponents.jsx/Questions';
+import BookMark from './components/BookMarks/BookMark';
+import QuizComponents from './components/QuizComponents/QuizComponents';
 
 const router = createBrowserRouter([
   {
@@ -28,6 +30,14 @@ const router = createBrowserRouter([
         element: (
             <Questions />
         ),
+      },
+      {
+        path:'/bookMark',
+        element: <BookMark></BookMark>
+      },
+      {
+         path:'/quiz',
+         element:<QuizComponents></QuizComponents>
       },
 
       // Authentication
