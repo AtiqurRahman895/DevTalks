@@ -75,7 +75,7 @@
     /* NavBar */
 
     .blurNavbar {
-        background-color: hsla(238, 18%, 30%, 0.25);
+        background-color: #3f405a40;
         backdrop-filter: blur(20px);
     }
 
