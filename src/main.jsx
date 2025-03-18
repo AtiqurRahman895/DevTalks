@@ -15,6 +15,8 @@ import ProfilePage from './components/UserProfileComponents/ProfilePage';
 import PfpAllQuestion from './components/UserProfileComponents/ProfileLayout/PfpAllQuestion';
 import PfpAllAnswer from './components/UserProfileComponents/ProfileLayout/PfpAllAnswer';
 import PfpAllBadges from './components/UserProfileComponents/ProfileLayout/PfpAllBadges';
+import BookMark from './components/BookMarks/BookMark';
+import QuizComponents from './components/QuizComponents/QuizComponents';
 
 const router = createBrowserRouter([
   {
@@ -56,6 +58,14 @@ const router = createBrowserRouter([
             element: <PfpAllBadges />
           },
         ]
+      },
+      {
+        path:'/bookMark',
+        element: <BookMark></BookMark>
+      },
+      {
+         path:'/quiz',
+         element:<QuizComponents></QuizComponents>
       },
 
       // Authentication
