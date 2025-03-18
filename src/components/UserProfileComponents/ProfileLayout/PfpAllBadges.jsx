@@ -8,6 +8,7 @@ import {
   FaStar,
   FaRocket,
 } from "react-icons/fa";
+import PfpBadgesCard from "./PfpBadgesCard";
 
 const PfpAllBadges = () => {
   const badges = [
@@ -65,37 +66,7 @@ const PfpAllBadges = () => {
   return (
     <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 py-2">
       {badges.map((badge, index) => (
-        <div
-          key={index}
-          className="p-6 rounded-2xl shadow-lg border bg-Custom-half-Gray"
-        >
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-4">
-              {badge.icon}
-              <h5 className="text-lg font-semibold text-gray-800 dark:text-gray-300">
-                {badge.name}
-              </h5>
-            </div>
-            <span
-              className={`px-3 py-1 rounded-full font-bold text-white text-sm ${
-                badge.level === "Gold"
-                  ? "bg-yellow-500"
-                  : badge.level === "Silver"
-                  ? "bg-gray-500"
-                  : "bg-yellow-800"
-              }`}
-            >
-              {badge.level}
-            </span>
-          </div>
-
-          <p className="text-gray-600 dark:text-gray-400 text-sm mt-3">
-            {badge.description}
-          </p>
-          <p className="mt-3 text-gray-500 dark:text-gray-400 text-xs">
-            <strong>How to Earn:</strong> {badge.criteria}
-          </p>
-        </div>
+        <PfpBadgesCard badge={badge} key={index}/>
       ))}
     </div>
   );

@@ -14,9 +14,7 @@ const ProfilePage = () => {
             <UserInfo />
 
             {/* user all activity */}
-            <div className='flex-1'>
             <ProfileLayout />
-            </div>
         </div>
 
     </div>
