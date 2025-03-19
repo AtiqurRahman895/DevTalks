@@ -13,6 +13,7 @@ import SignInAndSignUp from './components/AuthenticationComponents/SignInAndSign
 import Questions from './components/QuestionsPageComponents.jsx/Questions';
 import BookMark from './components/BookMarks/BookMark';
 import QuizComponents from './components/QuizComponents/QuizComponents';
+import Dashboard from './components/Dashboard/Dashboard';
 
 const router = createBrowserRouter([
   {
@@ -47,6 +48,10 @@ const router = createBrowserRouter([
       },
     ],
   },
+  {
+    path:'/dashboard',
+    element:<Dashboard></Dashboard>
+  }
 ]);
 
 const queryClient = new QueryClient();
