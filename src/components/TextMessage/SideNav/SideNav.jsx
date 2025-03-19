@@ -38,18 +38,42 @@ const SideNav = () => {
       email: "robert.wilson@email.com",
       photo: "https://randomuser.me/api/portraits/men/57.jpg",
     },
+    {
+      id: 5,
+      name: "Robert Wilson",
+      email: "robert.wilson@email.com",
+      photo: "https://randomuser.me/api/portraits/men/57.jpg",
+    },
+    {
+      id: 5,
+      name: "Robert Wilson",
+      email: "robert.wilson@email.com",
+      photo: "https://randomuser.me/api/portraits/men/57.jpg",
+    },
+    {
+      id: 5,
+      name: "Robert Wilson",
+      email: "robert.wilson@email.com",
+      photo: "https://randomuser.me/api/portraits/men/57.jpg",
+    },
+    {
+      id: 5,
+      name: "Robert Wilson",
+      email: "robert.wilson@email.com",
+      photo: "https://randomuser.me/api/portraits/men/57.jpg",
+    },
   ];
 
   return (
     <div
       className={`${
         open ? "w-72" : "w-24"
-      } p-3 pt-6 duration-300 h-screen bg-custom-primary relative flex flex-col justify-between`}
+      } p-3 pt-2 duration-300 bg-custom-primary relative flex flex-col justify-between`}
     >
       {/* Toggle Button */}
       <FaChevronLeft
         onClick={() => setOpen(!open)}
-        className={`absolute cursor-pointer -right-6 top-9 w-8 border-2 border-dark-purple bg-white text-black rounded-full py-2 text-4xl ${
+        className={`z-50 absolute cursor-pointer -right-8 top-6 w-10 border-2 border-dark-purple bg-white text-black rounded-full py-2 text-4xl ${
           !open && "rotate-180"
         }`}
       />
@@ -57,8 +81,8 @@ const SideNav = () => {
       {/* Sidebar Content */}
       <div>
         {/* Sidebar Title */}
-        <div className="flex gap-x-2 items-center mb-6">
-          {/* User profile */}
+        <div className="flex gap-x-2 items-center mb-2">
+          {/* logo message */}
           <div className="avatar">
             <div className="w-14 rounded-full">
               <img src={image} />
@@ -88,11 +112,12 @@ const SideNav = () => {
         </div>
 
         {/* User List */}
+        <div className="flex-1 overflow-y-auto max-h-[80vh]">
         <div className="mt-4 space-y-4">
           {users.map((user) => (
             <li
               key={user.id}
-              className="flex items-center gap-x-3 hover:bg-gray-700 rounded-lg cursor-pointer p-2"
+              className="flex items-center gap-x-3 hover:bg-gray-700 rounded-lg cursor-pointer"
             >
               <img
                 src={user.photo}
@@ -106,10 +131,11 @@ const SideNav = () => {
             </li>
           ))}
         </div>
+        </div>
       </div>
 
       {/* Bottom Section */}
-      <div className="flex items-center justify-between bg-gray-800 p-3 rounded-lg">
+      <div className="flex items-center justify-between bg-gray-800 p-3 rounded-lg mt-4">
         {/* User Profile */}
         <Link to="/profile" className="flex items-center gap-3">
           <div className="avatar">

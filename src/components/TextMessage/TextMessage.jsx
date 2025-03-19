@@ -1,3 +1,4 @@
+import { Outlet } from "react-router"
 import SideNav from "./SideNav/SideNav"
 
 const TextMessage = () => {
@@ -5,9 +6,9 @@ const TextMessage = () => {
     <div className="flex">
         <SideNav />
         
-        <div className="p-7 text-2xl font-semibold">
-            <Outlet />
-        </div>
+        <div className="flex-1 overflow-y-auto h-screen p-7">
+    <Outlet />
+  </div>
     </div>
   )
 }
