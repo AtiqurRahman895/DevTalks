@@ -6,7 +6,7 @@ const TextMessage = () => {
         <SideNav />
         
         <div className="p-7 text-2xl font-semibold">
-            <h1>Home page</h1>
+            <Outlet />
         </div>
     </div>
   )
