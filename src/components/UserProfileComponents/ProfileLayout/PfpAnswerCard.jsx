@@ -5,7 +5,7 @@ import { Link } from "react-router";
 
 const PfpAnswerCard = ({ answer }) => {
   return (
-    <div className="py-6 px-4 bg-Custom-half-Gray border border-Custom-half-Gray rounded-lg space-y-2">
+    <div className="py-6 px-4 bg-custom-half-gray border border-custom-half-gray rounded-lg space-y-2">
       {/* Question links */}
       <Link
         to="#"
