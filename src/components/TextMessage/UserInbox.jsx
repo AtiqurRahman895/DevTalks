@@ -69,7 +69,7 @@ const UserInbox = () => {
   return (
     <div className="flex flex-col h-screen">
       {/* top nav */}
-      <div className="flex items-center gap-x-2 bg-custom-primary px-7 py-2">
+      <div className="flex items-center gap-x-2 bg-custom-half-primary px-7 py-2">
         <img
           src={inboxUser.photo}
           alt={inboxUser.name}

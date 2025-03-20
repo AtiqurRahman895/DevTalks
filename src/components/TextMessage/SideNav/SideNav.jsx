@@ -68,7 +68,7 @@ const SideNav = () => {
     <div
       className={`${
         open ? "w-72" : "w-24"
-      } p-3 pt-4 duration-300 bg-custom-primary relative flex flex-col justify-between`}
+      } p-3 pt-4 duration-300 bg-custom-half-primary relative flex flex-col justify-between`}
     >
       {/* Toggle Button */}
       <FaChevronLeft
