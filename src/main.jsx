@@ -17,6 +17,7 @@ import PfpAllAnswer from './components/UserProfileComponents/ProfileLayout/PfpAl
 import PfpAllBadges from './components/UserProfileComponents/ProfileLayout/PfpAllBadges';
 import BookMark from './components/BookMarks/BookMark';
 import QuizComponents from './components/QuizComponents/QuizComponents';
+import AskQuestion from './components/AskQuestionComponents/AskQuestion';
 
 const router = createBrowserRouter([
   {
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
       {
         path: '/',
         element: <Home />
+      },
+      {
+        path: "/ask-question",
+        element: <AskQuestion />
       },
       {
         path: "/questions",

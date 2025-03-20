@@ -4,7 +4,7 @@ const QuestionCard = ({ question }) => {
   return (
     <div
       key={question.id}
-      className="py-6 px-4 bg-Custom-half-Gray border border-Custom-half-Gray rounded-lg space-y-2"
+      className="py-6 px-4 bg-custom-half-gray border border-custom-half-gray rounded-lg space-y-2"
     >
       <Link
         to="#"
@@ -14,7 +14,7 @@ const QuestionCard = ({ question }) => {
       </Link>
 
       <div className="flex justify-between flex-wrap items-center gap-x-6 gap-y-3">
-        <div className="text-Custom-Gray flex gap-2">
+        <div className="text-custom-gray flex gap-2">
           <Link to="/profile">
             <b className="cursor-pointer hover:underline">
               👤 {question.user}

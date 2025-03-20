@@ -22,7 +22,7 @@ const Developer_Community_support = () => {
                         <FaCube className="text-5xl" />
                         <div>
                           <h3 className="text-lg font-semibold">Peer Support</h3>
-                          <p className="text-Custom-Gray">
+                          <p className="text-custom-gray">
                             Connect with like-minded developers and grow together.
                           </p>
                         </div>
@@ -31,7 +31,7 @@ const Developer_Community_support = () => {
                         <FaCubes className="text-5xl" />
                         <div>
                           <h3 className="text-lg font-semibold">Diverse Topics</h3>
-                          <p className="text-Custom-Gray">
+                          <p className="text-custom-gray">
                             Learn about the latest trends, tools, and best practices.
                           </p>
                         </div>

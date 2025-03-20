@@ -5,7 +5,7 @@ import { CgUserAdd } from "react-icons/cg";
 const ActionButton = ({ className }) => {
   return (
     <div className={`flex items-center gap-4 pb-3 ${className}`}>
-      <button className="flex items-center gap-1 bg-Custom-Gray py-1 px-3 rounded-lg">
+      <button className="flex items-center gap-1 bg-custom-gray py-1 px-3 rounded-lg">
         <BiChat className="text-xl" />
         Message
       </button>

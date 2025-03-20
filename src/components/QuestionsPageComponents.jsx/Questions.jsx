@@ -15,7 +15,7 @@ const Questions = () => {
                     </div>
 
                     {/* <div className="join !items-center gap-3">
-                        <input type="search" className="input bg-[rgba(71,71,71,0.4)] !border !border-Custom-Gray join-item !rounded-md" placeholder="Search a question" />
+                        <input type="search" className="input bg-[rgba(71,71,71,0.4)] !border !border-custom-gray join-item !rounded-md" placeholder="Search a question" />
                         <button className="primaryButton">Search</button>
                     </div> */}
 
@@ -31,7 +31,7 @@ const Questions = () => {
                             <option>react</option>
                             <option>html</option>
                         </select>
-                        <button className="join-item primaryButton !rounded-l-none">Search</button>
+                        <button className="join-item primaryButton !px-2.5 !rounded-l-none">Search</button>
                     </div>
 
                     <div className="w-full max-w-[580px]">
