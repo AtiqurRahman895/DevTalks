@@ -115,7 +115,8 @@ const SideNav = () => {
         <div className="flex-1 overflow-y-auto max-h-[80vh]">
         <div className="mt-4 space-y-4">
           {users.map((user) => (
-            <li
+            <Link
+            to={`/message/${user.name}`}
               key={user.id}
               className="flex items-center gap-x-3 hover:bg-gray-700 rounded-lg cursor-pointer"
             >
@@ -128,7 +129,7 @@ const SideNav = () => {
                 <p className="text-white font-medium">{user.name}</p>
                 <p className="text-gray-300 text-sm">{user.email}</p>
               </div>
-            </li>
+            </Link>
           ))}
         </div>
         </div>
