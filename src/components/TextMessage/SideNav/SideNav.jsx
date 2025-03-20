@@ -68,12 +68,12 @@ const SideNav = () => {
     <div
       className={`${
         open ? "w-72" : "w-24"
-      } p-3 pt-2 duration-300 bg-custom-primary relative flex flex-col justify-between`}
+      } p-3 pt-4 duration-300 bg-custom-primary relative flex flex-col justify-between`}
     >
       {/* Toggle Button */}
       <FaChevronLeft
         onClick={() => setOpen(!open)}
-        className={`z-50 absolute cursor-pointer -right-8 top-6 w-10 border-2 border-dark-purple bg-white text-black rounded-full py-2 text-4xl ${
+        className={`z-50 absolute cursor-pointer -right-4 top-9 w-7 border-2 border-dark-purple bg-white text-black rounded-full py-2 px-2 text-4xl ${
           !open && "rotate-180"
         }`}
       />
@@ -112,7 +112,7 @@ const SideNav = () => {
         </div>
 
         {/* User List */}
-        <div className="flex-1 overflow-y-auto max-h-[80vh]">
+        <div className="flex-1 overflow-y-auto max-h-[74vh]">
         <div className="mt-4 space-y-4">
           {users.map((user) => (
             <Link
