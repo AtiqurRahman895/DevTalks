@@ -18,6 +18,7 @@ import PfpAllBadges from "./components/UserProfileComponents/ProfileLayout/PfpAl
 import BookMark from "./components/BookMarks/BookMark";
 import QuizComponents from "./components/QuizComponents/QuizComponents";
 import TextMessage from "./components/TextMessage/TextMessage";
+import UserInbox from "./components/TextMessage/UserInbox";
 
 const router = createBrowserRouter([
   {
@@ -72,10 +73,16 @@ const router = createBrowserRouter([
       },
     ],
   },
-
+  // chat
   {
     path: "/message",
     element: <TextMessage />,
+    children:[
+      {
+        path:"/message/:user",
+        element: <UserInbox />
+      }
+    ]
   },
 ]);
 
