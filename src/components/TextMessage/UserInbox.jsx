@@ -80,7 +80,7 @@ const UserInbox = () => {
        
        {/* show messages field */}
       <div className="flex-1 overflow-y-auto p-4 space-y-3">
-        <p>Start a Conversation....</p>
+        <p className="text-center">Start a Conversation....</p>
       </div>
 
        {/* Message Input Field */}

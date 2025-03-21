@@ -73,7 +73,7 @@ const SideNav = () => {
       {/* Toggle Button */}
       <FaChevronLeft
         onClick={() => setOpen(!open)}
-        className={`z-50 absolute cursor-pointer -right-4 top-9 w-7 border-2 border-dark-purple bg-white text-black rounded-full py-2 px-2 text-4xl ${
+        className={`z-50 absolute cursor-pointer -right-6 top-20 w-10 border-2 border-dark-purple bg-white text-black rounded-full py-2 px-2 text-4xl ${
           !open && "rotate-180"
         }`}
       />
