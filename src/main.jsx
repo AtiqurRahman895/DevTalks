@@ -17,6 +17,7 @@ import PfpAllAnswer from './components/UserProfileComponents/ProfileLayout/PfpAl
 import PfpAllBadges from './components/UserProfileComponents/ProfileLayout/PfpAllBadges';
 import BookMark from './components/BookMarks/BookMark';
 import QuizComponents from './components/QuizComponents/QuizComponents';
+import Dashboard from './components/Dashboard/Dashboard';
 import AskQuestion from './components/AskQuestionComponents/AskQuestion';
 import AddBlog from './components/AddBlogComponents/AddBlog';
 
@@ -85,6 +86,10 @@ const router = createBrowserRouter([
       },
     ],
   },
+  {
+    path:'/dashboard',
+    element:<Dashboard></Dashboard>
+  }
 ]);
 
 const queryClient = new QueryClient();
