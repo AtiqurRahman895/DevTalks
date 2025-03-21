@@ -19,6 +19,9 @@ import BookMark from "./components/BookMarks/BookMark";
 import QuizComponents from "./components/QuizComponents/QuizComponents";
 import TextMessage from "./components/TextMessage/TextMessage";
 import UserInbox from "./components/TextMessage/UserInbox";
+import Dashboard from './components/Dashboard/Dashboard';
+import AskQuestion from './components/AskQuestionComponents/AskQuestion';
+import AddBlog from './components/AddBlogComponents/AddBlog';
 
 const router = createBrowserRouter([
   {
@@ -30,6 +33,10 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
+      },
+      {
+        path: "/ask-question",
+        element: <AskQuestion />
       },
       {
         path: "/questions",
@@ -65,6 +72,10 @@ const router = createBrowserRouter([
         path: "/quiz",
         element: <QuizComponents></QuizComponents>,
       },
+      {
+        path: "/add-blog",
+        element: <AddBlog />
+      },
 
       // Authentication
       {
@@ -84,6 +95,11 @@ const router = createBrowserRouter([
       }
     ]
   },
+  // dashboard
+  {
+    path:'/dashboard',
+    element:<Dashboard></Dashboard>
+  }
 ]);
 
 const queryClient = new QueryClient();

@@ -3,7 +3,7 @@ import React from 'react'
 const PfpBadgesCard = ({badge}) => {
   return (
     <div
-    className="p-6 rounded-2xl shadow-lg border bg-Custom-half-Gray"
+    className="p-6 rounded-2xl shadow-lg border bg-custom-half-gray"
   >
     {/* icons and name */}
     <div className="flex items-center justify-between">

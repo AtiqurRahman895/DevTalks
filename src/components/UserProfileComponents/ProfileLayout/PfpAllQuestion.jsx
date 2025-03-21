@@ -24,7 +24,7 @@ const PfpAllQuestion = () => {
           // pfp question
           <div
             key={index}
-            className="py-6 px-4 bg-Custom-half-Gray border border-Custom-half-Gray rounded-lg space-y-2"
+            className="py-6 px-4 bg-custom-half-gray border border-custom-half-gray rounded-lg space-y-2"
           >
             <Link
               to="#"
