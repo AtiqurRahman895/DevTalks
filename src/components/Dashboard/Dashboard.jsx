@@ -13,12 +13,18 @@ const Dashboard = () => {
     return (
         <div>
 
-            <div className='flex justify-between md:hidden container py-4 items-center'>
+            <div className='flex justify-between md:hidden blurNavbar container py-4 items-center'>
                 <div>
                     <h4>DevTalks</h4>
                 </div>
                 <div>
-                    <FaBars size={24} />
+
+                    <button onClick={toggleSidebar}>
+                        
+                        {
+                            isOpen ?   <FaTimes size={24} />:<FaBars size={24} />
+                        }
+                    </button>
                 </div>
             </div>
 
@@ -28,7 +34,7 @@ const Dashboard = () => {
 
                 {/* Sidebar */}
                 <div
-                    className={`fixed inset-y-0 left-0 z-50 w-64 bg-gray-800 text-white transform ${isOpen ? 'translate-x-0' : '-translate-x-full'
+                    className={`fixed inset-y-0 left-0 z-50 w-64   blurNavbar text-white transform ${isOpen ? 'translate-x-0' : '-translate-x-full'
                         } md:relative md:translate-x-0 transition-transform duration-300 ease-in-out`}
                 >
                     {/* Sidebar Header */}
@@ -44,34 +50,34 @@ const Dashboard = () => {
                     {/* Sidebar Content */}
                     <nav className="py-4">
                         <ul className="space-y-2">
-                            <li>
+                            <li className='list-none'>
                                 <Link
 
-                                    className="flex items-center px-4 py-2 hover:bg-gray-700 transition-colors"
+                                    className="flex items-center rounded-lg px-4 py-2 hover:bg-custom-primary transition-colors"
                                 >
                                     <span>Home</span>
                                 </Link>
                             </li>
-                            <li>
+                            <li className='list-none'>
                                 <Link
 
-                                    className="flex items-center px-4 py-2 hover:bg-gray-700 transition-colors"
+                                    className="flex items-center rounded-lg px-4 py-2 hover:bg-custom-primary transition-colors"
                                 >
                                     <span>About</span>
                                 </Link>
                             </li>
-                            <li>
+                            <li className='list-none'>
                                 <Link
 
-                                    className="flex items-center px-4 py-2 hover:bg-gray-700 transition-colors"
+                                    className="flex items-center rounded-lg px-4 py-2 hover:bg-custom-primary transition-colors"
                                 >
                                     <span>Services</span>
                                 </Link>
                             </li>
-                            <li>
+                            <li className='list-none'>
                                 <Link
 
-                                    className="flex items-center px-4 py-2 hover:bg-gray-700 transition-colors"
+                                    className="flex items-center rounded-lg px-4 py-2 hover:bg-custom-primary transition-colors"
                                 >
                                     <span>Contact</span>
                                 </Link>
@@ -83,7 +89,7 @@ const Dashboard = () => {
                 {/* Main Content */}
                 <div className="flex-1">
                     {/* Hamburger Menu Button */}
-                   
+
 
                     {/* Overlay for mobile when sidebar is open */}
                     {isOpen && (
