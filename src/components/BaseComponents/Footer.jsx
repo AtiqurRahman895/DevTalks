@@ -4,8 +4,7 @@ import { Link } from 'react-router';
 
 const Footer = () => {
     return (
-
-            <section className="relative pt-10 pb-8 bg-[url('http://www.transparenttextures.com/patterns/cubes.png')] before:bg-black/45 before:absolute before:inset-0 before:z-10">
+            <section className="relative pt-10 pb-8 bg-[url('http://www.transparenttextures.com/patterns/cubes.png')] before:bg-black/45 before:absolute before:inset-0 before:!z-10">
                 <div className='container relative !z-10'>
                     <div className="space-y-12 text-center">
                         <div className="">

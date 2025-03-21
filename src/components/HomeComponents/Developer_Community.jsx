@@ -29,7 +29,7 @@ const Developer_Community = () => {
                         />
                         <div className='space-y-1'>
                             <h3 className="text-xl font-semibold">Ask Questions and Get Expert Answers</h3>
-                            <p className="text-Custom-Gray">
+                            <p className="text-custom-gray">
                                 Post your queries and receive guidance from industry professionals.
                             </p>
                         </div>
@@ -43,7 +43,7 @@ const Developer_Community = () => {
                         />
                         <div className='space-y-1'>
                             <h3 className="text-xl font-semibold">Ask Questions and Get Expert Answers</h3>
-                            <p className="text-Custom-Gray">
+                            <p className="text-custom-gray">
                                 Post your queries and receive guidance from industry professionals.
                             </p>
                         </div>
@@ -57,7 +57,7 @@ const Developer_Community = () => {
                         />
                         <div className='space-y-1'>
                             <h3 className="text-xl font-semibold">Ask Questions and Get Expert Answers</h3>
-                            <p className="text-Custom-Gray">
+                            <p className="text-custom-gray">
                                 Post your queries and receive guidance from industry professionals.
                             </p>
                         </div>
