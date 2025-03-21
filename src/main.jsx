@@ -18,6 +18,7 @@ import PfpAllBadges from './components/UserProfileComponents/ProfileLayout/PfpAl
 import BookMark from './components/BookMarks/BookMark';
 import QuizComponents from './components/QuizComponents/QuizComponents';
 import AskQuestion from './components/AskQuestionComponents/AskQuestion';
+import AddBlog from './components/AddBlogComponents/AddBlog';
 
 const router = createBrowserRouter([
   {
@@ -71,6 +72,10 @@ const router = createBrowserRouter([
       {
          path:'/quiz',
          element:<QuizComponents></QuizComponents>
+      },
+      {
+        path: "/add-blog",
+        element: <AddBlog />
       },
 
       // Authentication

@@ -10,12 +10,12 @@ function SelectTags({selectedTags, setSelectedTags}) {
   return (
 
     <Select name="tags" id="tags" options={tags} isSearchable isMulti required
-        onChange={(selectedTags)=>setSelectedTags(selectedTags)} value={selectedTags} placeholder={'Select tags...'}
+        onChange={(selectedTags)=>setSelectedTags(selectedTags)} value={selectedTags} placeholder={'Select tags...'} className="!z-20"
         styles={{
             control:(base)=>({
                 ...base,
                 fontSize:"14px",
-                padding:"0.2rem",
+                padding:"0.4rem",
                 border:"none",
                 borderRadius:"5px",
                 "&:hover": {

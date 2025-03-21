@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import TextEditor from '../CommonComponents/TextEditor';
-import SelectTags from './SelectTags';
+import SelectTags from '../CommonComponents/SelectTags';
 import { toast } from 'react-toastify';
 import useWordCount from '../../Hooks/useWordCount';
 
-const QuestionsForm = () => {
+const AskQuestionsForm = () => {
     const [title, setTitle] = useState("")
     const [editorContents, setEditorContents] = useState({});
     const [selectedTags, setSelectedTags] = useState([])
@@ -13,6 +13,7 @@ const QuestionsForm = () => {
 
     const handleSubmit = () => {
         const {wordCount:titleTextCount}=countWordsAndChars(title)
+        
         const question = editorContents.question;
         const plainQuestionText= htmlToPlainText(question)
         const {wordCount:questionTextCount}=countWordsAndChars(plainQuestionText)
@@ -35,7 +36,7 @@ const QuestionsForm = () => {
         <div className='space-y-6'>
             <div className="space-y-3">
                 <h5 className='text-custom-primary'>Type Question Title</h5>
-                <textarea value={title} onChange={e=>setTitle(e.target.value)} className="textarea w-full focus-within:outline-none focus-within:border-none bg-white text-black" placeholder="Type title..."></textarea>
+                <input type='text' value={title} onChange={e=>setTitle(e.target.value)} className="input w-full focus-within:outline-none focus-within:border-none bg-white text-black" placeholder="Type title..."></input>
             </div>
 
             <div className="space-y-3">
@@ -61,4 +62,4 @@ const QuestionsForm = () => {
     );
 };
 
-export default QuestionsForm;
+export default AskQuestionsForm;

@@ -1,3 +1,4 @@
+import { Link } from "react-router";
 import PageTitle from "../CommonComponents/PageTitle";
 import AllQuestions from "./AllQuestions";
 
@@ -9,9 +10,9 @@ const Questions = () => {
                 <div className="container space-y-6">
                     <div className="flex items-center justify-between">
                         <h3>All Questions</h3>
-                        <button className="outlineButton">
+                        <Link to={'/ask-question'} className="outlineButton !scale-100">
                             Ask a question
-                        </button>
+                        </Link>
                     </div>
 
                     {/* <div className="join !items-center gap-3">

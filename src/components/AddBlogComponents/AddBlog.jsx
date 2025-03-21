@@ -1,18 +1,18 @@
 import React from 'react';
 import PageTitle from '../CommonComponents/PageTitle';
-import AskQuestionsForm from './AskQuestionsForm';
+import AddBlogForm from './AddBlogForm';
 
-const AskQuestion = () => {
+const AddBlog = () => {
     return (
         <main>
             <PageTitle title="Ask question" />
             <section className="py-16">
                 <div className="container space-y-6">
 
-                    <h3>Ask a public question</h3>
+                    <h3>Add a blog</h3>
 
                     <div className="w-full">
-                        <AskQuestionsForm />
+                        <AddBlogForm />
                     </div>
 
 
@@ -22,4 +22,5 @@ const AskQuestion = () => {
     );
 };
 
-export default AskQuestion;
+export default AddBlog;
+
