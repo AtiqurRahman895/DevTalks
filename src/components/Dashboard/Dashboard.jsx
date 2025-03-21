@@ -12,7 +12,7 @@ const Dashboard = () => {
 
     return (
         <div>
-
+            {/* mobile navbar  */}
             <div className='flex justify-between md:hidden blurNavbar container py-4 items-center'>
                 <div>
                     <h4>DevTalks</h4>
@@ -20,9 +20,9 @@ const Dashboard = () => {
                 <div>
 
                     <button onClick={toggleSidebar}>
-                        
+
                         {
-                            isOpen ?   <FaTimes size={24} />:<FaBars size={24} />
+                            isOpen ? <FaTimes size={24} /> : <FaBars size={24} />
                         }
                     </button>
                 </div>
@@ -47,7 +47,7 @@ const Dashboard = () => {
 
 
 
-                    {/* Sidebar Content */}
+                    {/* sidebar menu*/}
                     <nav className="py-4">
                         <ul className="space-y-2">
                             <li className='list-none'>
@@ -88,9 +88,6 @@ const Dashboard = () => {
 
                 {/* Main Content */}
                 <div className="flex-1">
-                    {/* Hamburger Menu Button */}
-
-
                     {/* Overlay for mobile when sidebar is open */}
                     {isOpen && (
                         <div
@@ -99,7 +96,7 @@ const Dashboard = () => {
                         ></div>
                     )}
 
-                    {/* Main content area */}
+                    {/* Main content */}
                     <div className="p-4 md:ml-4">
                         <h1 className="text-2xl font-bold">Main Content</h1>
                         <p>Your content goes here...</p>
