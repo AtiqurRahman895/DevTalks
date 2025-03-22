@@ -42,7 +42,7 @@ const AboutUsCreator = () => {
     },
   ];
   return (
-    <div className="my-24">
+    <div className="my-28">
       {/* title */}
       <h3 className="text-center mx-auto">
         {" "}
@@ -55,7 +55,7 @@ const AboutUsCreator = () => {
         </strong>{" "}
         Project Leaders
       </h3>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 px-12 mt-28">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 px-12 mt-24">
         {developers.map((dev, ind) => (
           <CreatorCard key={ind} developer={dev} />
         ))}

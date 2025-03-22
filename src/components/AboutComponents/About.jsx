@@ -5,6 +5,7 @@ import AboutUsSolutionCenter from './AboutUsSolutionCenter/AboutUsSolutionCenter
 import AboutUsProduct from './AboutUsProduct/AboutUsProduct'
 import AboutUsBrand from './AboutUsBrand/AboutUsBrand'
 import AboutUsCreator from './AboutUsCreator/AboutUsCreator'
+import Join_developer from '../HomeComponents/Join_developer'
 
 export default function About() {
   return (
@@ -16,6 +17,7 @@ export default function About() {
       <AboutUsProduct />
       <AboutUsBrand />
       <AboutUsCreator />
+      <Join_developer/>
 
     </div>
   )
