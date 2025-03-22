@@ -40,7 +40,7 @@ const useSecureAxios = (safeEmail="") => {
             if (error.response.status === 401 || error.response.status === 403) {
               logoutUser();
               toast.error(error.response.data?.message);
-              navigate("/login");
+              navigate("/sign-in");
             }
             return Promise.reject(error);
       });

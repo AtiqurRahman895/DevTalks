@@ -25,9 +25,9 @@ const Navbar = ({menuOpen, setMenuOpen}) => {
 
 
                     <div className="hidden lg:flex">
-                        <Link to="/login">
+                        <Link to="/sign-in">
                             <button className="primaryButton">
-                                Login
+                                Sign in
                             </button>
                         </Link>
                     </div>
