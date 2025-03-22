@@ -65,6 +65,18 @@ const AboutUsBrand = () => {
         </strong>{" "}
         Leaders
       </h3>
+
+        {/* brands cards */}
+        <div className="grid grid-cols-5 gap-6 my-16 px-10">
+            {brands.map((brand, ind)=>(
+                // card
+                <div className="border border-gray-400 flex items-center justify-center gap-2 p-4 rounded-lg" key={ind}>
+                    <span>{brand.logo}</span>
+                    <h4>{brand.name}</h4>
+                </div>
+            ))}
+        </div>
+
     </div>
   );
 };
