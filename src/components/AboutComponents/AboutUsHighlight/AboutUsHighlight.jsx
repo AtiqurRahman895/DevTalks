@@ -1,11 +1,11 @@
 import React from "react";
-import { FaPlay, FaPlayCircle } from "react-icons/fa";
+import { FaPlay } from "react-icons/fa";
 
 export default function AboutUsHighlight() {
   return (
-    <div className="container flex gap-20 px-4 my-28">
-      {/* title and title photo */}
+    <div className="container flex gap-20 px-10 my-32">
 
+      {/* title and title photo */}
       <div className="w-[50%] mt-4">
         <h3 className="font-bold border-l-8 border-custom-primary pl-4 mb-6">
           Connecting Developers, Sharing Knowledge, and Building a Stronger
@@ -83,7 +83,7 @@ export default function AboutUsHighlight() {
             </div>
           </div>
           </div>
-          <FaPlay className="text-4xl border-2 border-custom-primary rounded-full p-2" />
+          <FaPlay className="text-4xl border-2 border-custom-primary rounded-full cursor-pointer p-2" />
           <h5>Watch Intro</h5>
         </div>
       </div>
