@@ -22,6 +22,7 @@ import UserInbox from "./components/TextMessage/UserInbox";
 import Dashboard from './components/Dashboard/Dashboard';
 import AskQuestion from './components/AskQuestionComponents/AskQuestion';
 import AddBlog from './components/AddBlogComponents/AddBlog';
+import Admin_Panel from "./components/Dashboard/Admin_Panel/Admin_Panel";
 
 const router = createBrowserRouter([
   {
@@ -98,7 +99,14 @@ const router = createBrowserRouter([
   // dashboard
   {
     path:'/dashboard',
-    element:<Dashboard></Dashboard>
+    element:<Dashboard></Dashboard>,
+    children:[
+      {
+        path:'/dashboard',
+        element:<Admin_Panel></Admin_Panel>
+      }
+    ]
+
   }
 ]);
 
