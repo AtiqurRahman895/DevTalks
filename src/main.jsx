@@ -15,6 +15,9 @@ import PfpAllAnswer from './components/UserProfileComponents/ProfileLayout/PfpAl
 import PfpAllBadges from './components/UserProfileComponents/ProfileLayout/PfpAllBadges';
 import BookMark from './components/BookMarks/BookMark';
 import QuizComponents from './components/QuizComponents/QuizComponents';
+import TextMessage from "./components/TextMessage/TextMessage";
+import UserInbox from "./components/TextMessage/UserInbox";
+import Dashboard from './components/Dashboard/Dashboard';
 import AskQuestion from './components/AskQuestionComponents/AskQuestion';
 import AddBlog from './components/AddBlogComponents/AddBlog';
 import SignIn from './components/AuthenticationComponents/SignIn';
@@ -22,14 +25,14 @@ import SignUp from './components/AuthenticationComponents/SignUp';
 
 const router = createBrowserRouter([
   {
-    path: '/',
+    path: "/",
     element: <Base />,
     errorElement: <ErrorPage />,
 
     children: [
       {
-        path: '/',
-        element: <Home />
+        path: "/",
+        element: <Home />,
       },
       {
         path: "/ask-question",
@@ -37,41 +40,37 @@ const router = createBrowserRouter([
       },
       {
         path: "/questions",
-        element: (
-            <Questions />
-        ),
+        element: <Questions />,
       },
       {
         path: "/profile",
-        element: (
-            <ProfilePage />
-        ),
-        children:[
+        element: <ProfilePage />,
+        children: [
           {
             index: true, // This ensures PfpAllQuestion is shown by default
             element: <PfpAllQuestion />,
           },
           {
             path: "/profile/questions",
-            element: <PfpAllQuestion />
+            element: <PfpAllQuestion />,
           },
           {
             path: "/profile/answers",
-            element: <PfpAllAnswer />
+            element: <PfpAllAnswer />,
           },
           {
             path: "/profile/badges",
-            element: <PfpAllBadges />
+            element: <PfpAllBadges />,
           },
-        ]
+        ],
       },
       {
-        path:'/bookMark',
-        element: <BookMark></BookMark>
+        path: "/bookMark",
+        element: <BookMark></BookMark>,
       },
       {
-         path:'/quiz',
-         element:<QuizComponents></QuizComponents>
+        path: "/quiz",
+        element: <QuizComponents></QuizComponents>,
       },
       {
         path: "/add-blog",
@@ -89,19 +88,35 @@ const router = createBrowserRouter([
       },
     ],
   },
+  // chat
+  {
+    path: "/message",
+    element: <TextMessage />,
+    children:[
+      {
+        path:"/message/:user",
+        element: <UserInbox />
+      }
+    ]
+  },
+  // dashboard
+  {
+    path:'/dashboard',
+    element:<Dashboard></Dashboard>
+  }
 ]);
 
 const queryClient = new QueryClient();
 
 createRoot(document.getElementById("root")).render(
   // <StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <HelmetProvider>
-        {/* <AuthProvider> */}
-          <ToastContainer position="top-center" />
-          <RouterProvider router={router} />
-        {/* </AuthProvider> */}
-      </HelmetProvider>
-    </QueryClientProvider>
+  <QueryClientProvider client={queryClient}>
+    <HelmetProvider>
+      {/* <AuthProvider> */}
+      <ToastContainer position="top-center" />
+      <RouterProvider router={router} />
+      {/* </AuthProvider> */}
+    </HelmetProvider>
+  </QueryClientProvider>
   // </StrictMode>
 );
