@@ -4,6 +4,7 @@ import AboutUsHighlight from './AboutUsHighlight/AboutUsHighlight'
 import AboutUsSolutionCenter from './AboutUsSolutionCenter/AboutUsSolutionCenter'
 import AboutUsProduct from './AboutUsProduct/AboutUsProduct'
 import AboutUsBrand from './AboutUsBrand/AboutUsBrand'
+import AboutUsCreator from './AboutUsCreator/AboutUsCreator'
 
 export default function About() {
   return (
@@ -14,6 +15,7 @@ export default function About() {
       <AboutUsSolutionCenter />
       <AboutUsProduct />
       <AboutUsBrand />
+      <AboutUsCreator />
 
     </div>
   )
