@@ -99,61 +99,69 @@
 
 
 
-/* Tiptap Rich Text Editor */
+    /* Tiptap Rich Text Editor */
 
-/* Basic editor styles */
-.tiptap:first-child {
-    margin-top: 2rem !important;
-    outline: none !important;
-}
+    /* Basic editor styles */
+    .tiptap:first-child {
+        margin-top: 2rem !important;
+        outline: none !important;
+    }
 
-.tiptap p.is-empty::before {
-    content: attr(data-placeholder);
-    color: #999;
-    font-style: italic;
-  }
+    .tiptap p.is-empty::before {
+        content: attr(data-placeholder);
+        color: #999;
+        font-style: italic;
+    }
 
-/* Code and preformatted text styles */
-pre {
-    background: #767582; /* Dark background for code blocks */
-    border-radius: 0.5rem;
-    color: white;
-    font-family: 'JetBrainsMono', monospace;
-    margin: 1rem 0;
-    padding: 0.75rem 1rem;
-    white-space: pre-wrap; /* Allow line wrapping */
-    word-wrap: break-word;
-}
+    /* Code and preformatted text styles */
+    pre {
+        background: #767582; /* Dark background for code blocks */
+        border-radius: 0.5rem;
+        color: white;
+        font-family: 'JetBrainsMono', monospace;
+        margin: 1rem 0;
+        padding: 0.75rem 1rem;
+        white-space: pre-wrap; /* Allow line wrapping */
+        word-wrap: break-word;
+    }
 
-code {
-    background: none; /* Remove background color */
-    color: inherit; /* Inherit text color from parent */
-    font-size: 0.85rem;
-    padding: 0; /* Remove padding */
-}
+    code {
+        background: none; /* Remove background color */
+        color: inherit; /* Inherit text color from parent */
+        font-size: 0.85rem;
+        padding: 0; /* Remove padding */
+    }
 
-/* Blockquote styles */
-blockquote {
-    border-left: 3px solid #767582;
-    margin: 1rem 0;
-    padding-left: 1rem;
-}
+    /* Blockquote styles */
+    blockquote {
+        border-left: 3px solid #767582;
+        margin: 1rem 0;
+        padding-left: 1rem;
+    }
 
-/* Horizontal rule */
-hr {
-    border: none;
-    border-top: 1px solid #767582;
-    margin: 1rem 0;
-}
+    /* Horizontal rule */
+    hr {
+        border: none;
+        border-top: 1px solid #767582;
+        margin: 1rem 0;
+    }
 
-/* Multi Select Dropdown */
+    /* Multi Select Dropdown */
 
-.multi-select-dropdown .dropdown-option {
-    display: flex !important;
-    align-items: center !important;
-    gap: 6px !important; /* Reduce the gap between checkbox and text */
-    padding: 4px 8px !important; /* Adjust padding */
-  }
+    .multi-select-dropdown .dropdown-option {
+        display: flex !important;
+        align-items: center !important;
+        gap: 6px !important; /* Reduce the gap between checkbox and text */
+        padding: 4px 8px !important; /* Adjust padding */
+    }
+
+    /* Hide password visibility icon on Edge and some Chromium browsers */
+    input::-ms-reveal,
+    input::-ms-clear,
+    input::-webkit-credentials-auto-fill-button {
+        display: none !important;
+    }
+
       
 }
 

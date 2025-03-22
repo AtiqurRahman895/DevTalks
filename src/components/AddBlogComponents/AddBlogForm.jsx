@@ -3,7 +3,7 @@ import TextEditor from '../CommonComponents/TextEditor';
 import SelectTags from '../CommonComponents/SelectTags';
 import { toast } from 'react-toastify';
 import useWordCount from '../../Hooks/useWordCount';
-import ImageInput from '../CommonComponents/ImageInput';
+import CoverImageInput from '../CommonComponents/CoverImageInput';
 
 const AddBlogForm = () => {
     const [showPreview, setShowPreview] = useState(false)
@@ -87,7 +87,7 @@ const AddBlogForm = () => {
 
                     <div className="space-y-1 text-center [&_*]:m-auto">
                         <h5 className='text-custom-primary w-fit'>Add Blog Image</h5>
-                        <ImageInput image={image} setImage={setImage}/>
+                        <CoverImageInput image={image} setImage={setImage}/>
                     </div>
 
                     <div className="space-y-3">

@@ -13,9 +13,9 @@ const NavMenuSidebar = ({menuOpen, setMenuOpen}) => {
                 <Link to="/questions" className="text-2xl" onClick={() => setMenuOpen(false)}>Questions</Link>
                 <Link to="/about" className="text-2xl" onClick={() => setMenuOpen(false)}>About Us</Link>
                 <Link to="/contact" className="text-2xl" onClick={() => setMenuOpen(false)}>Contact Us</Link>
-                <Link to="/login">
+                <Link to="/sign-in">
                     <button className="primaryButton" onClick={() => setMenuOpen(false)}>
-                        Login
+                        Sign in
                     </button>
                 </Link>
 

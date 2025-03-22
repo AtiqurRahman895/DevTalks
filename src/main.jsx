@@ -8,8 +8,6 @@ import Base from './components/BaseComponents/Base';
 import Home from './components/HomeComponents/Home';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import ErrorPage from './components/ErrorPageComponent/ErrorPage';
-//import Login from './components/AuthenticationComponents/Login';
-import SignInAndSignUp from './components/AuthenticationComponents/SignInAndSignUp';
 import Questions from './components/QuestionsPageComponents.jsx/Questions';
 import ProfilePage from './components/UserProfileComponents/ProfilePage';
 import PfpAllQuestion from './components/UserProfileComponents/ProfileLayout/PfpAllQuestion';
@@ -19,6 +17,8 @@ import BookMark from './components/BookMarks/BookMark';
 import QuizComponents from './components/QuizComponents/QuizComponents';
 import AskQuestion from './components/AskQuestionComponents/AskQuestion';
 import AddBlog from './components/AddBlogComponents/AddBlog';
+import SignIn from './components/AuthenticationComponents/SignIn';
+import SignUp from './components/AuthenticationComponents/SignUp';
 
 const router = createBrowserRouter([
   {
@@ -80,8 +80,12 @@ const router = createBrowserRouter([
 
       // Authentication
       {
-        path: "/login",
-        element: <SignInAndSignUp />,
+        path: "/sign-in",
+        element: <SignIn />,
+      },
+      {
+        path: "/sign-up",
+        element: <SignUp />,
       },
     ],
   },

@@ -23,7 +23,7 @@ const AuthProvider = ({ children }) => {
   // const normalAxios= useNormalAxios()
 
   const googleProvider = new GoogleAuthProvider();
-  const loginWithGoogle = () => {
+  const signInWithGoogle = () => {
     setLoading(true);
     return signInWithPopup(auth, googleProvider);
   };
@@ -50,7 +50,7 @@ const AuthProvider = ({ children }) => {
     return sendPasswordResetEmail(auth, email);
   };
 
-  const loginUser = (email, password) => {
+  const signInUser = (email, password) => {
     setLoading(true);
     return signInWithEmailAndPassword(auth, email, password);
   };
@@ -104,14 +104,14 @@ const AuthProvider = ({ children }) => {
     setUser,
     creatUser,
     updateUserProfile,
-    loginUser,
+    signInUser,
     logoutUser,
     loading,
     setLoading,
     verifyAccount,
     ChangePassword,
     sendResetEmail,
-    loginWithGoogle,
+    signInWithGoogle,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
