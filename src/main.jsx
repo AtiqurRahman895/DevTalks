@@ -22,6 +22,7 @@ import UserInbox from "./components/TextMessage/UserInbox";
 import Dashboard from './components/Dashboard/Dashboard';
 import AskQuestion from './components/AskQuestionComponents/AskQuestion';
 import AddBlog from './components/AddBlogComponents/AddBlog';
+import About from "./components/AboutComponents/About";
 
 const router = createBrowserRouter([
   {
@@ -36,7 +37,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/about",
-        element: <Home />,
+        element: <About />,
       },
       // ask question
       {
