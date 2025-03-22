@@ -35,13 +35,20 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
+        path: "/about",
+        element: <Home />,
+      },
+      // ask question
+      {
         path: "/ask-question",
         element: <AskQuestion />
       },
+      // questions
       {
         path: "/questions",
         element: <Questions />,
       },
+      // profile
       {
         path: "/profile",
         element: <ProfilePage />,
@@ -64,14 +71,17 @@ const router = createBrowserRouter([
           },
         ],
       },
+      // bookmark
       {
         path: "/bookMark",
         element: <BookMark></BookMark>,
       },
+      // quiz
       {
         path: "/quiz",
         element: <QuizComponents></QuizComponents>,
       },
+      // add Blog
       {
         path: "/add-blog",
         element: <AddBlog />
@@ -84,6 +94,8 @@ const router = createBrowserRouter([
       },
     ],
   },
+
+
   // chat
   {
     path: "/message",

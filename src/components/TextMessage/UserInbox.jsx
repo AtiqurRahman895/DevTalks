@@ -87,7 +87,7 @@ const UserInbox = () => {
        <div className="px-3 flex items-center gap-x-3">
         <input
           type="text"
-          className="flex-1 p-4 rounded-lg border focus:outline-none bg-Custom-half-Gray"
+          className="flex-1 p-4 rounded-lg border focus:outline-none bg-custom-half-gray"
           placeholder="Type a message..."
         />
         <button
