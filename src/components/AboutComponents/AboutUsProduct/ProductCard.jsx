@@ -3,7 +3,7 @@ import { MdArrowRightAlt } from "react-icons/md";
 
 const ProductCard = ({ card }) => {
   return (
-    <div className="bg-custom-half-primary text-white mt-24 flex flex-col justify-center items-center text-center rounded-full py-20 transition-all duration-300 ease-in-out hover:bg-custom-primary hover:scale-105 group cursor-pointer">
+    <div className="bg-custom-half-primary text-white flex flex-col justify-center items-center text-center rounded-full py-20 transition-all duration-300 ease-in-out hover:bg-custom-primary hover:scale-105 group cursor-pointer">
       {/* Icon */}
       <span className="text-white text-[90px] mb-8">{card.icon}</span>
 
