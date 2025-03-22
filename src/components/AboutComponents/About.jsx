@@ -1,9 +1,13 @@
 import React from 'react'
+import SectionBanner from '../CommonComponents/SectionBanner'
 
 export default function About() {
   return (
     <div>
-      About page bhrata......
+      <SectionBanner title={"About Us"} />
+      
+      <AboutUsHighlight />
+
     </div>
   )
 }
