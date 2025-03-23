@@ -30,7 +30,7 @@ const AboutUsProduct = () => {
     
       
   return (
-    <div className='my-24 px-10'>
+    <div className='my-32 px-10'>
         {/* title */}
         <h3 className='text-center'><strong className='text-custom-primary'>Empowering</strong> Developers Every Day</h3>
 

@@ -6,10 +6,12 @@ import AboutUsProduct from './AboutUsProduct/AboutUsProduct'
 import AboutUsBrand from './AboutUsBrand/AboutUsBrand'
 import AboutUsCreator from './AboutUsCreator/AboutUsCreator'
 import Join_developer from '../HomeComponents/Join_developer'
+import PageTitle from '../CommonComponents/PageTitle'
 
 export default function About() {
   return (
     <div className='container'>
+        <PageTitle title="About Us" />
       <SectionBanner title={"About Us"} />
       
       <AboutUsHighlight />

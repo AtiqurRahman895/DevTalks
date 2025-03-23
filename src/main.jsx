@@ -23,6 +23,7 @@ import Dashboard from './components/Dashboard/Dashboard';
 import AskQuestion from './components/AskQuestionComponents/AskQuestion';
 import AddBlog from './components/AddBlogComponents/AddBlog';
 import About from "./components/AboutComponents/About";
+import ContactUs from "./components/ContactUsComponents/ContactUs";
 
 const router = createBrowserRouter([
   {
@@ -35,10 +36,6 @@ const router = createBrowserRouter([
         path: "/",
         element: <Home />,
       },
-      {
-        path: "/about",
-        element: <About />,
-      },
       // ask question
       {
         path: "/ask-question",
@@ -48,6 +45,16 @@ const router = createBrowserRouter([
       {
         path: "/questions",
         element: <Questions />,
+      },
+      // about
+      {
+        path: "/about",
+        element: <About />,
+      },
+      // contact Us
+      {
+        path: "/contact",
+        element: <ContactUs />,
       },
       // profile
       {
@@ -87,7 +94,6 @@ const router = createBrowserRouter([
         path: "/add-blog",
         element: <AddBlog />
       },
-
       // Authentication
       {
         path: "/login",
