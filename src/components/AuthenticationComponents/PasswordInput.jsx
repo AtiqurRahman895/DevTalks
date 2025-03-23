@@ -4,7 +4,7 @@ import { ImKey } from "react-icons/im";
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
 
-const PasswordInput = ({password, setPassword, forgotPassword, passwordError, setPasswordError}) => {
+const PasswordInput = ({password, setPassword, forgotPassword, email, passwordError, setPasswordError}) => {
       const [showPassword, setShowPassword]=useState(false)
 
       const handlePasswordChange = (e) => {
@@ -21,13 +21,6 @@ const PasswordInput = ({password, setPassword, forgotPassword, passwordError, se
             }
         }
       };
-
-    //   const handlePasswordChange=(e)=>{
-    //     setPassword(e.target.value)
-    //     if (!forgotPassword){
-    //         verifyPassword(e)
-    //     }
-    //   }
 
     return (
         <div className="text-justify">
@@ -49,7 +42,7 @@ const PasswordInput = ({password, setPassword, forgotPassword, passwordError, se
             }
             {
                 (forgotPassword) &&
-                <Link to={'forgot-password'} className="hover:text-custom-primary hover:underline">Forgot password?</Link>
+                <Link to={'/forgot-password'} state={{ email }} className="hover:text-custom-primary hover:underline">Forgot password?</Link>
             }
             
         </div>

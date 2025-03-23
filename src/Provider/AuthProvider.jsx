@@ -13,16 +13,17 @@ import {
 import { createContext, useEffect, useState } from "react";
 import auth from "../Firebase/firebase.config";
 import { toast } from "react-toastify";
-// import useNormalAxios from "../Hooks/useNormalAxios";
+import useNormalAxios from "../Hooks/useNormalAxios";
 
 export const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);  
   const [loading, setLoading] = useState(true);
-  // const normalAxios= useNormalAxios()
+  const normalAxios= useNormalAxios()
 
   const googleProvider = new GoogleAuthProvider();
+  
   const signInWithGoogle = () => {
     setLoading(true);
     return signInWithPopup(auth, googleProvider);
@@ -34,14 +35,12 @@ const AuthProvider = ({ children }) => {
   };
 
   const updateUserProfile = (displayName, photoURL) => {
-    // setLoading(true);
     return updateProfile(auth.currentUser, {
       displayName,
       photoURL,
     });
   };
   const ChangePassword = (newPassword) => {
-    // setLoading(true);
     return updatePassword(auth.currentUser, newPassword);
   };
 
@@ -55,7 +54,7 @@ const AuthProvider = ({ children }) => {
     return signInWithEmailAndPassword(auth, email, password);
   };
 
-  const logoutUser = () => {
+  const signOutUser = () => {
     setLoading(true);
     return signOut(auth);
   };
@@ -76,20 +75,18 @@ const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const unsubscribeUser = onAuthStateChanged(auth, async (currentUser) => {
-      // if (currentUser?.email) {
-      //   const user = { email: currentUser.email };
-      //   const res = await normalAxios.post("/jwt", user)
-      //   setUser(currentUser);
-      //   localStorage.setItem("token",res.data)
-      //   localStorage.setItem("email",currentUser.email)
-      // } else {
-      //   setUser(currentUser);
-      //   localStorage.removeItem("token")
-      //   localStorage.removeItem("email")
+      if (currentUser?.email) {
+        const user = { email: currentUser.email };
+        const res = await normalAxios.post("/jwt", user)
+        setUser(currentUser);
+        localStorage.setItem("token",res.data)
+        localStorage.setItem("email",currentUser.email)
+      } else {
+        setUser(currentUser);
+        localStorage.removeItem("token")
+        localStorage.removeItem("email")
 
-      // }
-      setUser(currentUser);
-
+      }
       setLoading(false);
     });
 
@@ -105,7 +102,7 @@ const AuthProvider = ({ children }) => {
     creatUser,
     updateUserProfile,
     signInUser,
-    logoutUser,
+    signOutUser,
     loading,
     setLoading,
     verifyAccount,
