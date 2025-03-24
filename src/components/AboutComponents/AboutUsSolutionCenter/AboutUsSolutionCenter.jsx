@@ -3,7 +3,7 @@ import React from "react";
 const AboutUsSolutionCenter = () => {
   return (
     <div
-      className="h-[640px] relative flex justify-center items-center px-10"
+      className="h-[640px] relative flex lg:flex-row flex-col justify-center items-center lg:px-10"
       style={{
         backgroundImage: "url('/AboutUs4.jpg')", // Replace with your image name
         backgroundRepeat: "no-repeat",
@@ -14,9 +14,9 @@ const AboutUsSolutionCenter = () => {
       <div className="absolute inset-0 bg-black bg-opacity-90"></div>
 
       {/* text and image  */}
-      <div className="relative flex">
+      <div className="relative flex flex-col lg:flex-row">
         {/* text and description */}
-        <div className=" flex flex-col text-left w-[50%]">
+        <div className=" flex flex-col text-left lg:w-[50%] w-full">
           <h3 className="mb-6">
             Get Coding Questions{" "}
             <strong className="text-custom-primary text-5xl ml-2">

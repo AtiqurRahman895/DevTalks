@@ -8,6 +8,7 @@ import {
   FaGithub,
   FaLinkedin,
 } from "react-icons/fa";
+import PageTitle from "../CommonComponents/PageTitle";
 
 const ContactUs = () => {
   const supportInfo = [
@@ -45,6 +46,7 @@ const ContactUs = () => {
 
   return (
     <div>
+      <PageTitle title={"Contact Us"} />
       <SectionBanner title={"Contact Us"} />
 
       <h2 className="font-bold border-l-8 border-custom-primary pl-4 mb-6">

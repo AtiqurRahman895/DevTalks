@@ -3,10 +3,10 @@ import { FaPlay } from "react-icons/fa";
 
 export default function AboutUsHighlight() {
   return (
-    <div className="container flex gap-20 px-10 my-32">
+    <div className="container flex lg::flex-row flex-col gap-20 md:px-10 lg:my-32 my-24">
 
       {/* title and title photo */}
-      <div className="w-[50%] mt-4">
+      <div className="lg:w-[50%] w-full mt-4">
         <h3 className="font-bold border-l-8 border-custom-primary pl-4 mb-6">
           Connecting Developers, Sharing Knowledge, and Building a Stronger
           <strong className="text-custom-primary text-4xl ml-2">
@@ -21,9 +21,9 @@ export default function AboutUsHighlight() {
       </div>
 
       {/* description and users, questions */}
-      <div className="w-[50%]">
+      <div className="lg:w-[50%] w-full">
         {/* two image side by side */}
-        <div className="flex items-center gap-6">
+        <div className="flex lg:flex-row flex-col items-center gap-6">
           <img
             src="/AboutUs2.jpg"
             alt=""
@@ -44,7 +44,7 @@ export default function AboutUsHighlight() {
         </p>
 
         {/* Displays total questions, answers, and active users for platform stats. */}
-        <div className="mt-6 grid md:grid-cols-3 gap-3">
+        <div className="mt-6 grid md:grid-cols-3 grid-cols-2 gap-3">
           <div>
             <h3 className="font-extrabold text-indigo-600">1M+</h3>
             <p className="">Questions Asked</p>
