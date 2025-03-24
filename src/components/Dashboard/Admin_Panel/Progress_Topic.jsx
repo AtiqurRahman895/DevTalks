@@ -4,7 +4,7 @@ import React from 'react';
 
 
 const ProgressTrack = () => {
-  // Sample data for progress tracking
+ 
   const projects = [
     { name: 'Frontend Development', progress: 60, color: 'bg-orange-500',  },
     { name: 'React js', progress: 100, color: 'bg-green-500', },

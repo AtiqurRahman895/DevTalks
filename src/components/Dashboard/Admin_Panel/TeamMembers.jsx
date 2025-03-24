@@ -25,17 +25,17 @@ const TeamMembers = () => {
 
     return (
         <div className="p-4 bg-custom-primary rounded-lg shadow-md">
-            {/* Header */}
+            
             <h2 className="text-lg font-semibold text-white mb-4">Team members</h2>
 
-            {/* Team Members List */}
+           
             <div className="space-y-4">
                 {members.map((member, index) => (
                     <div
                         key={index}
                         className="flex items-center justify-between p-3   rounded-lg shadow-sm"
                     >
-                        {/* Avatar and Name/Status */}
+                        
                         <div className="flex items-center space-x-3">
                             <div className="relative">
                                 <img
@@ -43,7 +43,7 @@ const TeamMembers = () => {
                                     alt={member.name}
                                     className="w-10 h-10 rounded-full object-cover"
                                 />
-                                {/* Status Indicator */}
+                              
                                 <span
                                     className={`absolute bottom-0 right-0 w-3 h-3 ${getStatusColor(
                                         member.status
@@ -56,7 +56,7 @@ const TeamMembers = () => {
                             </div>
                         </div>
 
-                        {/* Add Button */}
+                      
                         <button className="px-4 py-1 text-sm text-custom-primary bg-white rounded-lg">
                             Add
                         </button>

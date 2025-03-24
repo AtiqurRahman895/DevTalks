@@ -9,13 +9,15 @@ import DashboardWidgets from './TeamMembers';
 import TeamMembers from './TeamMembers';
 import MeetingSlat from './MeetingSlat';
 import ProgressTrack from './Progress_Topic';
+import PageVisits from './PageVisits';
+import SocialTraffic from './SocialTraffic';
 
 const Admin_Panel = () => {
     return (
         <div>
             {/* card section  */}
 
-            <div className="grid lg:grid-cols-4 gap-5 md:grid-cols-4 sm:grid-cols-1">
+            <div className="grid lg:grid-cols-4 gap-5 md:grid-cols-2 sm:grid-cols-1">
 
                 <div className='bg-custom-primary rounded-lg p-6 flex justify-between items-center'>
                     <div>
@@ -76,22 +78,33 @@ const Admin_Panel = () => {
             {/* line charts  */}
 
 
-            <div className="flex flex-col md:flex-row my-7 justify-between items-center">
-                <div className="w-full md:w-4/6 md:mr-4">
+            <div className="flex flex-col lg:flex-row my-7 justify-between items-center">
+                <div className="w-full lg:w-4/6 md:m-4">
                     
                     <LineCharts></LineCharts>
                 </div>
-                <div className="w-full md:w-2/6">
+                <div className="w-full lg:w-2/6">
                     <CustomBarChart></CustomBarChart>
                 </div>
             </div>
 
             {/* table  card  */}
 
-            <div className='grid grid-cols-3 gap-4'>
+            <div className='grid sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-3 gap-4'>
                   <TeamMembers></TeamMembers>
                   <MeetingSlat></MeetingSlat>
                   <ProgressTrack></ProgressTrack>
+            </div>
+
+            <div className="grid grid-cols-8 gap-4 my-6">
+                <div className="lg:col-span-5 col-span-8">
+                    
+                    <PageVisits></PageVisits>
+                     
+                </div>
+                <div className="lg:col-span-3 col-span-8">
+                     <SocialTraffic></SocialTraffic>
+                </div>
             </div>
 
 
