@@ -13,11 +13,11 @@ export const secureAxios = axios.create({
 const useSecureAxios = (safeEmail="") => {
 
     const navigate = useNavigate();
-    const {logoutUser } = useContext(AuthContext);
+    const {signOutUser } = useContext(AuthContext);
 
     secureAxios.interceptors.request.use(function (config) {
         const token=localStorage.getItem("token")
-        // const role=localStorage.getItem("role")
+        const role=localStorage.getItem("role")
         const email=localStorage.getItem("email")
 
         if(token&&email){
@@ -25,7 +25,7 @@ const useSecureAxios = (safeEmail="") => {
                 safeEmail,
                 token:`Bearer ${token}`,
                 email,
-                // role,
+                role,
             }
         }
 
@@ -38,9 +38,9 @@ const useSecureAxios = (safeEmail="") => {
         return response;
       }, function (error) {
             if (error.response.status === 401 || error.response.status === 403) {
-              logoutUser();
+              signOutUser();
               toast.error(error.response.data?.message);
-              navigate("/login");
+              navigate("/sign-in");
             }
             return Promise.reject(error);
       });

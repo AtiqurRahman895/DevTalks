@@ -2,7 +2,7 @@ import React from 'react';
 import useHostImage from "../../Hooks/useHostImage";
 import { RiImageAddFill } from "react-icons/ri";
 
-const ImageInput = ({image, setImage}) => {
+const CoverImageInput = ({image, setImage}) => {
     const hostImage = useHostImage()
     const handleImageChange=(e)=>{
         const file=e.target.files[0]
@@ -22,4 +22,4 @@ const ImageInput = ({image, setImage}) => {
     );
 };
 
-export default ImageInput;
+export default CoverImageInput;

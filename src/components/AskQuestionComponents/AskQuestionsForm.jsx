@@ -31,6 +31,8 @@ const AskQuestionsForm = () => {
 
         const tags = selectedTags.map((tag) => tag.value);
         console.log(title, question, tags)
+        toast.success("worked!")
+        
     };
     return (
         <div className='space-y-6'>
