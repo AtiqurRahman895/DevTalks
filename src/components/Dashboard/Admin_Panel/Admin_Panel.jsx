@@ -5,6 +5,9 @@ import { FcDocument } from "react-icons/fc";
 import { FcComboChart } from "react-icons/fc";
 import LineCharts from './LineChart';
 import CustomBarChart from './BarCharts';
+import DashboardWidgets from './TeamMembers';
+import TeamMembers from './TeamMembers';
+import MeetingSlat from './MeetingSlat';
 
 const Admin_Panel = () => {
     return (
@@ -84,8 +87,9 @@ const Admin_Panel = () => {
 
             {/* table  card  */}
 
-            <div className='grid grid-cols-3 '>
-
+            <div className='grid grid-cols-3 gap-4'>
+                  <TeamMembers></TeamMembers>
+                  <MeetingSlat></MeetingSlat>
             </div>
 
 
