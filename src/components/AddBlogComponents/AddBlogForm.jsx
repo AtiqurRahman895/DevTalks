@@ -1,26 +1,29 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import TextEditor from '../CommonComponents/TextEditor';
 import SelectTags from '../CommonComponents/SelectTags';
 import { toast } from 'react-toastify';
 import useWordCount from '../../Hooks/useWordCount';
 import CoverImageInput from '../CommonComponents/CoverImageInput';
+import PreviewBlog from './PreviewBlog';
+
 
 const AddBlogForm = () => {
     const [showPreview, setShowPreview] = useState(false)
 
     const [title, setTitle] = useState("")
     const [shortDescription, setShortDescription] = useState("")
-    const [editorContents, setEditorContents] = useState({});
+    const [editorContents, setEditorContents] = useState({LongDescription:""});
     const [selectedTags, setSelectedTags] = useState([])
     const [image, setImage] = useState()
     const {htmlToPlainText, countWordsAndChars} = useWordCount()
+
 
     const verify=()=>{
         const {wordCount:titleTextCount}=countWordsAndChars(title)
         const {wordCount:shortDescriptionCount}=countWordsAndChars(shortDescription)
 
         const LongDescription = editorContents.LongDescription;
-        const plainLongDescriptionText= htmlToPlainText(LongDescription)
+        const plainLongDescriptionText= htmlToPlainText(LongDescription||"")
         const {wordCount:longDescriptionTextCount}=countWordsAndChars(plainLongDescriptionText)
         
         if (titleTextCount < 3){
@@ -50,6 +53,7 @@ const AddBlogForm = () => {
         }
         setShowPreview(!showPreview)
     }
+
 
     const handleSubmit = () => {
         const allRight=verify()
@@ -92,16 +96,13 @@ const AddBlogForm = () => {
 
                     <div className="space-y-3">
                         <h5 className='text-custom-primary'>Type Long Description</h5>
-                        <TextEditor label="LongDescription" setEditorContents={setEditorContents} />
+                        <TextEditor label="LongDescription" setEditorContents={setEditorContents} editorContents={editorContents.LongDescription} />
                     </div>
 
 
                 </div>
                 :
-                <div className="space-y-3">
-                    <h5 className='text-custom-primary'>Preview Of The Blog</h5>
-                    <div className="!whitespace-pre-wrap" dangerouslySetInnerHTML={{ __html: editorContents.LongDescription }}></div>
-                </div> 
+                <PreviewBlog showPreview={showPreview} title={title} shortDescription={shortDescription} createdAt={new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)} selectedTags={selectedTags} image={image} editorContents={editorContents} />
             }
 
 
