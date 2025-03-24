@@ -3,7 +3,7 @@ import React from "react";
 const AboutUsSolutionCenter = () => {
   return (
     <div
-      className="h-[640px] relative flex lg:flex-row flex-col justify-center items-center lg:px-10"
+      className="lg:h-[640px] relative flex lg:flex-row flex-col justify-center items-center lg:px-10 md:px-7 px-2 lg:py-0 py-12"
       style={{
         backgroundImage: "url('/AboutUs4.jpg')", // Replace with your image name
         backgroundRepeat: "no-repeat",
@@ -16,14 +16,14 @@ const AboutUsSolutionCenter = () => {
       {/* text and image  */}
       <div className="relative flex flex-col lg:flex-row">
         {/* text and description */}
-        <div className=" flex flex-col text-left lg:w-[50%] w-full">
+        <div className="flex flex-col text-left lg:w-[50%] w-full">
           <h3 className="mb-6">
             Get Coding Questions{" "}
-            <strong className="text-custom-primary text-5xl ml-2">
+            <strong className="text-custom-primary">
               Answered
             </strong>{" "}
             Find{" "}
-            <strong className="text-custom-primary text-5xl ml-2">
+            <strong className="text-custom-primary">
               Solutions
             </strong>{" "}
             Fast and Efficient
@@ -44,7 +44,7 @@ const AboutUsSolutionCenter = () => {
         <img
           src="/AboutUs5.jpg"
           alt=""
-          className="w-[50%] h-96 object-cover rounded-xl"
+          className="lg:w-[50%] w-full lg:mt-0 mt-8 h-96 object-cover rounded-xl"
         />
       </div>
     </div>

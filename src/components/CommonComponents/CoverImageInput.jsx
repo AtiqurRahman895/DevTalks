@@ -16,7 +16,6 @@ const CoverImageInput = ({image, setImage}) => {
                 <input id='blogImage' type="file" accept="image/*" onChange={handleImageChange} className="file-input w-[4.5rem] absolute top-1 scale-0" />
                 <p className='text-custom-primary'>{image&&`1 image file uploaded`}</p>
             </label>
-            {/* <img src={image?image:""} alt="" className="bg-custom-primary max-w-full m-auto" /> */}
         </>
 
     );

@@ -4,9 +4,11 @@ import TextStyle from '@tiptap/extension-text-style';
 import Color from '@tiptap/extension-color';
 import ListItem from '@tiptap/extension-list-item';
 import Placeholder from '@tiptap/extension-placeholder';
-import hljs from 'highlight.js';
-import 'highlight.js/styles/monokai.css'; // Import your preferred theme
-
+import 'highlight.js/styles/a11y-dark.css'; // Import your preferred theme
+import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight';
+import { createLowlight,common } from 'lowlight'; // Correct import
+import CodeBlockIndentExtension from '../../extentions/CodeBlockIndentExtension';
+import Indent from '@weiruo/tiptap-extension-indent';
 
 // Menu bar with buttons
 const MenuBar = () => {
@@ -40,7 +42,7 @@ const MenuBar = () => {
           Color
         </button>
 
-        {[4, 5].map(level => (
+        {[4, 5, 6].map(level => (
           <button
             key={level}
             onClick={() => editor.chain().focus().toggleHeading({ level }).run()}
@@ -106,43 +108,52 @@ const MenuBar = () => {
   );
 };
 
+// Create lowlight instance with common languages for auto-detection
+const lowlight = createLowlight(common);
+
 // Extensions setup
 const extensions = [
-    StarterKit.configure({
-      bulletList: { keepMarks: true, keepAttributes: false },
-      orderedList: { keepMarks: true, keepAttributes: false },
-    }),
-    TextStyle.configure({ types: [ListItem.name] }),
-    Color.configure({ types: [TextStyle.name, ListItem.name] }),
-    Placeholder.configure({
-        placeholder: 'Type here...',
-        showOnlyWhenEditable: true, 
-      }),
-    
-  ];
+  StarterKit.configure({
+    bulletList: { keepMarks: true, keepAttributes: false },
+    orderedList: { keepMarks: true, keepAttributes: false },
+    codeBlock: false, // Disable default codeBlock
+  }),
+  TextStyle.configure({ types: [ListItem.name] }),
+  Color.configure({ types: [TextStyle.name, ListItem.name] }),
+  Placeholder.configure({
+    placeholder: 'Type here...',
+    showOnlyWhenEditable: true,
+  }),
+  CodeBlockLowlight.configure({
+    lowlight,
+    HTMLAttributes: {
+      class: 'code-block',
+    },
+  }),
+  Indent.configure({
+    types: ['paragraph', 'listItem', 'codeBlock', 'heading'],
+    minLevel: 0,
+    maxLevel: 8,
+  }),
+  CodeBlockIndentExtension,
+];
   
   // Initial content for the editor
   
-  const TextEditor = ({label, setEditorContents }) => {
+  const TextEditor = ({label, editorContents , setEditorContents }) => {
 
     const handleUpdate=(editor)=>{
         let content = editor.getJSON();
-        let mainContent= generateHTML(content, [StarterKit]);
-        
+        const mainContent = generateHTML(content, extensions);
         setEditorContents((prev) => ({
             ...prev,
             [label]: mainContent,
         }));
-
-        const codeBlocks = editor.view.dom.querySelectorAll('pre code');
-        codeBlocks.forEach((block) => {
-          hljs.highlightElement(block);
-        })
     }
 
     return (
       <div className="bg-white text-black p-4 pt-0 rounded-md max-h-96 overflow-y-auto overflow-x-hidden relative !z-10">
-        <EditorProvider slotBefore={<MenuBar />} extensions={extensions} content=""
+        <EditorProvider slotBefore={<MenuBar />} extensions={extensions} content={editorContents}
             onUpdate={ ({editor})=> handleUpdate(editor) }
         >
           <EditorContent className="tiptap"/>

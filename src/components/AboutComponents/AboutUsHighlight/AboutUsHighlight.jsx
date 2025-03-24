@@ -3,7 +3,7 @@ import { FaPlay } from "react-icons/fa";
 
 export default function AboutUsHighlight() {
   return (
-    <div className="container flex lg::flex-row flex-col gap-20 md:px-10 lg:my-32 my-24">
+    <div className="container flex lg:flex-row flex-col gap-20 md:px-10 lg:my-32 my-24">
 
       {/* title and title photo */}
       <div className="lg:w-[50%] w-full mt-4">

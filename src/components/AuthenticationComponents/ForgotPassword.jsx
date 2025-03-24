@@ -9,7 +9,7 @@ const ForgotPassword = () => {
     const location = useLocation();
     const { sendResetEmail } = useContext(AuthContext);
     const navigate = useNavigate();
-
+ 
     const [email, setEmail]=useState(location.state?.email)
 
     
