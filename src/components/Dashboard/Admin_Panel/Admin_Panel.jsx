@@ -8,6 +8,7 @@ import CustomBarChart from './BarCharts';
 import DashboardWidgets from './TeamMembers';
 import TeamMembers from './TeamMembers';
 import MeetingSlat from './MeetingSlat';
+import ProgressTrack from './Progress_Topic';
 
 const Admin_Panel = () => {
     return (
@@ -90,6 +91,7 @@ const Admin_Panel = () => {
             <div className='grid grid-cols-3 gap-4'>
                   <TeamMembers></TeamMembers>
                   <MeetingSlat></MeetingSlat>
+                  <ProgressTrack></ProgressTrack>
             </div>
 
 

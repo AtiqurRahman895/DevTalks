@@ -3,10 +3,10 @@ import React from 'react';
 const TeamMembers = () => {
 
     const members = [
-        { name: 'John Michael', status: 'online', avatar: 'https://via.placeholder.com/40' },
-        { name: 'Alex Smith', status: 'in a meeting', avatar: 'https://via.placeholder.com/40' },
-        { name: 'Samantha Ivy', status: 'offline', avatar: 'https://via.placeholder.com/40' },
-        { name: 'John Michael', status: 'online', avatar: 'https://via.placeholder.com/40' },
+        { name: 'John Michael', status: 'online', avatar: 'https://randomuser.me/api/portraits/men/1.jpg' },
+        { name: 'Alex Smith', status: 'in a meeting', avatar: 'https://randomuser.me/api/portraits/men/2.jpg' },
+        { name: 'Samantha Ivy', status: 'offline', avatar: 'https://randomuser.me/api/portraits/women/1.jpg' },
+        { name: 'John Michael', status: 'online', avatar: 'https://randomuser.me/api/portraits/men/3.jpg' },
     ];
 
 
@@ -24,16 +24,16 @@ const TeamMembers = () => {
     };
 
     return (
-        <div className="p-4 bg-gray-100 rounded-lg shadow-md">
+        <div className="p-4 bg-custom-primary rounded-lg shadow-md">
             {/* Header */}
-            <h2 className="text-lg font-semibold text-gray-800 mb-4">Team members</h2>
+            <h2 className="text-lg font-semibold text-white mb-4">Team members</h2>
 
             {/* Team Members List */}
             <div className="space-y-4">
                 {members.map((member, index) => (
                     <div
                         key={index}
-                        className="flex items-center justify-between p-3 bg-white rounded-lg shadow-sm"
+                        className="flex items-center justify-between p-3   rounded-lg shadow-sm"
                     >
                         {/* Avatar and Name/Status */}
                         <div className="flex items-center space-x-3">
@@ -45,19 +45,19 @@ const TeamMembers = () => {
                                 />
                                 {/* Status Indicator */}
                                 <span
-                                    className={`absolute bottom-0 right-0 w-5 h-5 ${getStatusColor(
+                                    className={`absolute bottom-0 right-0 w-3 h-3 ${getStatusColor(
                                         member.status
-                                    )} rounded-full border-2 border-white`}
+                                    )} rounded-full border-[1px] border-white`}
                                 ></span>
                             </div>
                             <div>
-                                <p className="text-sm font-medium text-gray-800">{member.name}</p>
-                                <p className="text-xs text-gray-500 capitalize">{member.status}</p>
+                                <p className="text-sm font-medium text-white">{member.name}</p>
+                                <p className="text-xs text-white capitalize">{member.status}</p>
                             </div>
                         </div>
 
                         {/* Add Button */}
-                        <button className="px-4 py-1 text-sm text-white bg-indigo-600 rounded-md hover:bg-indigo-700 transition">
+                        <button className="px-4 py-1 text-sm text-custom-primary bg-white rounded-lg">
                             Add
                         </button>
                     </div>

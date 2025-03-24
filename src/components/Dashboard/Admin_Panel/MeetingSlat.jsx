@@ -3,10 +3,10 @@ import React, { useState } from 'react';
 const ToDoList = () => {
   
   const [tasks, setTasks] = useState([
-    { title: 'Call with Dave', time: '10:30 AM', color: 'bg-green-500', checked: false },
-    { title: 'Lunch meeting', time: '12:00 PM', color: 'bg-orange-500', checked: false },
-    { title: 'Web seminar ', time: '10:30 AM', color: 'bg-blue-500', checked: false },
-    { title: 'Winter-Hackathon', time: '10:30 AM', color: 'bg-red-500', checked: false },
+    { title: 'Call with Dave', time: '10:30 AM',   checked: false },
+    { title: 'Lunch meeting', time: '12:00 PM',   checked: false },
+    { title: 'Web seminar ', time: '10:30 AM',   checked: false },
+    { title: 'Winter-Hackathon', time: '10:30 AM',   checked: false },
   ]);
 
    
@@ -17,9 +17,9 @@ const ToDoList = () => {
   };
 
   return (
-    <div className="p-4 bg-gray-100 rounded-lg shadow-md">
+    <div className="p-4 bg-custom-primary rounded-lg shadow-md">
       {/* Header */}
-      <h2 className="text-lg font-semibold text-gray-800 mb-4">Meeting 
+      <h2 className="text-lg font-semibold text-white mb-4">Meeting 
       </h2>
 
        
@@ -28,11 +28,11 @@ const ToDoList = () => {
           <div key={index} className="flex items-center justify-between">
             {/* Task  */}
             <div className="flex items-center space-x-3 my-2">
-              <div className={`w-1 h-10 ${task.color} rounded`}></div>
+              <div className={`w-1 h-10 bg-white rounded`}></div>
               
               <div>
-                <p className= { task.checked ? 'line-through text-sm font-medium text-gray-800' : 'text-sm font-medium text-gray-800'} >{task.title}</p>
-                <p className={task.checked ?'text-xs text-gray-500 line-through':'text-xs text-gray-500'}  >{task.time}</p>
+                <p className= { task.checked ? 'line-through text-sm font-medium text-gray-300' : 'text-sm font-medium text-white'} >{task.title}</p>
+                <p className={task.checked ?'text-xs text-gray-300 line-through':'text-xs text-white'}  >{task.time}</p>
               </div>
             </div>
 
