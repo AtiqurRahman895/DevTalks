@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { IoMenu } from "react-icons/io5";
 import { Link } from "react-router"; 
 import { AuthContext } from "../../Provider/AuthProvider";
+import { TiMessages } from "react-icons/ti";
 
 const Navbar = ({menuOpen, setMenuOpen}) => {
     const {user,signOutUser} = useContext(AuthContext)
@@ -26,7 +27,8 @@ const Navbar = ({menuOpen, setMenuOpen}) => {
                     </div>
 
 
-                    <div className="hidden lg:flex">
+                    <div className="hidden lg:flex lg:items-center gap-5">
+                        <Link to="/message"><TiMessages className="text-3xl"/></Link>
                         {
                             user?
                             <button onClick={()=>signOutUser()} className="primaryButton">

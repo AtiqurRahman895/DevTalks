@@ -35,7 +35,7 @@ const AboutUsProduct = () => {
         <h3 className='text-center'><strong className='text-custom-primary'>Empowering</strong> Developers Every Day</h3>
 
         {/* cards */}
-        <div className='grid grid-cols-4 gap-12 mt-20 container mx-auto'>
+        <div className='grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-12 mt-20 container mx-auto'>
             {cards.map(card=><ProductCard card={card} />)}
         </div>
     </div>

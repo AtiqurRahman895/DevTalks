@@ -67,7 +67,7 @@ const AboutUsBrand = () => {
       </h3>
 
         {/* brands cards */}
-        <div className="grid grid-cols-5 gap-6 mt-20 px-10">
+        <div className="grid lg:grid-cols-5 md:grid-cols-2 grid-cols-1 gap-6 mt-20 px-10">
             {brands.map((brand, ind)=>(
                 // card
                 <div className="border border-gray-400 flex items-center justify-center gap-2 p-4 rounded-lg" key={ind}>

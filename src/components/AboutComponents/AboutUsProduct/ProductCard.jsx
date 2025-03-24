@@ -11,7 +11,7 @@ const ProductCard = ({ card }) => {
       <h5 className="tracking-[5px] mb-8">{card.subheading}</h5>
 
       {/* Title */}
-      <h4 className="break-words w-64 mb-6">{card.title}</h4>
+      <h4 className="break-words lg:w-64 w-auto mb-6">{card.title}</h4>
 
       {/* Arrow with rotation on hover */}
       <span className="text-[60px] transform transition-transform duration-300 ease-in-out -rotate-45 group-hover:rotate-0">
