@@ -1,20 +1,27 @@
-import { useState } from "react";
-import { Link } from "react-router";
+import PageTitle from "../CommonComponents/PageTitle";
+import { useContext, useState } from "react";
+import { Link, useNavigate } from "react-router";
 import SocialAuthButton from "./SocialAuthButton";
 import { MdEmail } from "react-icons/md";
 import PasswordInput from "./PasswordInput";
 import { FaUser } from "react-icons/fa";
 import ProfileImageInput from "./ProfileImageInput";
 import { toast } from "react-toastify";
+import { AuthContext } from "../../Provider/AuthProvider";
+import useNormalAxios from "../../Hooks/useNormalAxios";
 
 const SignUp =()=>{
+  const navigate = useNavigate();
+  const { signOutUser, creatUser, updateUserProfile } = useContext(AuthContext);
+  const normalAxios= useNormalAxios()
+
   const [name, setName]=useState("")
   const [email, setEmail]=useState("")
   const [password, setPassword]=useState("")
   const [passwordError, setPasswordError]=useState(false)
   const [photoURL, setPhotoURL]=useState("")
 
-  const CreatUserOnSubmit = (e) => {
+  const CreatUserOnSubmit = async (e) => {
     e.preventDefault();
 
     if (passwordError) {
@@ -25,51 +32,65 @@ const SignUp =()=>{
       return;
     }
     console.log(name, photoURL, email, password)
-    toast.success("worked!")
+    try {
+      await creatUser(email, password);
+      toast.success("Your Sign up successfull!");
+      await updateUserProfile(name, photoURL);
+
+      await normalAxios.post("/users/addUser", { name, photoURL, email });
+      signOutUser();
+      navigate("/sign-in");
+    } catch (error) {
+      toast.error(error.message ? error.message : error.code);
+    }
     
   };
 
   return (
-    <section className="!container py-16 place-items-center">
-      <div className="w-full max-w-[400px] sm:max-w-[800px] bg-white rounded-lg grid grid-cols-1 sm:grid-cols-2">
+    <main className="py-16">
+      <PageTitle title="Sign up" />
 
-        <div className="p-4 md:p-8 text-center text-black space-y-2">
-            <h3 className="">Create account</h3>
-            <SocialAuthButton />
+      <section className="container place-items-center">
+        <div className="w-full max-w-[400px] sm:max-w-[800px] bg-white rounded-lg grid grid-cols-1 sm:grid-cols-2">
 
-            <form onSubmit={(e)=>CreatUserOnSubmit(e)} className="space-y-4">
-                <label className="input p-2 bg-custom-half-gray flex items-center gap-2">
-                    <FaUser />
-                    <input type="text" value={name} onChange={(e)=>setName(e.target.value)} className="grow !bg-transparent" placeholder="Username" required/>
-                </label>
+          <div className="p-4 md:p-8 text-center text-black space-y-2">
+              <h3 className="">Create account</h3>
+              <SocialAuthButton />
 
-                <ProfileImageInput image={photoURL} setImage={setPhotoURL} />
+              <form onSubmit={(e)=>CreatUserOnSubmit(e)} className="space-y-4">
+                  <label className="input p-2 bg-custom-half-gray flex items-center gap-2">
+                      <FaUser />
+                      <input type="text" value={name} onChange={(e)=>setName(e.target.value)} className="grow !bg-transparent" placeholder="Username" required/>
+                  </label>
 
-                <label className="input p-2 bg-custom-half-gray flex items-center gap-2">
-                    <MdEmail />
-                    <input type="text" value={email} onChange={(e)=>setEmail(e.target.value)} className="grow !bg-transparent" placeholder="Email" required/>
-                </label>
+                  <ProfileImageInput image={photoURL} setImage={setPhotoURL} />
 
-                <PasswordInput password={password} setPassword={setPassword} passwordError={passwordError} setPasswordError={setPasswordError}/>
+                  <label className="input p-2 bg-custom-half-gray flex items-center gap-2">
+                      <MdEmail />
+                      <input type="text" value={email} onChange={(e)=>setEmail(e.target.value)} className="grow !bg-transparent" placeholder="Email" required/>
+                  </label>
 
-                <button type="submit" className="primaryButton !w-full">Sign Up</button>
-            </form>
-        </div>
+                  <PasswordInput password={password} setPassword={setPassword} passwordError={passwordError} setPasswordError={setPasswordError}/>
 
-        {/* Sidebar */}
-        <div className={`p-4 md:p-8 bg-custom-primary flex flex-col justify-center text-center rounded-b-lg sm:rounded-l-none sm:rounded-r-lg`}>
-          <div>
-            <h3 className="">Hello, Friend!</h3>
-            <p className="mb-6">Already have an Account? Sign in with your personal info now!</p>
-
-            <Link to={'/sign-in'} className="outlineButton !rounded-full">
-                Sign In
-            </Link>
+                  <button type="submit" className="primaryButton !w-full">Sign Up</button>
+              </form>
           </div>
-        </div>
 
-      </div>
-    </section>
+          {/* Sidebar */}
+          <div className={`p-4 md:p-8 bg-custom-primary flex flex-col justify-center text-center rounded-b-lg sm:rounded-l-none sm:rounded-r-lg`}>
+            <div>
+              <h3 className="">Hello, Friend!</h3>
+              <p className="mb-2">Already have an Account? Sign in with your personal info now!</p>
+
+              <Link to={'/sign-in'} className="outlineButton !rounded-full inline-block">
+                  Sign In
+              </Link>
+            </div>
+          </div>
+
+        </div>
+      </section>
+    </main>
   );
 }
 

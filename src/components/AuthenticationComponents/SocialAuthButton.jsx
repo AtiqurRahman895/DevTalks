@@ -2,18 +2,37 @@ import { FcGoogle } from "react-icons/fc";
 import { TbBrandGithubFilled } from "react-icons/tb";
 import { FaLinkedinIn } from "react-icons/fa";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router";
+import useNormalAxios from "../../Hooks/useNormalAxios";
+import { useContext } from "react";
+import { AuthContext } from "../../Provider/AuthProvider";
 
 const SocialAuthButton = () => {
-    const handleGoogleSignInBtn=()=>{
-        toast.success("Logged in with Google")
+    const navigate = useNavigate();
+    const normalAxios = useNormalAxios()
+    const { signInWithGoogle } = useContext(AuthContext);
+
+    const handleGoogleSignInBtn=async()=>{
+        try {
+            let userCredential = await signInWithGoogle();
+            await normalAxios.post("/users/addUser", {
+                name:userCredential.user.displayName,
+                photoURL:userCredential.user.photoURL,
+                email: userCredential.user.email,
+            });
+            navigate("/");
+            toast.success(`Sign in successful! Welcome, ${userCredential.user.displayName}!`);
+        } catch (error) {
+            toast.error(error.message ? error.message : error.code);
+        }
     }
 
     const handleGithubSignInBtn=()=>{
-        toast.success("Logged in with Github")
+        toast.info("Sign in with Github is not posible at this moment. Try with Google")
     }
 
     const handleLinkedinSignInBtn=()=>{
-        toast.success("Logged in with Linkedin")
+        toast.info("Sign in with LinkedIn is not posible at this moment. Try with Google")
     }
     return (
         <>

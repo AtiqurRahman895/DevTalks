@@ -22,6 +22,8 @@ import AskQuestion from './components/AskQuestionComponents/AskQuestion';
 import AddBlog from './components/AddBlogComponents/AddBlog';
 import SignIn from './components/AuthenticationComponents/SignIn';
 import SignUp from './components/AuthenticationComponents/SignUp';
+import ForgotPassword from './components/AuthenticationComponents/ForgotPassword';
+import AuthProvider from "./Provider/AuthProvider";
 
 const router = createBrowserRouter([
   {
@@ -86,6 +88,10 @@ const router = createBrowserRouter([
         path: "/sign-up",
         element: <SignUp />,
       },
+      {
+        path: "/forgot-password",
+        element: <ForgotPassword />,
+      },
     ],
   },
   // chat
@@ -112,10 +118,10 @@ createRoot(document.getElementById("root")).render(
   // <StrictMode>
   <QueryClientProvider client={queryClient}>
     <HelmetProvider>
-      {/* <AuthProvider> */}
+      <AuthProvider>
       <ToastContainer position="top-center" />
       <RouterProvider router={router} />
-      {/* </AuthProvider> */}
+      </AuthProvider>
     </HelmetProvider>
   </QueryClientProvider>
   // </StrictMode>

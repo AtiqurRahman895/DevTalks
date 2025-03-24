@@ -4,7 +4,7 @@ function SelectTags({selectedTags, setSelectedTags}) {
     const tags = [
         { label: "javascript", value: "javascript" },
         { label: "html", value: "html" },
-        { label: "react", value: "cherry" }
+        { label: "react", value: "react" }
     ];
 
   return (
