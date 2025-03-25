@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { FaChevronLeft, FaHome } from "react-icons/fa";
-import image from "/download.png";
 import { Link } from "react-router";
+import { TiMessages } from "react-icons/ti";
 
 const SideNav = () => {
   const [open, setOpen] = useState(true);
@@ -81,16 +81,12 @@ const SideNav = () => {
       {/* Sidebar Content */}
       <div>
         {/* Sidebar Title */}
-        <div className="flex gap-x-2 items-center mb-2">
+        <div className="flex gap-x-4 items-center mb-2">
           {/* logo message */}
-          <div className="avatar">
-            <div className="w-14 rounded-full">
-              <img src={image} />
-            </div>
-          </div>
+             <Link to="/"><TiMessages className="text-4xl ml-3"/></Link>
 
           {/* Search Input */}
-          <label className={`input ${!open && "scale-0"} flex items-center`}>
+          <label className={`input ${!open && "scale-0"} flex items-center w-48`}>
             <svg
               className="h-[1em] opacity-50"
               xmlns="http://www.w3.org/2000/svg"

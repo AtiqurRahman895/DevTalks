@@ -20,6 +20,8 @@ import UserInbox from "./components/TextMessage/UserInbox";
 import Dashboard from './components/Dashboard/Dashboard';
 import AskQuestion from './components/AskQuestionComponents/AskQuestion';
 import AddBlog from './components/AddBlogComponents/AddBlog';
+import About from "./components/AboutComponents/About";
+import ContactUs from "./components/ContactUsComponents/ContactUs";
 import SignIn from './components/AuthenticationComponents/SignIn';
 import SignUp from './components/AuthenticationComponents/SignUp';
 import ForgotPassword from './components/AuthenticationComponents/ForgotPassword';
@@ -36,14 +38,27 @@ const router = createBrowserRouter([
         path: "/",
         element: <Home />,
       },
+      // ask question
       {
         path: "/ask-question",
         element: <AskQuestion />
       },
+      // questions
       {
         path: "/questions",
         element: <Questions />,
       },
+      // about
+      {
+        path: "/about",
+        element: <About />,
+      },
+      // contact Us
+      {
+        path: "/contact",
+        element: <ContactUs />,
+      },
+      // profile
       {
         path: "/profile",
         element: <ProfilePage />,
@@ -66,19 +81,21 @@ const router = createBrowserRouter([
           },
         ],
       },
+      // bookmark
       {
         path: "/bookMark",
         element: <BookMark></BookMark>,
       },
+      // quiz
       {
         path: "/quiz",
         element: <QuizComponents></QuizComponents>,
       },
+      // add Blog
       {
         path: "/add-blog",
         element: <AddBlog />
       },
-
       // Authentication
       {
         path: "/sign-in",
@@ -94,6 +111,8 @@ const router = createBrowserRouter([
       },
     ],
   },
+
+
   // chat
   {
     path: "/message",
