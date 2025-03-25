@@ -64,7 +64,6 @@ const UserInbox = () => {
   ];
 
   const inboxUser = users.find((user) => user.name === currentUser);
-  console.log(inboxUser);
 
   return (
     <div className="flex flex-col h-screen">
@@ -84,14 +83,14 @@ const UserInbox = () => {
       </div>
 
        {/* Message Input Field */}
-       <div className="px-3 flex items-center gap-x-3">
+       <div className="px-3 flex items-center gap-x-3 mb-5">
         <input
           type="text"
-          className="flex-1 p-4 rounded-lg border focus:outline-none bg-Custom-half-Gray"
+          className="flex-1 p-4 rounded-lg border focus:outline-none bg-custom-half-gray"
           placeholder="Type a message..."
         />
         <button
-          className="bg-custom-primary text-white p-2 rounded-full hover:bg-green-600"
+          className="bg-custom-primary text-white p-2 rounded-full"
         >
           <FaPaperPlane />
         </button>
