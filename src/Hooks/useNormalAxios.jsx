@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const normalAxios = axios.create({
     baseURL: 'http://localhost:8080',
-    // baseURL: 'https://do-task-server-topaz.vercel.app',
+    // baseURL: 'https://dev-talks-server-blue.vercel.app',
 
 });
 
