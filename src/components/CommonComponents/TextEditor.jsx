@@ -152,7 +152,7 @@ const extensions = [
     }
 
     return (
-      <div className="bg-white text-black p-4 pt-0 rounded-md max-h-96 overflow-y-auto overflow-x-hidden relative !z-10">
+      <div className="bg-white text-black p-4 pt-0 rounded-md max-h-96 sm:max-h-[35rem] overflow-y-auto overflow-x-hidden relative !z-10">
         <EditorProvider slotBefore={<MenuBar />} extensions={extensions} content={editorContents}
             onUpdate={ ({editor})=> handleUpdate(editor) }
         >

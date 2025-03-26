@@ -14,9 +14,10 @@ const useGetRelativeTime = () => {
         const diffMonths = Math.floor(diffDays / 30); // Approximate: 30 days per month
         const diffYears = Math.floor(diffDays / 365); // Approximate: 365 days per year
       
-        if (diffSeconds < 60) {
-          return `${diffSeconds} second${diffSeconds === 1 ? '' : 's'} ago`;
-        } else if (diffMinutes < 60) {
+        // if (diffSeconds < 60) {
+        //   return `${diffSeconds} second${diffSeconds === 1 ? '' : 's'} ago`;
+        // } else
+         if (diffMinutes < 60) {
           return `${diffMinutes} minute${diffMinutes === 1 ? '' : 's'} ago`;
         } else if (diffHours < 24) {
           return `${diffHours} hour${diffHours === 1 ? '' : 's'} ago`;

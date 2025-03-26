@@ -20,7 +20,7 @@ const PreviewBlog = ({showPreview, title, shortDescription, createdAt, selectedT
                 <div className="flex flex-wrap gap-1">
                     <div className='flex items-center gap-1'>
                         <HiOutlineCalendarDateRange />
-                        <p>6/12/2024,</p>
+                        <p>{new Date(createdAt).toLocaleDateString()},</p>
                     </div>
                     <div className='flex items-center gap-1'>
                         <IoMdTime /> 
@@ -40,7 +40,7 @@ const PreviewBlog = ({showPreview, title, shortDescription, createdAt, selectedT
 
                 <img src={image?image:""} alt="Blog cover image" className="bg-custom-primary max-w-full m-auto !my-6" />
 
-                <div ref={highlightRef} className="!whitespace-pre-wrap editorContents" dangerouslySetInnerHTML={{ __html: editorContents.LongDescription }}></div>
+                <div ref={highlightRef} className="!whitespace-pre-wrap editorContents" dangerouslySetInnerHTML={{ __html: editorContents }}></div>
 
             </div>
 
