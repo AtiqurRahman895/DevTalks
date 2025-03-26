@@ -1,8 +1,11 @@
+import { useContext } from "react";
 import { IoMenu } from "react-icons/io5";
 import { Link } from "react-router"; 
+import { AuthContext } from "../../Provider/AuthProvider";
+import { TiMessages } from "react-icons/ti";
 
 const Navbar = ({menuOpen, setMenuOpen}) => {
-
+    const {user,signOutUser} = useContext(AuthContext)
     return (
         <section className="sticky top-0 z-50 w-full pt-3">
             <div className="container blurNavbar px-6 rounded-full">
@@ -24,12 +27,18 @@ const Navbar = ({menuOpen, setMenuOpen}) => {
                     </div>
 
 
-                    <div className="hidden lg:flex">
-                        <Link to="/login">
-                            <button className="primaryButton">
-                                Login
+                    <div className="hidden lg:flex lg:items-center gap-5">
+                        <Link to="/message"><TiMessages className="text-3xl"/></Link>
+                        {
+                            user?
+                            <button onClick={()=>signOutUser()} className="primaryButton">
+                                Sign out
                             </button>
-                        </Link>
+                            :
+                            <Link to="/sign-in" className="primaryButton">
+                                Sign in
+                            </Link>
+                        }
                     </div>
 
 

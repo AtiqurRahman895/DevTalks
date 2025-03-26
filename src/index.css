@@ -37,7 +37,7 @@
     h6 {
         @apply text-[1rem];
     }
-
+     
     p,
     span,
     li,
@@ -99,61 +99,127 @@
 
 
 
-/* Tiptap Rich Text Editor */
+    /* Tiptap Rich Text Editor */
 
-/* Basic editor styles */
-.tiptap:first-child {
-    margin-top: 2rem !important;
-    outline: none !important;
-}
+    /* Basic editor styles */
+    .tiptap:first-child {
+        margin-top: 2rem !important;
+        outline: none !important;
+    }
 
-.tiptap p.is-empty::before {
-    content: attr(data-placeholder);
-    color: #999;
-    font-style: italic;
-  }
+    .tiptap p.is-empty::before {
+        content: attr(data-placeholder);
+        color: #999;
+        font-style: italic;
+    }
 
-/* Code and preformatted text styles */
-pre {
-    background: #767582; /* Dark background for code blocks */
-    border-radius: 0.5rem;
-    color: white;
-    font-family: 'JetBrainsMono', monospace;
-    margin: 1rem 0;
-    padding: 0.75rem 1rem;
-    white-space: pre-wrap; /* Allow line wrapping */
-    word-wrap: break-word;
-}
+    /* Code and preformatted text styles */
+    p,h4,h6, li, pre {
+        white-space: pre-wrap;
+        word-wrap: break-word;
+    }
 
-code {
-    background: none; /* Remove background color */
-    color: inherit; /* Inherit text color from parent */
-    font-size: 0.85rem;
-    padding: 0; /* Remove padding */
-}
+    pre {
+        background: #2b2b2b;
+        border-radius: 0.5rem;
+        color: white;
+        font-family: 'JetBrainsMono', monospace;
+        margin: 1rem 0;
+        padding: 0.75rem 1rem;
 
-/* Blockquote styles */
-blockquote {
-    border-left: 3px solid #767582;
-    margin: 1rem 0;
-    padding-left: 1rem;
-}
+    }
+    
+    code {
+        background: none;
+        color: inherit;
+        font-size: 0.85rem;
+        padding: 0;
+        tab-size: 4; /* Consistent tab width */
+        display: block; /* Ensures block-level rendering */
+    }
 
-/* Horizontal rule */
-hr {
-    border: none;
-    border-top: 1px solid #767582;
-    margin: 1rem 0;
-}
+    /* Blockquote styles */
+    blockquote {
+        border-left: 3px solid #767582;
+        margin: 1rem 0;
+        padding-left: 1rem;
+    }
 
-/* Multi Select Dropdown */
+    /* Horizontal rule */
+    hr {
+        border: none;
+        border-top: 1px solid #767582;
+        margin: 1rem 0;
+    }
 
-.multi-select-dropdown .dropdown-option {
-    display: flex !important;
-    align-items: center !important;
-    gap: 6px !important; /* Reduce the gap between checkbox and text */
-    padding: 4px 8px !important; /* Adjust padding */
-  }
+    .tiptap, .editorContents{
+        line-height: 1.6rem;
+    }
+    .tiptap p, .editorContents p{
+        margin-bottom: 8px !important;
+    }
+    .tiptap h4, .editorContents h4{
+        margin-block: 20px !important;
+    }
+    .tiptap h5, .editorContents h5{
+        margin-block: 12px !important;
+    }
+    .tiptap h6, .editorContents h6{
+        margin-block: 8px !important;
+    }
+
+
+    /* Indentation styles for data-indent */
+    [data-indent="0"], .tt-indent-0 {
+    @apply ml-0;
+    }
+    [data-indent="1"], .tt-indent-1 {
+    @apply ml-5; /* 20px ≈ 5 * 4px (Tailwind's default spacing unit) */
+    }
+    [data-indent="2"], .tt-indent-2 {
+    @apply ml-10;
+    }
+    [data-indent="3"], .tt-indent-3 {
+    @apply ml-[60px];
+    }
+    [data-indent="4"], .tt-indent-4 {
+    @apply ml-20;
+    }
+    [data-indent="5"], .tt-indent-5 {
+    @apply ml-[100px];
+    }
+    [data-indent="6"], .tt-indent-6 {
+    @apply ml-[120px];
+    }
+    [data-indent="7"], .tt-indent-7 {
+    @apply ml-[140px];
+    }
+    [data-indent="8"], .tt-indent-8 {
+    @apply ml-40;
+    }
+    [data-indent="9"], .tt-indent-9 {
+        @apply ml-40;
+    }
+
+
+      
+
+    /* Multi Select Dropdown */
+
+    .multi-select-dropdown .dropdown-option {
+        display: flex !important;
+        align-items: center !important;
+        gap: 6px !important; /* Reduce the gap between checkbox and text */
+        padding: 4px 8px !important; /* Adjust padding */
+    }
+
+    /* Hide password visibility icon on Edge and some Chromium browsers */
+    input::-ms-reveal,
+    input::-ms-clear,
+    input::-webkit-credentials-auto-fill-button {
+        display: none !important;
+    }
+
       
 }
 

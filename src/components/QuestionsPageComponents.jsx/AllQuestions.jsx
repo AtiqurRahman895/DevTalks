@@ -1,5 +1,6 @@
 import React from "react";
 import QuestionCard from "../CommonComponents/QuestionCard";
+import SectionBanner from "../CommonComponents/SectionBanner";
 
 const allQuestions = [
   {

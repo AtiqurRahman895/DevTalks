@@ -1,26 +1,29 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import TextEditor from '../CommonComponents/TextEditor';
 import SelectTags from '../CommonComponents/SelectTags';
 import { toast } from 'react-toastify';
 import useWordCount from '../../Hooks/useWordCount';
-import ImageInput from '../CommonComponents/ImageInput';
+import CoverImageInput from '../CommonComponents/CoverImageInput';
+import PreviewBlog from './PreviewBlog';
+
 
 const AddBlogForm = () => {
     const [showPreview, setShowPreview] = useState(false)
 
     const [title, setTitle] = useState("")
     const [shortDescription, setShortDescription] = useState("")
-    const [editorContents, setEditorContents] = useState({});
+    const [editorContents, setEditorContents] = useState({LongDescription:""});
     const [selectedTags, setSelectedTags] = useState([])
     const [image, setImage] = useState()
     const {htmlToPlainText, countWordsAndChars} = useWordCount()
+
 
     const verify=()=>{
         const {wordCount:titleTextCount}=countWordsAndChars(title)
         const {wordCount:shortDescriptionCount}=countWordsAndChars(shortDescription)
 
         const LongDescription = editorContents.LongDescription;
-        const plainLongDescriptionText= htmlToPlainText(LongDescription)
+        const plainLongDescriptionText= htmlToPlainText(LongDescription||"")
         const {wordCount:longDescriptionTextCount}=countWordsAndChars(plainLongDescriptionText)
         
         if (titleTextCount < 3){
@@ -51,6 +54,7 @@ const AddBlogForm = () => {
         setShowPreview(!showPreview)
     }
 
+
     const handleSubmit = () => {
         const allRight=verify()
         if(!allRight){
@@ -71,37 +75,34 @@ const AddBlogForm = () => {
 
                 <div className="space-y-6">
                     <div className="space-y-3">
-                        <h5 className='text-custom-primary'>Type Blog Title</h5>
+                        <h5 className='text-custom-primary'>Type blog title</h5>
                         <input type='text' value={title} onChange={e=>setTitle(e.target.value)} className="input w-full focus-within:outline-none focus-within:border-none bg-white text-black" placeholder="Type title..."></input>
                     </div>
 
                     <div className="space-y-3">
-                        <h5 className='text-custom-primary'>Type Blog Title</h5>
+                        <h5 className='text-custom-primary'>Shortly describe blog</h5>
                         <textarea value={shortDescription} rows={3} onChange={e=>setShortDescription(e.target.value)} className="textarea w-full focus-within:outline-none focus-within:border-none bg-white text-black" placeholder="Type short description..."></textarea>
                     </div>
 
                     <div className="space-y-3">
-                        <h5 className='text-custom-primary'>Blog Tags</h5>
+                        <h5 className='text-custom-primary'>Blog tags</h5>
                         <SelectTags selectedTags={selectedTags} setSelectedTags={setSelectedTags}/>
                     </div>
 
                     <div className="space-y-1 text-center [&_*]:m-auto">
-                        <h5 className='text-custom-primary w-fit'>Add Blog Image</h5>
-                        <ImageInput image={image} setImage={setImage}/>
+                        <h5 className='text-custom-primary w-fit'>Add blog image</h5>
+                        <CoverImageInput image={image} setImage={setImage}/>
                     </div>
 
                     <div className="space-y-3">
-                        <h5 className='text-custom-primary'>Type Long Description</h5>
-                        <TextEditor label="LongDescription" setEditorContents={setEditorContents} />
+                        <h5 className='text-custom-primary'>Type long description</h5>
+                        <TextEditor label="LongDescription" setEditorContents={setEditorContents} editorContents={editorContents.LongDescription} />
                     </div>
 
 
                 </div>
                 :
-                <div className="space-y-3">
-                    <h5 className='text-custom-primary'>Preview Of The Blog</h5>
-                    <div className="!whitespace-pre-wrap" dangerouslySetInnerHTML={{ __html: editorContents.LongDescription }}></div>
-                </div> 
+                <PreviewBlog showPreview={showPreview} title={title} shortDescription={shortDescription} createdAt={new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)} selectedTags={selectedTags} image={image} editorContents={editorContents.LongDescription} />
             }
 
 
