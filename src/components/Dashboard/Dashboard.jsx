@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { FaBars, FaTimes } from 'react-icons/fa';
-import { Link } from 'react-router';
+import { Link, Outlet } from 'react-router';
 
 const Dashboard = () => {
 
@@ -98,8 +98,7 @@ const Dashboard = () => {
 
                     {/* Main content */}
                     <div className="p-4 md:ml-4">
-                        <h1 className="text-2xl font-bold">Main Content</h1>
-                        <p>Your content goes here...</p>
+                         <Outlet />
                     </div>
                 </div>
             </div>
