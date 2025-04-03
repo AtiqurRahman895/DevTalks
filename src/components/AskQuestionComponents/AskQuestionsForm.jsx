@@ -1,13 +1,17 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import TextEditor from '../CommonComponents/TextEditor';
 import SelectTags from '../CommonComponents/SelectTags';
 import { toast } from 'react-toastify';
 import useWordCount from '../../Hooks/useWordCount';
 import PreviewQuestion from './PreviewQuestion';
+import { AuthContext } from '../../Provider/AuthProvider';
+import useSecureAxios from '../../Hooks/useSecureAxios';
 
 const AskQuestionsForm = () => {
     const [showPreview, setShowPreview] = useState(false)
-    
+    const {user} = useContext(AuthContext)
+    const secureAxios= useSecureAxios() 
+
     const [title, setTitle] = useState("")
     const [editorContents, setEditorContents] = useState({question:""});
     const [selectedTags, setSelectedTags] = useState([])
@@ -20,7 +24,10 @@ const AskQuestionsForm = () => {
         const plainQuestionText= htmlToPlainText(question)
         const {wordCount:questionTextCount}=countWordsAndChars(plainQuestionText)
         
-        if (titleTextCount < 5){
+        if (!user){
+            toast.warning(`Currently you are not signned in! Please sign in first to ask question.`);
+            return;
+        }else if (titleTextCount < 5){
             toast.warning(`Question title is required! Please lenghten Question title to 5 or more word! (Currently has ${titleTextCount} words)`);
             return;
         }else if(questionTextCount < 10) {
@@ -43,7 +50,7 @@ const AskQuestionsForm = () => {
         setShowPreview(!showPreview)
     }
 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         const allRight=verify()
         if(!allRight){
             return
@@ -51,9 +58,23 @@ const AskQuestionsForm = () => {
 
         const question = editorContents.question;
         const tags = selectedTags.map((tag) => tag.value);
-        console.log(title, question, tags)
-        toast.success("worked!")
+        const createdAt= new Date()
+        const asker= user?.displayName
+        const askerEmail= user?.email
+
+        const credentials={asker, askerEmail, title, question, tags, createdAt}
         
+        try {
+            await secureAxios.post("/questions/creatQuestion",credentials)
+            toast.success("You have successfully created a question.")
+            setShowPreview(false)
+            setTitle("")
+            setEditorContents({question:""})
+            setSelectedTags([])
+        } catch (error) {
+            console.log(`Unable to creat question now: ${error}`)
+            toast.info(`Unable to creat question now, try again later`)
+        }
     };
 
     return (
