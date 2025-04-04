@@ -11,7 +11,7 @@ const QuestionCard = ({ question }) => {
       className="py-6 px-4 bg-custom-half-gray border border-custom-half-gray rounded-lg space-y-2"
     >
       <Link
-        to={`question/${question._id}`}
+        to={`/question/${question._id}`}
         className="text-custom-primary hover:underline cursor-pointer"
       >
         <h5>{question.title}</h5>
@@ -22,10 +22,10 @@ const QuestionCard = ({ question }) => {
         <div className="text-custom-gray flex gap-3">
 
           <Link to="/profile" className="flex items-center gap-1">
-            <FaRegUser className="text-white" />
-            <b className="cursor-pointer hover:underline">
-             {question.asker}
-            </b>
+              <FaRegUser className="text-white" />
+              <b className="cursor-pointer hover:underline">
+              {question.asker}
+              </b>
           </Link>
 
           <div className="flex items-center gap-1">
