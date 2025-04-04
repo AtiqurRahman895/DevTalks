@@ -3,7 +3,7 @@ import PageTitle from "../CommonComponents/PageTitle";
 import NotFound from "../CommonComponents/NotFound";
 import Loading from "../AuthenticationComponents/Loading"
 import AllQuestions from "./AllQuestions";
-import SearchBar from "./SearchBar";
+import SearchBar from "../CommonComponents/SearchBar";
 import { useMemo } from "react";
 import useNormalAxios from "../../Hooks/useNormalAxios";
 import UseUrlQuery from "../../Hooks/UseUrlQuery";

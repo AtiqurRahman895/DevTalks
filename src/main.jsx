@@ -27,6 +27,8 @@ import SignIn from './components/AuthenticationComponents/SignIn';
 import SignUp from './components/AuthenticationComponents/SignUp';
 import ForgotPassword from './components/AuthenticationComponents/ForgotPassword';
 import AuthProvider from "./Provider/AuthProvider";
+import { normalAxios } from './Hooks/useNormalAxios';
+import Question from './components/QuestionComponent.jsx/Question';
 
 const router = createBrowserRouter([
   {
@@ -48,6 +50,14 @@ const router = createBrowserRouter([
       {
         path: "/questions",
         element: <Questions />,
+      },
+      {
+        path: "/question/:_id",
+        loader: async({params})=>{
+          const res = await normalAxios.get(`/questions/question/${params._id}`)
+          return res.data
+        },
+        element: <Question />,
       },
       // about
       {

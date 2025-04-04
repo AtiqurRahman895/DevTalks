@@ -20,7 +20,6 @@ const Dashboard = () => {
                 <div>
 
                     <button onClick={toggleSidebar}>
-
                         {
                             isOpen ? <FaTimes size={24} /> : <FaBars size={24} />
                         }
