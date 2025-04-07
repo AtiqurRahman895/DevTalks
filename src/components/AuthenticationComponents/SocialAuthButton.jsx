@@ -7,7 +7,8 @@ import useNormalAxios from "../../Hooks/useNormalAxios";
 import { useContext } from "react";
 import { AuthContext } from "../../Provider/AuthProvider";
 import Swal from "sweetalert2";
-import img_wishlist from '../../../public/img -wishlist.png'
+ 
+import img_wishlist from '../../../public/img-wishlist.gif';
 
 const SocialAuthButton = () => {
     const navigate = useNavigate();
