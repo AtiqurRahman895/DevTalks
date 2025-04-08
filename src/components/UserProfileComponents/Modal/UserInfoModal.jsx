@@ -1,7 +1,16 @@
 import React from "react";
+import { useForm } from "react-hook-form";
 import { FaMapMarkerAlt, FaEnvelope, FaOrcid, FaLinkedin, FaTwitter } from "react-icons/fa";
 
-const UserInfoModal = ({ userDetails }) => {
+const UserInfoModal = ({ userDetails }) => {    
+
+    const {
+        register,
+        handleSubmit,
+        watch,
+        formState: { errors },
+      } = useForm()
+
   return (
     <>
       <dialog id={`my_modal_${userDetails?.name}`} className="modal">
@@ -24,7 +33,7 @@ const UserInfoModal = ({ userDetails }) => {
               <label className="block text-sm font-medium mb-1">Name</label>
               <input
                 type="text"
-                name="name"
+                
                 className="w-full p-2 rounded bg-gray-700 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 placeholder="Enter your name"
               />
