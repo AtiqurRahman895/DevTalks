@@ -1,5 +1,5 @@
-import React, { useContext, useEffect, useState } from "react";
-import { Link } from "react-router";
+import React, { useEffect, useState } from "react";
+import { Link, useParams } from "react-router";
 import { secureAxios } from "../../../Hooks/useSecureAxios";
 import AuthProvider, { AuthContext } from "../../../Provider/AuthProvider";
 import Loading from "../../AuthenticationComponents/Loading";
@@ -19,18 +19,19 @@ const PfpAllQuestion = () => {
   //     tags: ["JavaScript", "Closures", "Functions"],
   //   },
   // ];
-  const { user } = useContext(AuthContext);
+  const params = useParams()
+  console.log(params)
 
   const [questions, setQuestions] = useState([]);
   const [loader, setLoader] = useState(false);
 
   useEffect(() => {
     const fetchAllQuestion = async () => {
-      if (user?.email) {
+      if (params?.userName) {
         try {
           setLoader(true)
           const res = await secureAxios.get(
-            `/questions/questions?email=${user?.email}`
+            `/questions/questions?asker=${params?.userName}`
           );
           console.log(res.data);
           setQuestions(res.data)
@@ -44,7 +45,7 @@ const PfpAllQuestion = () => {
     };
 
     fetchAllQuestion();
-  }, [user?.email]);
+  }, [params?.userName]);
 
   if (questions.length === 0) {
     return (
@@ -74,7 +75,7 @@ const PfpAllQuestion = () => {
             className="py-6 px-4 bg-custom-half-gray border border-custom-half-gray rounded-lg space-y-2"
           >
             <Link
-              to="#"
+              to={`/question/${question._id}`}
               className="text-custom-primary hover:underline cursor-pointer"
             >
               <h5>{question.title}</h5>

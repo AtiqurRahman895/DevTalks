@@ -18,7 +18,7 @@ const SocialAuthButton = () => {
             await normalAxios.post("/users/addUser", {
                 name:userCredential.user.displayName,
                 photoURL:userCredential.user.photoURL,
-                email: userCredential.user.email,
+                email: userCredential.user.email,     
             });
             navigate("/");
             toast.success(`Sign in successful! Welcome, ${userCredential.user.displayName}!`);

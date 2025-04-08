@@ -7,16 +7,14 @@ import {
   FaBuilding,
 } from "react-icons/fa";
 
-
-
-const ProfileLinks = ({userDetails}) => {
-
+const ProfileLinks = ({ userDetails }) => {
+  // Define the profile data array
   const profileData = [
     { icon: <FaMapMarkerAlt />, text: userDetails?.location, link: "" },
     {
       icon: <FaEnvelope />,
       text: userDetails?.email,
-      link: "mailto:jhonwick434@gmail.com.",
+      link: `mailto:${userDetails?.email || ""}`,
     },
     {
       icon: <FaBuilding />,
@@ -34,29 +32,39 @@ const ProfileLinks = ({userDetails}) => {
       link: userDetails?.facebookLink,
     },
   ];
+
+  // Check if all fields are empty or undefined
+  const hasProfileData = profileData.map((item) => item.text);
+  // console.log(hasProfileData)
+  // If no data is provided, don't render the section
+  if (!hasProfileData) {
+    return null;
+  }
+
   return (
     <div className="text-white rounded-lg w-full mt-2">
-      {profileData.map((item, index) => (
-        <div
-          key={index}
-          className="flex items-center space-x-3 py-2 border-b border-gray-700 last:border-b-0"
-        >
-          <span className="text-lg">{item.icon}</span>
-          {item.link ? (
-            <a
-              href={item.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-blue-500 hover:underline"
-            >
-              {item.text}
-            </a>
-          ) : (
-            <span>{item.text}</span>
-          )}
-        </div>
-      ))}
-      
+      {profileData.map((item, index) =>
+        item.text ? ( 
+          <div
+            key={index}
+            className="flex items-center space-x-3 py-2 border-b border-gray-700 last:border-b-0"
+          >
+            <span className="text-lg">{item.icon}</span>
+            {item.link ? (
+              <a
+                href={item.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-blue-500 hover:underline"
+              >
+                {item.text}
+              </a>
+            ) : (
+              <span>{item.text}</span>
+            )}
+          </div>
+        ) : null
+      )}
     </div>
   );
 };

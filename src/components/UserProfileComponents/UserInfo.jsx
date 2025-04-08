@@ -7,9 +7,10 @@ import UserInfoModal from "./Modal/UserInfoModal";
 
 const UserInfo = ({ userDetails, setUserDetails }) => {
   const { user } = useContext(AuthContext);
+  console.log(user)
   const isCurrentUser = user?.email === userDetails?.email
   // console.log(user.email);
-  console.log(userDetails)
+  // console.log(userDetails)
   // console.log(isCurrentUser)
 
   return (
@@ -17,7 +18,7 @@ const UserInfo = ({ userDetails, setUserDetails }) => {
       {/* user Information */}
       <h2 className="md:text-left text-center">{userDetails?.name}</h2>
       <h5 className="md:text-left text-center text-custom-primary">
-        Frontend Developer
+        {userDetails?.profession ? userDetails?.profession : null}
       </h5>
       {/* Message and Add friend button only shows in small devices */}
       <ActionButton className="md:hidden justify-center mt-4" />
