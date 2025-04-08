@@ -11,8 +11,6 @@ import { useParams } from 'react-router'
 const ProfilePage = () => {
   const param = useParams()
   // console.log(param.userName)
-  // const {user} = useContext(AuthContext);
-  // console.log(user);
   const [userDetails, setUserDetails] = useState(null);
 
   useEffect(() => {
@@ -39,7 +37,7 @@ const ProfilePage = () => {
 
         <div className='flex md:flex-row flex-col items-start gap-8 md:mt-5'>
             {/* user information */}
-            <UserInfo user={userDetails} />
+            <UserInfo userDetails={userDetails} />
             {/* user all activity */}
             <ProfileLayout />
         </div>
