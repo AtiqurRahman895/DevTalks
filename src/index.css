@@ -23,7 +23,7 @@
         @apply text-[clamp(1.75rem,1.1578947368421053rem+2.9605263157894735vw,4rem)];
     }
     h2 {
-            @apply text-[clamp(1.7rem,1.3285714285714285rem+1.8571428571428572vw,3rem)];
+        @apply text-[clamp(1.7rem,1.3285714285714285rem+1.8571428571428572vw,3rem)];
     }
     h3 {
         @apply text-[clamp(1.6rem,1.342857142857143rem+1.2857142857142856vw,2.5rem)] ;

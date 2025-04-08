@@ -1,6 +1,6 @@
 import React from "react";
 
-const UserBanner = () => {
+const UserBanner = ({user}) => {
   return (
     <div className="relative">
       {/* user banner */}
@@ -12,8 +12,8 @@ const UserBanner = () => {
 
       {/* user profile photo*/}
       <div className="avatar absolute lg:-bottom-24 md:-bottom-16 sm:-bottom-7 -bottom-10 md:left-10 sm:left-20 left-[32%]">
-        <div className="lg:w-60 md:w-40 w-32 rounded-full border-4 border-custom-primary">
-          <img src="https://i.pinimg.com/736x/92/6c/8e/926c8e161cde3909dcd0f54fa1ff9483.jpg" />
+        <div className="lg:w-60 md:w-40 w-32 rounded-full border-4 object-cover border-custom-primary">
+          <img src={user?.photoURL} className="" />
         </div>
       </div>
     </div>

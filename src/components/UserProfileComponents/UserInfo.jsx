@@ -3,11 +3,11 @@ import ProfileLinks from "./ProfileLinks";
 import UserBadge from "./UserBadge";
 import ActionButton from "./ActionButton";
 
-const UserInfo = () => {
+const UserInfo = ({user}) => {
   return (
     <div className="lg:w-96 lg:ml-10 md:ml-8 lg:mt-20 md:mt-12 mt-10">
       {/* user Information */}
-      <h2 className="md:text-left text-center">Jhon Wick</h2>
+      <h2 className="md:text-left text-center">{user?.name}</h2>
       <h5 className="md:text-left text-center text-custom-primary">
         Frontend Developer
       </h5>

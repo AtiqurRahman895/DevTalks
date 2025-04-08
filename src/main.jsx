@@ -20,12 +20,15 @@ import UserInbox from "./components/TextMessage/UserInbox";
 import Dashboard from './components/Dashboard/Dashboard';
 import AskQuestion from './components/AskQuestionComponents/AskQuestion';
 import AddBlog from './components/AddBlogComponents/AddBlog';
+import Admin_Panel from "./components/Dashboard/Admin_Panel/Admin_Panel";
 import About from "./components/AboutComponents/About";
 import ContactUs from "./components/ContactUsComponents/ContactUs";
 import SignIn from './components/AuthenticationComponents/SignIn';
 import SignUp from './components/AuthenticationComponents/SignUp';
 import ForgotPassword from './components/AuthenticationComponents/ForgotPassword';
 import AuthProvider from "./Provider/AuthProvider";
+import { normalAxios } from './Hooks/useNormalAxios';
+import Question from './components/QuestionComponent.jsx/Question';
 
 const router = createBrowserRouter([
   {
@@ -48,6 +51,14 @@ const router = createBrowserRouter([
         path: "/questions",
         element: <Questions />,
       },
+      {
+        path: "/question/:_id",
+        loader: async({params})=>{
+          const res = await normalAxios.get(`/questions/question/${params._id}`)
+          return res.data
+        },
+        element: <Question />,
+      },
       // about
       {
         path: "/about",
@@ -60,7 +71,7 @@ const router = createBrowserRouter([
       },
       // profile
       {
-        path: "/profile",
+        path: "/profile/:userName",
         element: <ProfilePage />,
         children: [
           {
@@ -68,15 +79,15 @@ const router = createBrowserRouter([
             element: <PfpAllQuestion />,
           },
           {
-            path: "/profile/questions",
+            path: "questions",
             element: <PfpAllQuestion />,
           },
           {
-            path: "/profile/answers",
+            path: "answers",
             element: <PfpAllAnswer />,
           },
           {
-            path: "/profile/badges",
+            path: "badges",
             element: <PfpAllBadges />,
           },
         ],
@@ -127,7 +138,14 @@ const router = createBrowserRouter([
   // dashboard
   {
     path:'/dashboard',
-    element:<Dashboard></Dashboard>
+    element:<Dashboard></Dashboard>,
+    children:[
+      {
+        path:'/dashboard',
+        element:<Admin_Panel></Admin_Panel>
+      }
+    ]
+
   }
 ]);
 
