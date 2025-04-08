@@ -6,6 +6,8 @@ import SocialAuthButton from "./SocialAuthButton";
 import PasswordInput from "./PasswordInput";
 import { toast } from "react-toastify";
 import { AuthContext } from "../../Provider/AuthProvider";
+import Swal from 'sweetalert2';
+import 'sweetalert2/dist/sweetalert2.min.css';
 
 const SignIn =()=>{
   const navigate = useNavigate();
@@ -18,10 +20,20 @@ const SignIn =()=>{
 
     try {
       const userCredential = await signInUser(email, password)
-      navigate("/");
+      
+
+     
+      
+
       toast.success(
         `Sign in successful! Welcome, ${userCredential.user.displayName}!`
       );
+      navigate("/");
+      
+      
+    
+      
+
     } catch (error) {
       toast.error(error.message ? error.message : error.code);
     }
