@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import {
   FaMapMarkerAlt,
@@ -13,7 +13,8 @@ import { toast } from "react-toastify";
 import FormField from "./FormField";
 import SocialMediaField from "./SocialMediaField";
 
-const UserInfoModal = ({ userDetails }) => {
+const UserInfoModal = ({ userDetails, setUserDetails }) => {
+  const [loader, setLoader] = useState(false);
   const {
     register,
     handleSubmit,
@@ -56,22 +57,26 @@ const UserInfoModal = ({ userDetails }) => {
     }
   }, [userDetails, reset]);
 
-
   const onSubmit = async (data) => {
     try {
+      setLoader(true);
       const res = await secureAxios.put(
         `/users/user/${userDetails.email}`,
         data
       );
       if (res.data.modifiedCount > 0) {
+        setUserDetails((prev) => ({ ...prev, ...data }));
         toast.success("User Details Updated");
       } else {
         toast.info("No changes were made to the user details");
       }
       document.getElementById(`my_modal_${userDetails?.name}`).close(); // Close the modal
     } catch (error) {
+      document.getElementById(`my_modal_${userDetails?.name}`).close();
       console.error("Error updating user:", error);
       toast.error("Failed to update user details");
+    } finally {
+      setLoader(false);
     }
   };
 
@@ -184,10 +189,11 @@ const UserInfoModal = ({ userDetails }) => {
             {/* Submit Button */}
             <div className="text-center">
               <button
+                disabled={loader}
                 type="submit"
                 className="btn bg-custom-primary text-white hover:bg-custom-half-primary px-6 py-2 rounded-lg shadow-md hover:shadow-lg transition-all"
               >
-                Save Changes
+                {loader? "Updating...." : "Save Changes"}
               </button>
             </div>
           </form>

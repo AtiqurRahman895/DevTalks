@@ -19,7 +19,6 @@ const ProfilePage = () => {
         try {
           const res = await normalAxios.get(`/users/profile/${param?.userName}`);
           setUserDetails(res.data);
-          console.log(res.data);
         } catch (err) {
           console.error("Error fetching user details:", err);
         }
@@ -37,7 +36,7 @@ const ProfilePage = () => {
 
         <div className='flex md:flex-row flex-col items-start gap-8 md:mt-5'>
             {/* user information */}
-            <UserInfo userDetails={userDetails}/>
+            <UserInfo userDetails={userDetails} setUserDetails={setUserDetails}/>
             {/* user all activity */}
             <ProfileLayout />
         </div>

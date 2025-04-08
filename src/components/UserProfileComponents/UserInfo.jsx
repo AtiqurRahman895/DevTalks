@@ -5,11 +5,11 @@ import ActionButton from "./ActionButton";
 import { AuthContext } from "../../Provider/AuthProvider";
 import UserInfoModal from "./Modal/UserInfoModal";
 
-const UserInfo = ({ userDetails }) => {
+const UserInfo = ({ userDetails, setUserDetails }) => {
   const { user } = useContext(AuthContext);
   const isCurrentUser = user?.email === userDetails?.email
   // console.log(user.email);
-  // console.log(userDetails.email)
+  console.log(userDetails)
   // console.log(isCurrentUser)
 
   return (
@@ -22,9 +22,7 @@ const UserInfo = ({ userDetails }) => {
       {/* Message and Add friend button only shows in small devices */}
       <ActionButton className="md:hidden justify-center mt-4" />
       <p className="pt-3">
-        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Tempore
-        provident corporis et tenetur debitis laudantium sed enim sit
-        architecto. Aspernatur!
+        {userDetails?.bio}
       </p>
 
       {/* social links */}
@@ -39,7 +37,7 @@ const UserInfo = ({ userDetails }) => {
       {/* badges or achievement */}
       <UserBadge />
 
-      <UserInfoModal userDetails={userDetails} />
+      <UserInfoModal userDetails={userDetails} setUserDetails={setUserDetails}/>
     </div>
   );
 };
