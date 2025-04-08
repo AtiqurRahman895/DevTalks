@@ -3,11 +3,10 @@ import useHighlightCodeBlock from '../../Hooks/useHighlightCodeBlock';
 import useGetRelativeTime from '../../Hooks/useGetRelativeTime';
 import { Link } from 'react-router';
 import { FaRegClock, FaRegUser, FaReply } from 'react-icons/fa';
-import { BiSolidDownArrow, BiSolidUpArrow } from 'react-icons/bi';
 import { Tooltip } from 'react-tooltip';
 import ResponseTextEditor from './ResponseTextEditor';
 import useGetResponses from '../../Hooks/useGetResponses';
-import Loading from '../AuthenticationComponents/Loading';
+import UpvoteDownvoteButtons from './UpvoteDownvoteButtons';
 
 const ResponseCard = ({responseTo, setResponseTo, responseData }) => {
     const highlightRef = useRef(null);
@@ -52,29 +51,7 @@ const ResponseCard = ({responseTo, setResponseTo, responseData }) => {
 
                         {
                             (responseType==="answer") &&
-                            <>
-                                <div className="upvote p-2 duration-500 text-white hover:text-black hover:bg-white border border-custom-gray hover:border-custom-primary rounded-full">
-                                    <BiSolidUpArrow className="" />
-                                </div>
-
-                                <Tooltip
-                                    anchorSelect=".upvote"
-                                    className="!bg-custom-primary"
-                                >
-                                    Upvote, if this question is helpful and well-written
-                                </Tooltip>
-
-                                <div className="downvote p-2 duration-500 text-white hover:text-black hover:bg-white border border-custom-gray hover:border-custom-primary rounded-full">
-                                    <BiSolidDownArrow className="" />
-                                </div>
-
-                                <Tooltip
-                                    anchorSelect=".downvote"
-                                    className="!bg-custom-primary"
-                                >
-                                    Downvote, if this question is unclear, or unhelpful
-                                </Tooltip>
-                            </>
+                            <UpvoteDownvoteButtons voteOn={_id} totalVotes={responseData.votes||0} />
                         }
 
 
@@ -104,7 +81,7 @@ const ResponseCard = ({responseTo, setResponseTo, responseData }) => {
             {
                     (!loading && responses.length!==0) &&
 
-                    <div className="pl-4 pt-4 border-l border-custom-primary space-y-5">
+                    <div className="pl-2 xs:pl-4 pt-4 border-l border-custom-primary space-y-5">
                         {responses.map((response,index)=>(
                             <ResponseCard key={index} responseTo={responseTo} setResponseTo={setResponseTo} responseData={response} refetch={refetch} />
                         ))}

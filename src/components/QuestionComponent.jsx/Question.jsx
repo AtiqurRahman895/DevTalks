@@ -3,13 +3,13 @@ import PageTitle from "../CommonComponents/PageTitle";
 import useGetRelativeTime from "../../Hooks/useGetRelativeTime";
 import useHighlightCodeBlock from "../../Hooks/useHighlightCodeBlock";
 import { useRef, useState } from "react";
-import { BiSolidDownArrow, BiSolidUpArrow } from "react-icons/bi";
 import { Tooltip } from "react-tooltip";
 import { FaBookmark, FaRegClock, FaRegUser, FaReply } from "react-icons/fa";
 import ResponseTextEditor from "./ResponseTextEditor";
 import useGetResponses from "../../Hooks/useGetResponses";
 import Loading from "../AuthenticationComponents/Loading";
 import ResponseCard from "./ResponseCard";
+import UpvoteDownvoteButtons from "./UpvoteDownvoteButtons";
 
 const Question = () => {
     const questionData = useLoaderData()
@@ -64,27 +64,7 @@ const Question = () => {
                         <div className="py-4 border-t border-custom-gray">
                             <div className="flex flex-wrap gap-3">
 
-                                <div className="upvote p-2 duration-500 text-white hover:text-black hover:bg-white border border-custom-gray hover:border-custom-primary rounded-full">
-                                    <BiSolidUpArrow className="" />
-                                </div>
-
-                                <Tooltip
-                                    anchorSelect=".upvote"
-                                    className="!bg-custom-primary"
-                                >
-                                    Upvote, if this question is helpful and well-written
-                                </Tooltip>
-
-                                <div className="downvote p-2 duration-500 text-white hover:text-black hover:bg-white border border-custom-gray hover:border-custom-primary rounded-full">
-                                    <BiSolidDownArrow className="" />
-                                </div>
-
-                                <Tooltip
-                                    anchorSelect=".downvote"
-                                    className="!bg-custom-primary"
-                                >
-                                    Downvote, if this question is unclear, or unhelpful
-                                </Tooltip>
+                                <UpvoteDownvoteButtons voteOn={_id} forQuestion={true} totalVotes={questionData.votes||0} />
 
                                 <div className="bookmark p-2 duration-500 text-white hover:text-black hover:bg-white border border-custom-gray hover:border-custom-primary rounded-full">
                                     <FaBookmark className="" />
