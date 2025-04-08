@@ -33,11 +33,11 @@ const ProfilePage = () => {
     <div className='min-h-screen container mb-10'>
         <PageTitle title="Jhon Profile" />
         {/* user banner image and profile image */}
-        <UserBanner user={userDetails} />
+        <UserBanner user={userDetails}  />
 
         <div className='flex md:flex-row flex-col items-start gap-8 md:mt-5'>
             {/* user information */}
-            <UserInfo userDetails={userDetails} />
+            <UserInfo userDetails={userDetails}/>
             {/* user all activity */}
             <ProfileLayout />
         </div>

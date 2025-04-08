@@ -28,12 +28,12 @@ const UserInfo = ({ userDetails }) => {
       </p>
 
       {/* social links */}
-      <ProfileLinks />
+      <ProfileLinks userDetails={userDetails} />
 
       {/* divider */}
       <div className="border-b border-gray-600 my-4"></div>
 
-      {/* edit button for user */}
+      {/* edit button for user just for your own account */}
       {isCurrentUser && <button onClick={() => document.getElementById(`my_modal_${userDetails.name}`).showModal()} className="w-full btn text-white">Edit Details</button>}
 
       {/* badges or achievement */}

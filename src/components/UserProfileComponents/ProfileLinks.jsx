@@ -4,33 +4,36 @@ import {
   FaIdBadge,
   FaLinkedin,
   FaFacebook,
+  FaBuilding,
 } from "react-icons/fa";
 
-const profileData = [
-  { icon: <FaMapMarkerAlt />, text: "Sylhet, Bangladesh", link: "" },
-  {
-    icon: <FaEnvelope />,
-    text: "jhonwick434@gmail.com.",
-    link: "mailto:jhonwick434@gmail.com.",
-  },
-  {
-    icon: <FaIdBadge />,
-    text: "https://orcid.org/0009-0002-7739-9112",
-    link: "https://orcid.org/0009-0002-7739-9112",
-  },
-  {
-    icon: <FaLinkedin />,
-    text: "in/jhon45",
-    link: "https://linkedin.com/in/jhon45",
-  },
-  {
-    icon: <FaFacebook />,
-    text: "Jhon Wick",
-    link: "https://facebook.com/das",
-  },
-];
 
-const ProfileLinks = () => {
+
+const ProfileLinks = ({userDetails}) => {
+
+  const profileData = [
+    { icon: <FaMapMarkerAlt />, text: userDetails?.location, link: "" },
+    {
+      icon: <FaEnvelope />,
+      text: userDetails?.email,
+      link: "mailto:jhonwick434@gmail.com.",
+    },
+    {
+      icon: <FaBuilding />,
+      text: userDetails?.organization,
+      link: "",
+    },
+    {
+      icon: <FaLinkedin />,
+      text: userDetails?.linkedinName,
+      link: userDetails?.linkedinLink,
+    },
+    {
+      icon: <FaFacebook />,
+      text: userDetails?.facebookName,
+      link: userDetails?.facebookLink,
+    },
+  ];
   return (
     <div className="text-white rounded-lg w-full mt-2">
       {profileData.map((item, index) => (
