@@ -29,6 +29,8 @@ import ForgotPassword from './components/AuthenticationComponents/ForgotPassword
 import AuthProvider from "./Provider/AuthProvider";
 import { normalAxios } from './Hooks/useNormalAxios';
 import Question from './components/QuestionComponent.jsx/Question';
+import AdminRoute from './components/AuthenticationComponents/AdminRoute';
+import Blogs from './components/BlogsPageComponents/blogs';
 
 const router = createBrowserRouter([
   {
@@ -105,7 +107,14 @@ const router = createBrowserRouter([
       // add Blog
       {
         path: "/add-blog",
-        element: <AddBlog />
+        element: <AdminRoute>
+                  <AddBlog />
+                </AdminRoute> 
+      },
+      // blogs
+      {
+        path: "/blogs",
+        element: <Blogs />,
       },
       // Authentication
       {

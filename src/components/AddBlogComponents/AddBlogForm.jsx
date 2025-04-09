@@ -1,4 +1,4 @@
-import React, { useRef, useState, useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import TextEditor from '../CommonComponents/TextEditor';
 import SelectTags from '../CommonComponents/SelectTags';
 import { toast } from 'react-toastify';
@@ -6,9 +6,11 @@ import useWordCount from '../../Hooks/useWordCount';
 import CoverImageInput from '../CommonComponents/CoverImageInput';
 import PreviewBlog from './PreviewBlog';
 import { AuthContext } from '../../Provider/AuthProvider';
+import useSecureAxios from '../../Hooks/useSecureAxios';
 
 const AddBlogForm = () => {
     const {user} = useContext(AuthContext)
+    const secureAxios= useSecureAxios() 
 
     const [showPreview, setShowPreview] = useState(false)
 
@@ -60,7 +62,7 @@ const AddBlogForm = () => {
     }
 
 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         const allRight=verify()
         if(!allRight){
             return
@@ -72,8 +74,21 @@ const AddBlogForm = () => {
         const author= user?.displayName
         const authorEmail= user?.email
 
-        console.log(author, authorEmail, title, shortDescription, tags, image, LongDescription, createdAt)
-        toast.success("worked!")
+        const credentials= {author, authorEmail, title, shortDescription, tags, image, LongDescription, createdAt}
+
+        try {
+            await secureAxios.post("/blogs/creatBlog",credentials)
+            toast.success("You have successfully added a blogs.")
+            setShowPreview(false)
+            setTitle("")
+            setShortDescription("")
+            setImage()
+            setEditorContents({question:""})
+            setSelectedTags([])
+        } catch (error) {
+            console.log(`Unable to add blog now: ${error}`)
+            toast.info(`Unable to add blog now, try again later`)
+        }
     };
 
 

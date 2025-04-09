@@ -14,12 +14,12 @@ const QuestionCard = ({ question }) => {
         to={`/question/${question._id}`}
         className="text-custom-primary hover:underline cursor-pointer"
       >
-        <h5>{question.title}</h5>
+        <h5 className="">{question.title}</h5>
       </Link>
 
       <div className="flex justify-between flex-wrap items-center gap-x-6 gap-y-3">
 
-        <div className="text-custom-gray flex gap-3">
+        <div className="text-custom-gray flex flex-wrap gap-3">
 
           <Link to="/profile" className="flex items-center gap-1">
               <FaRegUser className="text-white" />

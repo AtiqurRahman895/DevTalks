@@ -39,7 +39,7 @@ const SearchBar = () => {
     return (
         <div className="join !items-center">
             <form onSubmit={handleSubmit}>
-                <input type="search" onChange={e=>setSearchInput(e.target.value)} value={searchInput} name="searchInput" className="input join-item bg-[rgba(71,71,71,0.4)] focus:!outline-none !rounded-r-none placeholder:text-white placeholder:text-sm" placeholder="Search a question" />
+                <input type="search" onChange={e=>setSearchInput(e.target.value)} value={searchInput} name="searchInput" className="input join-item bg-[rgba(71,71,71,0.4)] focus:!outline-none !rounded-r-none placeholder:text-white placeholder:text-sm" placeholder="Search.." />
             </form>
             <select onChange={handleFilterChange} value={filterTag} name="filterTag" className="select join-item bg-[rgba(71,71,71,0.4)] focus:!outline-none ">
                 <option value="">Filter</option>
