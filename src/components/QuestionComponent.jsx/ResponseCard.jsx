@@ -4,7 +4,7 @@ import useGetRelativeTime from '../../Hooks/useGetRelativeTime';
 import { Link } from 'react-router';
 import { FaRegClock, FaRegUser, FaReply } from 'react-icons/fa';
 import { Tooltip } from 'react-tooltip';
-import ResponseTextEditor from './ResponseTextEditor';
+import ResponseTextEditor from '../CommonComponents/ResponseTextEditor';
 import useGetResponses from '../../Hooks/useGetResponses';
 import UpvoteDownvoteButtons from './UpvoteDownvoteButtons';
 

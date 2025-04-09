@@ -29,6 +29,9 @@ import ForgotPassword from './components/AuthenticationComponents/ForgotPassword
 import AuthProvider from "./Provider/AuthProvider";
 import { normalAxios } from './Hooks/useNormalAxios';
 import Question from './components/QuestionComponent.jsx/Question';
+import AdminRoute from './components/AuthenticationComponents/AdminRoute';
+import Blogs from './components/BlogsPageComponents/blogs';
+import Blog from './components/BlogPageComponents/Blog';
 
 const router = createBrowserRouter([
   {
@@ -105,7 +108,22 @@ const router = createBrowserRouter([
       // add Blog
       {
         path: "/add-blog",
-        element: <AddBlog />
+        element: <AdminRoute>
+                  <AddBlog />
+                </AdminRoute> 
+      },
+      // blogs
+      {
+        path: "/blogs",
+        element: <Blogs />,
+      },
+      {
+        path: "/blog/:_id",
+        loader: async({params})=>{
+          const res = await normalAxios.get(`/blogs/blog/${params._id}`)
+          return res.data
+        },
+        element: <Blog />,
       },
       // Authentication
       {
