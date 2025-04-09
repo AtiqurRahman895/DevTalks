@@ -5,7 +5,7 @@ import useHighlightCodeBlock from "../../Hooks/useHighlightCodeBlock";
 import { useRef, useState } from "react";
 import { Tooltip } from "react-tooltip";
 import { FaBookmark, FaRegClock, FaRegUser, FaReply } from "react-icons/fa";
-import ResponseTextEditor from "./ResponseTextEditor";
+import ResponseTextEditor from "../CommonComponents/ResponseTextEditor";
 import useGetResponses from "../../Hooks/useGetResponses";
 import Loading from "../AuthenticationComponents/Loading";
 import ResponseCard from "./ResponseCard";
