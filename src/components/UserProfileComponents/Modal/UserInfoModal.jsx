@@ -13,7 +13,7 @@ import { toast } from "react-toastify";
 import FormField from "./FormField";
 import SocialMediaField from "./SocialMediaField";
 
-const UserInfoModal = ({ userDetails, setUserDetails }) => {
+const UserInfoModal = ({ modalId, userDetails, setUserDetails }) => {
   const [loader, setLoader] = useState(false);
   const {
     register,
@@ -82,7 +82,7 @@ const UserInfoModal = ({ userDetails, setUserDetails }) => {
 
   return (
     <>
-      <dialog id={`my_modal_${userDetails?.name}`} className="modal">
+      <dialog id={modalId} className="modal">
         <div className="modal-box shadow-xl rounded-xl bg-black">
           <form method="dialog">
             {/* Close button */}

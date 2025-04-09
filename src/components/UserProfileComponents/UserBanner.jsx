@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
+import { ProfileContext } from "../../Provider/ProfileProvider";
 
-const UserBanner = ({user}) => {
+const UserBanner = () => {
+   const {userDetails} = useContext(ProfileContext);
   return (
     <div className="relative">
       {/* user banner */}
@@ -13,7 +15,7 @@ const UserBanner = ({user}) => {
       {/* user profile photo*/}
       <div className="avatar absolute lg:-bottom-24 md:-bottom-16 sm:-bottom-7 -bottom-10 md:left-10 sm:left-20 left-[32%]">
         <div className="lg:w-60 md:w-40 w-32 rounded-full border-4 object-cover object-center border-custom-primary">
-          <img src={user?.photoURL} className="" />
+          <img src={userDetails?.photoURL} className="" />
         </div>
       </div>
     </div>

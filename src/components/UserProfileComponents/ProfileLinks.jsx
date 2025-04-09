@@ -6,8 +6,11 @@ import {
   FaFacebook,
   FaBuilding,
 } from "react-icons/fa";
+import { ProfileContext } from "../../Provider/ProfileProvider";
+import { useContext } from "react";
 
-const ProfileLinks = ({ userDetails }) => {
+const ProfileLinks = () => {
+   const {userDetails} = useContext(ProfileContext);
   // Define the profile data array
   const profileData = [
     { icon: <FaMapMarkerAlt />, text: userDetails?.location, link: "" },

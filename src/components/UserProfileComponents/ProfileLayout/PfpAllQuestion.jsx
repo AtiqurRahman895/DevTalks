@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router";
+import React, { useContext, useEffect, useState } from "react";
+import { Link } from "react-router";
 import { secureAxios } from "../../../Hooks/useSecureAxios";
 import AuthProvider, { AuthContext } from "../../../Provider/AuthProvider";
 import Loading from "../../AuthenticationComponents/Loading";
+import { ProfileContext } from "../../../Provider/ProfileProvider";
 
 const PfpAllQuestion = () => {
   // const questions = [
@@ -19,19 +20,20 @@ const PfpAllQuestion = () => {
   //     tags: ["JavaScript", "Closures", "Functions"],
   //   },
   // ];
-  const params = useParams()
-  console.log(params)
+
+  const {userDetails} = useContext(ProfileContext);
+  console.log(userDetails?.email)
 
   const [questions, setQuestions] = useState([]);
   const [loader, setLoader] = useState(false);
 
   useEffect(() => {
     const fetchAllQuestion = async () => {
-      if (params?.userName) {
+      if (userDetails?.email) {
         try {
           setLoader(true)
           const res = await secureAxios.get(
-            `/questions/questions?asker=${params?.userName}`
+            `/questions/questions?email=${userDetails?.email}`
           );
           console.log(res.data);
           setQuestions(res.data)
@@ -45,7 +47,7 @@ const PfpAllQuestion = () => {
     };
 
     fetchAllQuestion();
-  }, [params?.userName]);
+  }, [userDetails?.email]);
 
   if (questions.length === 0) {
     return (
