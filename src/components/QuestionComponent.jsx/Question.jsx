@@ -51,7 +51,7 @@ const Question = () => {
                             <div className="flex flex-wrap gap-1">
                                 {
                                     tags.map((tag, index)=>(
-                                        <Link key={index} className='font-bold text-custom-gray hover:text-custom-primary hover:underline'>
+                                        <Link to={`/questions?tag=${tag}`} key={index} className='font-bold text-custom-gray hover:text-custom-primary hover:underline'>
                                             #{tag}{(tags.length-1 !== index) && ","}
                                         </Link>
                                     ))

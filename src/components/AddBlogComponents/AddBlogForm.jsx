@@ -1,13 +1,15 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useContext } from 'react';
 import TextEditor from '../CommonComponents/TextEditor';
 import SelectTags from '../CommonComponents/SelectTags';
 import { toast } from 'react-toastify';
 import useWordCount from '../../Hooks/useWordCount';
 import CoverImageInput from '../CommonComponents/CoverImageInput';
 import PreviewBlog from './PreviewBlog';
-
+import { AuthContext } from '../../Provider/AuthProvider';
 
 const AddBlogForm = () => {
+    const {user} = useContext(AuthContext)
+
     const [showPreview, setShowPreview] = useState(false)
 
     const [title, setTitle] = useState("")
@@ -26,7 +28,10 @@ const AddBlogForm = () => {
         const plainLongDescriptionText= htmlToPlainText(LongDescription||"")
         const {wordCount:longDescriptionTextCount}=countWordsAndChars(plainLongDescriptionText)
         
-        if (titleTextCount < 3){
+        if (!user){
+            toast.warning(`Currently you are not signned in! Please sign in first to Add blog.`);
+            return;
+        }else if (titleTextCount < 3){
             toast.warning(`Blog title is required! Please lenghten blog title to 3 or more word! (Currently has ${titleTextCount} words)`);
             return;
         }else if(shortDescriptionCount < 10) {
@@ -63,7 +68,11 @@ const AddBlogForm = () => {
 
         const LongDescription = editorContents.LongDescription;
         const tags = selectedTags.map((tag) => tag.value);
-        console.log(title, shortDescription, tags, image, LongDescription)
+        const createdAt= new Date()
+        const author= user?.displayName
+        const authorEmail= user?.email
+
+        console.log(author, authorEmail, title, shortDescription, tags, image, LongDescription, createdAt)
         toast.success("worked!")
     };
 

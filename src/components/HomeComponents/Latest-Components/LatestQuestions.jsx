@@ -10,7 +10,7 @@ const LatestQuestions = () => {
   const fetchQuestions= async() => {
       const params = {
           sort:{_id:-1}, 
-          limit:10, 
+          limit:6, 
       };
 
       const res=await normalAxios.get("/questions/questions", {params})

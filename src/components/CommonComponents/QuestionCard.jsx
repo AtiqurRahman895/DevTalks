@@ -37,12 +37,13 @@ const QuestionCard = ({ question }) => {
 
         <div className="flex gap-2">
           {question.tags.map((tag, index) => (
-            <b
+            <Link
+              to={`/questions?tag=${tag}`}
               key={index}
-              className="px-3 py-1 bg-custom-primary hover:bg-custom-half-primary border border-custom-primary rounded-full shadow-sm transition"
+              className="px-3 py-1 font-bold bg-custom-primary hover:bg-custom-half-primary border border-custom-primary rounded-full shadow-sm transition"
             >
               {tag}
-            </b>
+            </Link>
           ))}
         </div>
 

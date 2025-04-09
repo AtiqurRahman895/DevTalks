@@ -135,7 +135,6 @@
         font-size: 0.85rem;
         padding: 0;
         tab-size: 4; /* Consistent tab width */
-        display: block; /* Ensures block-level rendering */
     }
 
     /* Blockquote styles */
