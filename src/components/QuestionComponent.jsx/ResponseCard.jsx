@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useRef } from 'react';
 import useHighlightCodeBlock from '../../Hooks/useHighlightCodeBlock';
 import useGetRelativeTime from '../../Hooks/useGetRelativeTime';
