@@ -70,9 +70,9 @@ const UserInfoModal = ({ modalId, userDetails, setUserDetails }) => {
       } else {
         toast.info("No changes were made to the user details");
       }
-      document.getElementById(`my_modal_${userDetails?.name}`).close(); // Close the modal
+      document.getElementById(`${modalId}`).close(); // Close the modal
     } catch (error) {
-      document.getElementById(`my_modal_${userDetails?.name}`).close();
+      document.getElementById(`${modalId}`).close();
       console.error("Error updating user:", error);
       toast.error("Failed to update user details");
     } finally {

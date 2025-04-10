@@ -1,28 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router";
 import { secureAxios } from "../../../Hooks/useSecureAxios";
-import AuthProvider, { AuthContext } from "../../../Provider/AuthProvider";
 import Loading from "../../AuthenticationComponents/Loading";
 import { ProfileContext } from "../../../Provider/ProfileProvider";
 
 const PfpAllQuestion = () => {
-  // const questions = [
-  //   {
-  //     title: "How to use React useEffect hook?",
-  //     tags: ["React", "JavaScript", "Hooks"],
-  //   },
-  //   {
-  //     title: "Best practices for JavaScript async/await",
-  //     tags: ["JavaScript", "Async", "Promises"],
-  //   },
-  //   {
-  //     title: "Understanding closures in JavaScript",
-  //     tags: ["JavaScript", "Closures", "Functions"],
-  //   },
-  // ];
 
   const {userDetails} = useContext(ProfileContext);
-  console.log(userDetails?.email)
 
   const [questions, setQuestions] = useState([]);
   const [loader, setLoader] = useState(false);

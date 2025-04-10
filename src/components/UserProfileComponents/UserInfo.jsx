@@ -6,6 +6,7 @@ import ActionButton from "./ActionButton";
 import { AuthContext } from "../../Provider/AuthProvider";
 import { ProfileContext } from "../../Provider/ProfileProvider";
 import UserInfoModal from "./Modal/UserInfoModal";
+import { FaPencilAlt } from "react-icons/fa";
 
 const UserInfo = () => {
   const { userDetails, setUserDetails } = useContext(ProfileContext) || {};
@@ -65,9 +66,10 @@ const UserInfo = () => {
       {isCurrentUser && (
         <button
           onClick={handleEditClick}
-          className="w-full btn text-white bg-blue-600 hover:bg-blue-700 transition-colors"
+          className="w-full btn text-white bg-custom-half-gray border border-gray-600"
           aria-label="Edit Profile Details"
         >
+          <FaPencilAlt />
           Edit Details
         </button>
       )}
