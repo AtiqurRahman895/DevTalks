@@ -12,6 +12,7 @@ import Loading from "../AuthenticationComponents/Loading";
 const UserInfo = () => {
   const { userDetails, setUserDetails, isLoading } = useContext(ProfileContext) || {};
   const { user } = useContext(AuthContext) || {};
+  console.log(userDetails)
   
   // Early return if required context data is missing
   if (!userDetails || !setUserDetails || !user) {

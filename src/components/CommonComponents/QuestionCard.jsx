@@ -14,14 +14,14 @@ const QuestionCard = ({ question }) => {
         to={`/question/${question._id}`}
         className="text-custom-primary hover:underline cursor-pointer"
       >
-        <h5>{question.title}</h5>
+        <h5 className="">{question.title}</h5>
       </Link>
 
       <div className="flex justify-between flex-wrap items-center gap-x-6 gap-y-3">
 
-        <div className="text-custom-gray flex gap-3">
+        <div className="text-custom-gray flex flex-wrap gap-3">
 
-          <Link to={`/profile/${question.asker}`} className="flex items-center gap-1">
+          <Link to={`/profile/${question.askerEmail}`} className="flex items-center gap-1">
               <FaRegUser className="text-white" />
               <b className="cursor-pointer hover:underline">
               {question.asker}
@@ -37,12 +37,13 @@ const QuestionCard = ({ question }) => {
 
         <div className="flex gap-2">
           {question.tags.map((tag, index) => (
-            <b
+            <Link
+              to={`/questions?tag=${tag}`}
               key={index}
-              className="px-3 py-1 bg-custom-primary hover:bg-custom-half-primary border border-custom-primary rounded-full shadow-sm transition"
+              className="px-3 py-1 font-bold bg-custom-primary hover:bg-custom-half-primary border border-custom-primary rounded-full shadow-sm transition"
             >
               {tag}
-            </b>
+            </Link>
           ))}
         </div>
 

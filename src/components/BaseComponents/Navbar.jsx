@@ -22,8 +22,16 @@ const Navbar = ({menuOpen, setMenuOpen}) => {
                     <div className="hidden lg:flex items-center space-x-6">
                         <Link to="/" className="">Home</Link>
                         <Link to="/questions" className="">Questions</Link>
-                        <Link to="/about" className="">About Us</Link>
-                        <Link to="/contact" className="">Contact Us</Link>
+                        <Link to="/blogs" className="">Blogs</Link>
+                        <div className="dropdown dropdown-end dropdown-hover">
+                            <p tabIndex={0} className="m-1">More</p>
+                            <ul tabIndex={0} className="bg-[#1f1f20] dropdown-content menu rounded-box z-[1] w-fit p-2 shadow [&_*]:text-nowrap">
+                                <li><Link to="/about" className="">About Us</Link></li>
+                                <li><Link to="/contact" className="">Contact Us</Link></li>
+                            </ul>
+                        </div>
+                        
+                        
                     </div>
 
 

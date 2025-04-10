@@ -9,20 +9,20 @@ export const ProfileContext = createContext();
 
 // Create a provider component
 export const ProfileProvider = ({ children }) => {
-  const { userName } = useParams();
+  const { email:userEmail } = useParams();
   const [userDetails, setUserDetails] = useState(null);
 
   // Use TanStack Query to fetch user details
   const { data, isLoading, error, refetch } = useQuery({
-    queryKey: ["userDetails", userName],
+    queryKey: ["userDetails", userEmail],
     queryFn: async () => {
-      if (!userName) {
+      if (!userEmail) {
         throw new Error("userName is required");
       }
-      const res = await normalAxios.get(`/users/profile/${userName}`);
+      const res = await normalAxios.get(`/users/profile/${userEmail}`);
       return res.data;
     },
-    enabled: !!userName,
+    enabled: !!userEmail,
     onSuccess: (data) => {
       setUserDetails(data);
     },
@@ -30,6 +30,8 @@ export const ProfileProvider = ({ children }) => {
       console.error("Error fetching user details:", err);
     },
   });
+
+  // console.log(userDetails)
 
   // Provide the context value
   const value = {
