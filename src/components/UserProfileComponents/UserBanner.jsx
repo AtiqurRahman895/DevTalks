@@ -8,7 +8,7 @@ const UserBanner = () => {
   const { userDetails, refetch } = useContext(ProfileContext);
   const { user } = useContext(AuthContext);
 
-  console.log(userDetails)
+  console.log(userDetails);
 
   const isCurrentUser = user?.email === userDetails?.email;
   const modalId = `my_modal_${
@@ -24,11 +24,18 @@ const UserBanner = () => {
   return (
     <div className="relative">
       {/* user banner */}
-      <img
-        src={userDetails.coverImage}
-        alt=""
-        className="w-full object-cover max-h-80 rounded-lg"
-      />
+      {userDetails?.coverImage ? (
+        <img
+          src={userDetails?.coverImage}
+          alt=""
+          className="w-full object-cover max-h-80 rounded-lg"
+        />
+      ) : (
+        <img
+          src="/noImg.jpg"
+          className="w-full object-cover max-h-80 rounded-lg"
+        />
+      )}
 
       {/* user profile photo*/}
       <div className="avatar absolute lg:-bottom-24 md:-bottom-16 sm:-bottom-7 -bottom-10 md:left-10 sm:left-20 left-[32%]">
@@ -46,7 +53,11 @@ const UserBanner = () => {
         </button>
       )}
 
-      <BannerPicEditModal modalId={modalId} userEmail={userDetails?.email} refetch={refetch} />
+      <BannerPicEditModal
+        modalId={modalId}
+        userEmail={userDetails?.email}
+        refetch={refetch}
+      />
     </div>
   );
 };
