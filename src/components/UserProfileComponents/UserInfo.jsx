@@ -7,9 +7,10 @@ import { AuthContext } from "../../Provider/AuthProvider";
 import { ProfileContext } from "../../Provider/ProfileProvider";
 import UserInfoModal from "./Modal/UserInfoModal";
 import { FaPencilAlt } from "react-icons/fa";
+import Loading from "../AuthenticationComponents/Loading";
 
 const UserInfo = () => {
-  const { userDetails, setUserDetails } = useContext(ProfileContext) || {};
+  const { userDetails, setUserDetails, isLoading } = useContext(ProfileContext) || {};
   const { user } = useContext(AuthContext) || {};
   
   // Early return if required context data is missing
@@ -20,6 +21,12 @@ const UserInfo = () => {
         <p className="text-red-500">Error loading user information</p>
       </div>
     );
+  }
+
+  if(isLoading){
+    return(
+      <Loading />
+    )
   }
 
   const isCurrentUser = user.email === userDetails.email;

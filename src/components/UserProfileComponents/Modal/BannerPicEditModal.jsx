@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import CoverImageInput from "../../CommonComponents/CoverImageInput";
 import ProfileImageInput from "../../AuthenticationComponents/ProfileImageInput";
 import { secureAxios } from "../../../Hooks/useSecureAxios";
+import Loading from "../../AuthenticationComponents/Loading";
 
 // Constants for better readability and maintainability
 const IMAGE_TYPES = {
@@ -37,16 +38,16 @@ const BannerPicEditModal = ({ modalId, userEmail, refetch, isProfileImage }) => 
 
       if (response.data.modifiedCount > 0) {
         toast.success(TOAST_MESSAGES.SUCCESS);
-        setImage(""); // Reset image state
-        refetch(); // Refetch user data
-        document.getElementById(modalId).close(); // Close modal
+        setImage(""); 
+        refetch(); 
+        document.getElementById(modalId).close(); 
       } else {
         throw new Error("No changes were made to the image.");
       }
     } catch (error) {
       toast.error(`${TOAST_MESSAGES.ERROR}${error.message}`);
-      setImage(""); // Reset image state on error
-      document.getElementById(modalId).close(); // Close modal on error
+      setImage(""); 
+      document.getElementById(modalId).close();
     } finally {
       setIsLoading(false);
     }
@@ -79,7 +80,7 @@ const BannerPicEditModal = ({ modalId, userEmail, refetch, isProfileImage }) => 
         <div className="divider divide-gray-300 w-3/4 mx-auto mb-6"></div>
 
         {/* Image Upload Section */}
-        <div className="w-64 mx-auto mb-2">
+        <div className={`w-64 ${isProfileImage? "mx-auto" : "ml-40"} mb-2`}>
           {isProfileImage ? (
             <ProfileImageInput image={image} setImage={setImage} />
           ) : (
@@ -103,26 +104,7 @@ const BannerPicEditModal = ({ modalId, userEmail, refetch, isProfileImage }) => 
             aria-label="Save image"
           >
             {isLoading && (
-              <svg
-                className="animate-spin h-5 w-5 text-white"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-              >
-                <circle
-                  className="opacity-25"
-                  cx="12"
-                  cy="12"
-                  r="10"
-                  stroke="currentColor"
-                  strokeWidth="4"
-                />
-                <path
-                  className="opacity-75"
-                  fill="currentColor"
-                  d="M4 12a8 8 0 018-8v8H4z"
-                />
-              </svg>
+              <Loading/>
             )}
             {isLoading ? "Saving..." : "Save"}
           </button>
