@@ -1,13 +1,31 @@
 import React, { useContext } from "react";
 import { ProfileContext } from "../../Provider/ProfileProvider";
+import { FaCamera } from "react-icons/fa";
+import { AuthContext } from "../../Provider/AuthProvider";
+import BannerPicEditModal from "./Modal/BannerPicEditModal";
 
 const UserBanner = () => {
-   const {userDetails} = useContext(ProfileContext);
+  const { userDetails, refetch } = useContext(ProfileContext);
+  const { user } = useContext(AuthContext);
+
+  console.log(userDetails)
+
+  const isCurrentUser = user?.email === userDetails?.email;
+  const modalId = `my_modal_${
+    userDetails?.email?.replace(/\s+/g, "_") || "user"
+  }`;
+
+  const handleCoverPhotoEdit = () => {
+    const modal = document.getElementById(modalId);
+    if (modal) {
+      modal.showModal();
+    }
+  };
   return (
     <div className="relative">
       {/* user banner */}
       <img
-        src="https://i.etsystatic.com/30097568/r/il/71a49c/5958491123/il_570xN.5958491123_lhzi.jpg"
+        src={userDetails.coverImage}
         alt=""
         className="w-full object-cover max-h-80 rounded-lg"
       />
@@ -18,6 +36,17 @@ const UserBanner = () => {
           <img src={userDetails?.photoURL} className="" />
         </div>
       </div>
+
+      {isCurrentUser && (
+        <button
+          onClick={handleCoverPhotoEdit}
+          className="btn absolute right-1 bottom-1 text-base"
+        >
+          <FaCamera /> Edit Cover Photo
+        </button>
+      )}
+
+      <BannerPicEditModal modalId={modalId} userEmail={userDetails?.email} refetch={refetch} />
     </div>
   );
 };
