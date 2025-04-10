@@ -74,7 +74,7 @@ const router = createBrowserRouter([
       },
       // profile
       {
-        path: "/profile",
+        path: "/profile/:email",
         element: <ProfilePage />,
         children: [
           {
@@ -82,15 +82,15 @@ const router = createBrowserRouter([
             element: <PfpAllQuestion />,
           },
           {
-            path: "/profile/questions",
+            path: "questions",
             element: <PfpAllQuestion />,
           },
           {
-            path: "/profile/answers",
+            path: "answers",
             element: <PfpAllAnswer />,
           },
           {
-            path: "/profile/badges",
+            path: "badges",
             element: <PfpAllBadges />,
           },
         ],

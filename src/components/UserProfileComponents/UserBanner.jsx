@@ -1,21 +1,82 @@
-import React from "react";
+import React, { useContext, useState } from "react";
+import { ProfileContext } from "../../Provider/ProfileProvider";
+import { FaCamera } from "react-icons/fa";
+import { AuthContext } from "../../Provider/AuthProvider";
+import BannerPicEditModal from "./Modal/BannerPicEditModal";
 
 const UserBanner = () => {
+  const { userDetails, refetch } = useContext(ProfileContext);
+  const { user } = useContext(AuthContext);
+  const [isProfileImage, setPfp] = useState(false)
+
+  console.log(userDetails);
+
+  const isCurrentUser = user?.email === userDetails?.email;
+  const modalId = `my_modal_${
+    userDetails?.email?.replace(/\s+/g, "_") || "user"
+  }`;
+
+  const handleCoverPhotoEdit = () => {
+    setPfp(false)
+    const modal = document.getElementById(modalId);
+    if (modal) {
+      modal.showModal();
+    }
+  };
+
+  const handlePfpPhotoEdit = () => {
+    setPfp(true)
+    const modal = document.getElementById(modalId);
+    if (modal) {
+      modal.showModal();
+    }
+  };
   return (
     <div className="relative">
       {/* user banner */}
-      <img
-        src="https://i.etsystatic.com/30097568/r/il/71a49c/5958491123/il_570xN.5958491123_lhzi.jpg"
-        alt=""
-        className="w-full object-cover max-h-80 rounded-lg"
-      />
+      {userDetails?.coverImage ? (
+        <img
+          src={userDetails?.coverImage}
+          alt=""
+          className="w-full object-cover max-h-80 rounded-lg"
+        />
+      ) : (
+        <img
+          src="/noImg.jpg"
+          className="w-full object-cover max-h-80 rounded-lg"
+        />
+      )}
 
       {/* user profile photo*/}
       <div className="avatar absolute lg:-bottom-24 md:-bottom-16 sm:-bottom-7 -bottom-10 md:left-10 sm:left-20 left-[32%]">
-        <div className="lg:w-60 md:w-40 w-32 rounded-full border-4 border-custom-primary">
-          <img src="https://i.pinimg.com/736x/92/6c/8e/926c8e161cde3909dcd0f54fa1ff9483.jpg" />
+        <div className="lg:w-60 md:w-40 w-32 rounded-full border-4 object-cover object-center border-custom-primary">
+          <img src={userDetails?.photoURL} className="" />
         </div>
+        {isCurrentUser && (
+        <button
+          onClick={handlePfpPhotoEdit}
+          className="btn absolute right-2 bottom-2 text-base rounded-full"
+        >
+          <FaCamera />
+        </button>
+      )}
       </div>
+
+      {isCurrentUser && (
+        <button
+          onClick={handleCoverPhotoEdit}
+          className="btn absolute right-1 bottom-1 text-base"
+        >
+          <FaCamera /> Edit Cover Photo
+        </button>
+      )}
+
+      <BannerPicEditModal
+        isProfileImage={isProfileImage}
+        modalId={modalId}
+        userEmail={userDetails?.email}
+        refetch={refetch}
+      />
     </div>
   );
 };

@@ -21,7 +21,7 @@ const QuestionCard = ({ question }) => {
 
         <div className="text-custom-gray flex flex-wrap gap-3">
 
-          <Link to="/profile" className="flex items-center gap-1">
+          <Link to={`/profile/${question.askerEmail}`} className="flex items-center gap-1">
               <FaRegUser className="text-white" />
               <b className="cursor-pointer hover:underline">
               {question.asker}
