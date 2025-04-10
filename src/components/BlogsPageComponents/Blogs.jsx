@@ -2,24 +2,27 @@ import { Link } from "react-router";
 import PageTitle from "../CommonComponents/PageTitle";
 import NotFound from "../CommonComponents/NotFound";
 import Loading from "../AuthenticationComponents/Loading"
-import AllQuestions from "./AllQuestions";
 import SearchBar from "../CommonComponents/SearchBar";
-import { useMemo } from "react";
+import { useContext, useMemo } from "react";
 import useNormalAxios from "../../Hooks/useNormalAxios";
 import UseUrlQuery from "../../Hooks/UseUrlQuery";
 import { useQuery } from "@tanstack/react-query";
 import NextPreButtons from "../CommonComponents/NextPreButtons";
+import { AuthContext } from "../../Provider/AuthProvider";
+import AllBlogs from "./AllBlogs";
 
-const Questions = () => {
+const Blogs = () => {
     const limit = 6;
     const {searchQuery,tag,pageNo} = UseUrlQuery();
     const normalAxios = useNormalAxios()
+    const {user} = useContext(AuthContext)
+    const role=localStorage.getItem("role")
 
     const memorizedSearchQuery=useMemo(()=> searchQuery,[searchQuery])
     const memorizedTag=useMemo(()=> tag,[tag])
     const memorizedPageNo=useMemo(()=> pageNo,[pageNo])
 
-    const fetchQuestions= async() => {
+    const fetchBlogs= async() => {
         const params = {
             query:memorizedSearchQuery ? { $text: { $search: memorizedSearchQuery } } : {}, 
             skip:memorizedPageNo == 1? 0: (memorizedPageNo-1)*limit, 
@@ -30,17 +33,17 @@ const Questions = () => {
             params.query.tags = { $in: [memorizedTag] };  // Use $in for exact matches or $text if you have a text index on `tags`
         }
 
-        const res=await normalAxios.get("/questions/questions", {params})
+        const res=await normalAxios.get("/blogs/blogs", {params})
 
         return res.data
     };
 
-    const { isLoading:loading, data:questions=[], isError, error } = useQuery(
-        ['questions', memorizedSearchQuery, memorizedPageNo, memorizedTag],
-        fetchQuestions,
+    const { isLoading:loading, data:blogs=[], isError, error } = useQuery(
+        ['blogs', memorizedSearchQuery, memorizedPageNo, memorizedTag],
+        fetchBlogs,
     );
 
-    const fetchQuestionsCount = async () => {
+    const fetchBlogsCount = async () => {
         const params = {
             query:
             memorizedSearchQuery ? { $text: { $search: memorizedSearchQuery } } : {},
@@ -50,14 +53,14 @@ const Questions = () => {
             params.query.tags = { $in: [memorizedTag] };  // Use $in for exact matches or $text if you have a text index on `tags`
         }
 
-        const res = await normalAxios.get("/questions/questionsCount", { params });
+        const res = await normalAxios.get("/blogs/blogsCount", { params });
 
         return res.data;
     };
 
-    const { data: questionsCount = 0 } = useQuery(
-        ["questionsCount", memorizedSearchQuery, memorizedTag],
-        fetchQuestionsCount,
+    const { data: blogsCount = 0 } = useQuery(
+        ["blogsCount", memorizedSearchQuery, memorizedTag],
+        fetchBlogsCount,
     );
 
     if (isError) {
@@ -67,14 +70,17 @@ const Questions = () => {
 
     return (
         <main>
-            <PageTitle title="All questions" />
+            <PageTitle title="All blogs" />
             <section className="py-16">
                 <div className="container space-y-6">
                     <div className="flex items-center justify-between">
-                        <h3>All Questions</h3>
-                        <Link to={'/ask-question'} className="outlineButton !scale-100">
-                            Ask a question
-                        </Link>
+                        <h3>All Blogs</h3>
+                        {
+                            (user && role==="admin")&&
+                            <Link to={'/add-blog'} className="outlineButton !scale-100">
+                                Add a Blog
+                            </Link>
+                        }
                     </div>
 
                     <SearchBar />
@@ -82,12 +88,12 @@ const Questions = () => {
                     {
                         loading?<Loading/>:
                         <>{
-                            questions?.length===0?
+                            blogs?.length===0?
 
-                            <NotFound NotFoundText={searchQuery?"No question found!":"Unable to load questions for some reasion!"}/>:
+                            <NotFound NotFoundText={searchQuery?"No blog found!":"Unable to load blogs for some reasion!"}/>:
 
-                            <div className="w-full max-w-[580px]">
-                                <AllQuestions questionsCount={questionsCount} allQuestions={questions} />
+                            <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+                                <AllBlogs blogsCount={blogsCount} allBlogs={blogs} />
                             </div>
                         }</>
                     }
@@ -95,7 +101,7 @@ const Questions = () => {
 
 
                     <div className="flex items-center gap-3 pt-3">
-                        <NextPreButtons limit={limit} totalContents={questionsCount}/>
+                        <NextPreButtons limit={limit} totalContents={blogsCount}/>
                     </div>
 
                 </div>
@@ -104,4 +110,4 @@ const Questions = () => {
     );
 };
 
-export default Questions;
+export default Blogs;

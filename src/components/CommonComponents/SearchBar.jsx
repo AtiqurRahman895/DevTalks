@@ -1,12 +1,19 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ImSearch } from "react-icons/im";
 import { useNavigate } from "react-router";
+import UseUrlQuery from "../../Hooks/UseUrlQuery";
 
 const SearchBar = () => {
     const navigate =useNavigate()
+    const {tag} = UseUrlQuery();
 
     const [searchInput, setSearchInput]= useState("")
     const [filterTag, setFilterTag]= useState("")
+
+    // const memorizedTag=useMemo(()=>tag,[tag])
+    useEffect(()=>{
+        setFilterTag(tag)
+    },[tag])
 
     const filterOptions = [
         { label: "javascript", value: "javascript" },
@@ -22,7 +29,7 @@ const SearchBar = () => {
     }
 
     const handleFilterChange=(e)=>{
-        setFilterTag(e.target.value)
+        // setFilterTag(e.target.value)
         navigate(`?tag=${e.target.value}&page=1`);
         setSearchInput("")
         e.target.blur();
@@ -32,7 +39,7 @@ const SearchBar = () => {
     return (
         <div className="join !items-center">
             <form onSubmit={handleSubmit}>
-                <input type="search" onChange={e=>setSearchInput(e.target.value)} value={searchInput} name="searchInput" className="input join-item bg-[rgba(71,71,71,0.4)] focus:!outline-none !rounded-r-none placeholder:text-white placeholder:text-sm" placeholder="Search a question" />
+                <input type="search" onChange={e=>setSearchInput(e.target.value)} value={searchInput} name="searchInput" className="input join-item bg-[rgba(71,71,71,0.4)] focus:!outline-none !rounded-r-none placeholder:text-white placeholder:text-sm" placeholder="Search.." />
             </form>
             <select onChange={handleFilterChange} value={filterTag} name="filterTag" className="select join-item bg-[rgba(71,71,71,0.4)] focus:!outline-none ">
                 <option value="">Filter</option>

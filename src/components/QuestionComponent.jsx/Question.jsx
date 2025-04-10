@@ -5,7 +5,7 @@ import useHighlightCodeBlock from "../../Hooks/useHighlightCodeBlock";
 import { useRef, useState } from "react";
 import { Tooltip } from "react-tooltip";
 import { FaBookmark, FaRegClock, FaRegUser, FaReply } from "react-icons/fa";
-import ResponseTextEditor from "./ResponseTextEditor";
+import ResponseTextEditor from "../CommonComponents/ResponseTextEditor";
 import useGetResponses from "../../Hooks/useGetResponses";
 import Loading from "../AuthenticationComponents/Loading";
 import ResponseCard from "./ResponseCard";
@@ -51,7 +51,7 @@ const Question = () => {
                             <div className="flex flex-wrap gap-1">
                                 {
                                     tags.map((tag, index)=>(
-                                        <Link key={index} className='font-bold text-custom-gray hover:text-custom-primary hover:underline'>
+                                        <Link to={`/questions?tag=${tag}`} key={index} className='font-bold text-custom-gray hover:text-custom-primary hover:underline'>
                                             #{tag}{(tags.length-1 !== index) && ","}
                                         </Link>
                                     ))
