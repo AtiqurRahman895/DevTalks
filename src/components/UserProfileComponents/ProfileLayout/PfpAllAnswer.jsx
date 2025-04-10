@@ -3,6 +3,8 @@ import PfpAnswerCard from './PfpAnswerCard';
 import { ProfileContext } from '../../../Provider/ProfileProvider';
 import { secureAxios } from '../../../Hooks/useSecureAxios';
 import Loading from '../../AuthenticationComponents/Loading';
+import ProfileLoader from '../../CommonComponents/UserProfile/ProfileLoader';
+import NothingProfile from '../../CommonComponents/UserProfile/NothingProfile';
 
 const PfpAllAnswer = () => {
 
@@ -34,19 +36,13 @@ const PfpAllAnswer = () => {
 
     if(loader){
       return (
-        <div className="flex items-start justify-center min-h-[200px] w-full rounded-lg shadow-md p-6">
-          <Loading />
-        </div>
+        <ProfileLoader />
       );
     }
 
     if (answeredQuestions.length === 0) {
       return (
-        <div className="flex items-center justify-center min-h-[200px] w-full bg-custom-half-gray rounded-lg shadow-md p-6">
-          <p className="text-lg font-bold text-custom-gray">
-            User has not answered any questions yet.
-          </p>
-        </div>
+        <NothingProfile title="answered" />
       );
     }
     
