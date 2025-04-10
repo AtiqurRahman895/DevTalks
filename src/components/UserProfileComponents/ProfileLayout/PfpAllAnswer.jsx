@@ -19,7 +19,6 @@ const PfpAllAnswer = () => {
             const res = await secureAxios.get(
               `/responses/response/${userDetails?.email}`
             );
-            console.log(res.data);
             setAnsweredQuestions(res.data)
           } catch (error) {
             console.log(error);
