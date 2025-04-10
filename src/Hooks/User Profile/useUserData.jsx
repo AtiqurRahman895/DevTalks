@@ -14,7 +14,7 @@ const useUserData = (basePath) => {
 
   const { userDetails } = useContext(ProfileContext);
   const email = userDetails?.email;
-  const apiUrl = email ? `${basePath}/${email}` : null;
+  const apiUrl = email ? `${basePath}?email=${email}` : null;
 
 
 

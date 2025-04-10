@@ -1,48 +1,22 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React from 'react'
 import PfpAnswerCard from './PfpAnswerCard';
-import { ProfileContext } from '../../../Provider/ProfileProvider';
-import { secureAxios } from '../../../Hooks/useSecureAxios';
-import Loading from '../../AuthenticationComponents/Loading';
 import ProfileLoader from '../../CommonComponents/UserProfile/ProfileLoader';
 import NothingProfile from '../../CommonComponents/UserProfile/NothingProfile';
+import useUserData from '../../../Hooks/User Profile/useUserData';
 
 const PfpAllAnswer = () => {
 
-    const {userDetails} = useContext(ProfileContext);
-  
-    const [answeredQuestions, setAnsweredQuestions] = useState([]);
-    const [loader, setLoader] = useState(false);
-  
-    useEffect(() => {
-      const fetchAllAnswer = async () => {
-        if (userDetails?.email) {
-          try {
-            setLoader(true)
-            const res = await secureAxios.get(
-              `/responses/response/${userDetails?.email}`
-            );
-            setAnsweredQuestions(res.data)
-          } catch (error) {
-            console.log(error);
-          }
-          finally{
-            setLoader(false)
-          }
-        }
-      };
-  
-      fetchAllAnswer();
-    }, [userDetails?.email]);
+    const {data: answeredQuestions, isLoading: answerLoading} = useUserData("responses/response")
 
-    if(loader){
+    if(answerLoading){
       return (
         <ProfileLoader />
       );
     }
 
-    if (answeredQuestions.length === 0) {
+    if (answeredQuestions?.length === 0) {
       return (
-        <NothingProfile title="answered" />
+        <NothingProfile title="User has not answered any question yer" />
       );
     }
     

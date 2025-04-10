@@ -1,6 +1,7 @@
 import React from 'react';
 import { FaTrophy, FaBug, FaCode, FaUsers, FaLightbulb, FaStar, FaRocket, FaQuestionCircle } from 'react-icons/fa';
 
+// switch case 
 const getBadgeIcon = (badgeName) => {
   switch (badgeName) {
     case 'Top Contributor':

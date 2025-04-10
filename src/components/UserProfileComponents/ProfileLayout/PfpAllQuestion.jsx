@@ -1,53 +1,21 @@
-import React, { useContext, useEffect, useState } from "react";
+import React from "react";
 import { Link } from "react-router";
-import { secureAxios } from "../../../Hooks/useSecureAxios";
-import Loading from "../../AuthenticationComponents/Loading";
-import { ProfileContext } from "../../../Provider/ProfileProvider";
+import useUserData from "../../../Hooks/User Profile/useUserData";
+import NothingProfile from "../../CommonComponents/UserProfile/NothingProfile";
+import ProfileLoader from "../../CommonComponents/UserProfile/ProfileLoader";
 
 const PfpAllQuestion = () => {
+  const {data: questions, isLoading: questionLoading} = useUserData("questions/questions")
 
-  const {userDetails} = useContext(ProfileContext);
-
-  const [questions, setQuestions] = useState([]);
-  const [loader, setLoader] = useState(false);
-
-  useEffect(() => {
-    const fetchAllQuestion = async () => {
-      if (userDetails?.email) {
-        try {
-          setLoader(true)
-          const res = await secureAxios.get(
-            `/questions/questions?email=${userDetails?.email}`
-          );
-          console.log(res.data);
-          setQuestions(res.data)
-        } catch (error) {
-          console.log(error);
-        }
-        finally{
-          setLoader(false)
-        }
-      }
-    };
-
-    fetchAllQuestion();
-  }, [userDetails?.email]);
-
-  if (questions.length === 0) {
+  if (questions?.length === 0) {
     return (
-      <div className="flex items-center justify-center min-h-[200px] w-full bg-custom-half-gray rounded-lg shadow-md p-6">
-        <p className="text-lg font-bold text-custom-gray">
-          User has not asked any questions yet.
-        </p>
-      </div>
+      <NothingProfile title="User has not asked any questions yet." />
     );
   }
 
-  if(loader){
+  if(questionLoading){
     return (
-      <div className="flex items-center justify-center min-h-[200px] w-full rounded-lg shadow-md p-6">
-        <Loading />
-      </div>
+      <ProfileLoader />
     );
   }
 
