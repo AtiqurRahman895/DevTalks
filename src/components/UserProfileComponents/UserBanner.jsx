@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { ProfileContext } from "../../Provider/ProfileProvider";
 import { FaCamera } from "react-icons/fa";
 import { AuthContext } from "../../Provider/AuthProvider";
@@ -7,6 +7,7 @@ import BannerPicEditModal from "./Modal/BannerPicEditModal";
 const UserBanner = () => {
   const { userDetails, refetch } = useContext(ProfileContext);
   const { user } = useContext(AuthContext);
+  const [isProfileImage, setPfp] = useState(false)
 
   console.log(userDetails);
 
@@ -16,6 +17,15 @@ const UserBanner = () => {
   }`;
 
   const handleCoverPhotoEdit = () => {
+    setPfp(false)
+    const modal = document.getElementById(modalId);
+    if (modal) {
+      modal.showModal();
+    }
+  };
+
+  const handlePfpPhotoEdit = () => {
+    setPfp(true)
     const modal = document.getElementById(modalId);
     if (modal) {
       modal.showModal();
@@ -42,6 +52,14 @@ const UserBanner = () => {
         <div className="lg:w-60 md:w-40 w-32 rounded-full border-4 object-cover object-center border-custom-primary">
           <img src={userDetails?.photoURL} className="" />
         </div>
+        {isCurrentUser && (
+        <button
+          onClick={handlePfpPhotoEdit}
+          className="btn absolute right-2 bottom-2 text-base rounded-full"
+        >
+          <FaCamera />
+        </button>
+      )}
       </div>
 
       {isCurrentUser && (
@@ -54,6 +72,7 @@ const UserBanner = () => {
       )}
 
       <BannerPicEditModal
+        isProfileImage={isProfileImage}
         modalId={modalId}
         userEmail={userDetails?.email}
         refetch={refetch}
