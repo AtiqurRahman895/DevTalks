@@ -5,8 +5,8 @@ import ActionButton from "../ActionButton";
 
 const ProfileNav = () => {
     const navLinks = [
-      { name: "Questions", path: "/profile/questions", icon: <FaQuestionCircle /> },
-      { name: "Answers", path: "/profile/answers", icon: <FaCheckCircle /> },
+      { name: "Questions", path: "questions", icon: <FaQuestionCircle /> },
+      { name: "Answers", path: "answers", icon: <FaCheckCircle /> },
       { name: "Badges", path: "badges", icon: <FaMedal /> },
     ];
   

@@ -1,21 +1,23 @@
 import React from "react";
 import { Link } from "react-router";
+import useUserData from "../../../Hooks/User Profile/useUserData";
+import NothingProfile from "../../CommonComponents/UserProfile/NothingProfile";
+import ProfileLoader from "../../CommonComponents/UserProfile/ProfileLoader";
 
 const PfpAllQuestion = () => {
-  const questions = [
-    {
-      title: "How to use React useEffect hook?",
-      tags: ["React", "JavaScript", "Hooks"],
-    },
-    {
-      title: "Best practices for JavaScript async/await",
-      tags: ["JavaScript", "Async", "Promises"],
-    },
-    {
-      title: "Understanding closures in JavaScript",
-      tags: ["JavaScript", "Closures", "Functions"],
-    },
-  ];
+  const {data: questions, isLoading: questionLoading} = useUserData("questions/questions")
+
+  if (questions?.length === 0) {
+    return (
+      <NothingProfile title="User has not asked any questions yet." />
+    );
+  }
+
+  if(questionLoading){
+    return (
+      <ProfileLoader />
+    );
+  }
 
   return (
     <div className="w-full">
@@ -27,14 +29,16 @@ const PfpAllQuestion = () => {
             className="py-6 px-4 bg-custom-half-gray border border-custom-half-gray rounded-lg space-y-2"
           >
             <Link
-              to="#"
+              to={`/question/${question._id}`}
               className="text-custom-primary hover:underline cursor-pointer"
             >
               <h5>{question.title}</h5>
             </Link>
 
             <div className="flex justify-between flex-wrap items-center gap-x-6 gap-y-3">
-                <h6 className="text-custom-primary hover:underline cursor-pointer">View Details</h6>
+              <h6 className="text-custom-primary hover:underline cursor-pointer">
+                View Details
+              </h6>
               <div className="flex gap-2">
                 {question.tags.map((category, index) => (
                   <b
