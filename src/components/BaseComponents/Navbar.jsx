@@ -23,6 +23,7 @@ const Navbar = ({menuOpen, setMenuOpen}) => {
                         <Link to="/" className="">Home</Link>
                         <Link to="/questions" className="">Questions</Link>
                         <Link to="/blogs" className="">Blogs</Link>
+                        <Link to="/quiz" className="">Quiz's</Link>
                         <div className="dropdown dropdown-end dropdown-hover">
                             <p tabIndex={0} className="m-1">More</p>
                             <ul tabIndex={0} className="bg-[#1f1f20] dropdown-content menu rounded-box z-[1] w-fit p-2 shadow [&_*]:text-nowrap">
