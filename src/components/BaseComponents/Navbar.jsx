@@ -1,14 +1,16 @@
 import { useContext, useEffect } from "react";
 import { IoMenu } from "react-icons/io5";
-import { Link, useLocation } from "react-router"; 
+import { Link, NavLink, useLocation } from "react-router"; 
 import { AuthContext } from "../../Provider/AuthProvider";
 import { TiMessages } from "react-icons/ti";
 import { RiVerifiedBadgeFill } from "react-icons/ri";
+import { FaAngleDown } from "react-icons/fa";
 
 const Navbar = ({menuOpen, setMenuOpen}) => {
     const {user,signOutUser,verifyAccount} = useContext(AuthContext)
     const location = useLocation();
     const path = location.pathname;
+    const role=localStorage.getItem("role")
   
     useEffect(() => {
       window.scrollTo(0, 0); // Scroll to the top of the page
@@ -29,14 +31,24 @@ const Navbar = ({menuOpen, setMenuOpen}) => {
 
 
                     <div className="hidden lg:flex items-center space-x-6">
-                        <Link to="/" className="">Home</Link>
-                        <Link to="/questions" className="">Questions</Link>
-                        <Link to="/blogs" className="">Blogs</Link>
+                        <NavLink to="/" className="">Home</NavLink>
+                        <NavLink to="/questions" className="">Questions</NavLink>
+                        <NavLink to="/blogs" className="">Blogs</NavLink>
+                        {
+                            (user) && (
+                                <NavLink to="/quiz" className="">Quiz</NavLink>
+                            )
+                        }
+                                                {
+                            (role==="admin") && (
+                                <NavLink to="/dashboard" className="">Dashboard</NavLink>
+                            )
+                        }
                         <div className="dropdown dropdown-end dropdown-hover">
-                            <p tabIndex={0} className="m-1">More</p>
+                            <p tabIndex={0} className="m-1 flex items-center gap-0.5">More <FaAngleDown/> </p>
                             <ul tabIndex={0} className="bg-[#1f1f20] dropdown-content menu rounded-box z-[1] w-fit p-2 shadow [&_*]:text-nowrap">
-                                <li><Link to="/about" className="">About Us</Link></li>
-                                <li><Link to="/contact" className="">Contact Us</Link></li>
+                                <li><NavLink to="/about" className="">About us</NavLink></li>
+                                <li><NavLink to="/contact" className="">Contact us</NavLink></li>
                             </ul>
                         </div>
                         

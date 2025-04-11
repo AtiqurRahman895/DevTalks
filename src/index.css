@@ -45,7 +45,7 @@
         @apply text-[14px] leading-loose;
     }
     a{
-        @apply hover:scale-105 duration-500
+        @apply duration-500
     }
     header a{
         @apply hover:text-inherit duration-500
@@ -87,6 +87,10 @@
     .blurNavbar {
         background-color: #3f405a40;
         backdrop-filter: blur(20px);
+    }
+
+    .active{
+        @apply text-custom-primary
     }
 
     /* Section Header */

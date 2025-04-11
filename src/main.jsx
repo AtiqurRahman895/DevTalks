@@ -77,7 +77,11 @@ const router = createBrowserRouter([
       // profile
       {
         path: "/profile/:email",
-        element: <ProfilePage />,
+        element: (
+          <PrivateRoute>
+            <ProfilePage />
+          </PrivateRoute>
+        ),
         children: [
           {
             index: true, // This ensures PfpAllQuestion is shown by default
@@ -105,7 +109,11 @@ const router = createBrowserRouter([
       // quiz
       {
         path: "/quiz",
-        element: <QuizComponents></QuizComponents>,
+        element: (
+          <PrivateRoute>
+            <QuizComponents/>
+          </PrivateRoute>
+        ),
       },
       // add Blog
       {
@@ -172,7 +180,11 @@ const router = createBrowserRouter([
     children:[
       {
         path:'/dashboard',
-        element:<Admin_Panel></Admin_Panel>
+        element:(
+          <AdminRoute>
+            <Admin_Panel/>
+          </AdminRoute>
+        )
       }
     ]
 
