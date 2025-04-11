@@ -47,22 +47,22 @@ const Navbar = ({menuOpen, setMenuOpen}) => {
 
                     <div className="">
                     {user ? (
-                        <div className="flex items-center gap-2">
+                        <div className="flex items-center gap-4">
                             <div className="dropdown dropdown-end dropdown-hover">
                                 <div
                                 tabIndex={0}
                                 role="button"
-                                className="indicator hover:shadow-xl sm:mx-4"
+                                className="indicator hover:shadow-xl"
                                 >
-                                <div className="w-10 aspect-square rounded-full overflow-hidden bg-white">
+                                <div className="w-11 aspect-square rounded-full overflow-hidden bg-white">
                                     <img
-                                    alt="User Photo"
-                                    // className="place-self-start"
-                                    src={
-                                        user.photoURL
-                                        ? `${user.photoURL}`
-                                        : "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
-                                    }
+                                        alt="User Photo"
+                                        className="place-self-start"
+                                        src={
+                                            user.photoURL
+                                            ? `${user.photoURL}`
+                                            : "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+                                        }
                                     />
                                 </div>
                                 {user.emailVerified && (

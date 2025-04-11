@@ -8,12 +8,12 @@ import { ProfileProvider } from "../../Provider/ProfileProvider";
 const ProfilePage = () => {
   return (
     <ProfileProvider>
-      <div className="min-h-screen container mb-10">
-        <PageTitle title="Jhon Profile" />
+      <div className="min-h-screen container py-16">
+        <PageTitle title="Profile" />
         {/* user banner image and profile image */}
         <UserBanner />
 
-        <div className="flex md:flex-row flex-col items-start gap-8 md:mt-5">
+        <div className="flex flex-col lg:flex-row items-start gap-8 lg:mt-5">
           {/* user information */}
           <UserInfo />
           {/* user all activity */}

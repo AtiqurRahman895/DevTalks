@@ -15,7 +15,7 @@ const ChangePassword =()=>{
 
   const SignInOnSubmit = async (e) => {
     e.preventDefault();
-    
+
     if (passwordError) {
         e.target.password.focus();
         return;
@@ -33,7 +33,7 @@ const ChangePassword =()=>{
 
   return (
     <main className="py-16">
-      <PageTitle title="Sign in" />
+      <PageTitle title="Change password" />
 
       <section className="container place-items-center">
         <div className="w-full max-w-sm bg-white rounded-lg">

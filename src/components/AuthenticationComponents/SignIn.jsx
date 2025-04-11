@@ -45,6 +45,62 @@ const SignIn =()=>{
     }
   };
 
+  const SignInAsUser = async () => {
+
+    try {
+      const userCredential = await signInUser("emonhassan895@gmail.com", "1aA@1a")
+      navigate("/");
+      Swal.fire({
+          position: "center",
+          timer: 5000,
+          imageUrl: img_wishlist,  
+          imageWidth: 800,     
+          imageHeight: 400,    
+          imageAlt: "Eid Mubarak",
+          showConfirmButton: false,
+          width: '850px',      
+              
+          customClass: {
+            popup: 'rounded-xl', // Rounded corners for popup
+            image: 'object-cover' // Ensures image fits nicely
+          }
+      })
+      toast.success(
+        `Sign in successful! Welcome, ${userCredential.user.displayName}!`
+      );
+    } catch (error) {
+      toast.error(error.message ? error.message : error.code);
+    }
+  };
+
+  const SignInAsAdmin = async () => {
+
+    try {
+      const userCredential = await signInUser("test.admin@devtalks.com", "1aA@1a")
+      navigate("/");
+      Swal.fire({
+          position: "center",
+          timer: 5000,
+          imageUrl: img_wishlist,  
+          imageWidth: 800,     
+          imageHeight: 400,    
+          imageAlt: "Eid Mubarak",
+          showConfirmButton: false,
+          width: '850px',      
+              
+          customClass: {
+            popup: 'rounded-xl', // Rounded corners for popup
+            image: 'object-cover' // Ensures image fits nicely
+          }
+      })
+      toast.success(
+        `Sign in successful! Welcome, ${userCredential.user.displayName}!`
+      );
+    } catch (error) {
+      toast.error(error.message ? error.message : error.code);
+    }
+  };
+
   return (
     <main className="py-16">
       <PageTitle title="Sign in" />
@@ -66,6 +122,17 @@ const SignIn =()=>{
 
               <button type="submit" className="primaryButton !w-full">Sign In</button>
             </form>
+
+            <div className="divider !my-5 before:bg-black after:bg-black before:h-[1px] after:h-[1px] ">OR</div>
+
+            <h5 className="">Quick Access for Recruiters & Testers</h5>
+
+            <div className="flex items-center gap-4">
+              <button onClick={SignInAsUser} type="submit" className="outlineButton !text-custom-primary hover:bg-custom-half-primary !border-custom-primary !w-full">As ordinary user</button>
+              <button onClick={SignInAsAdmin} type="submit" className="outlineButton !text-custom-primary hover:bg-custom-half-primary !border-custom-primary !w-full">As admin user</button>
+            </div>
+
+
           </div>
 
           {/* Sidebar */}

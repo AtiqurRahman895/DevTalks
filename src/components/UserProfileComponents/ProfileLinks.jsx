@@ -50,7 +50,7 @@ const ProfileLinks = () => {
         item.text ? ( 
           <div
             key={index}
-            className="flex items-center space-x-3 py-2 border-b border-gray-700 last:border-b-0"
+            className="flex items-center space-x-3 py-2 border-b border-custom-gray last:border-b-0"
           >
             <span className="text-lg">{item.icon}</span>
             {item.link ? (

@@ -13,7 +13,7 @@ const ActionButton = ({ className }) => {
         </button>
       </Link>
 
-      <button className="bg-custom-primary py-1 px-3 rounded-lg flex items-center gap-1">
+      <button className="primaryButton flex items-center gap-1">
         <CgUserAdd className="text-xl" />
         Add Friend
       </button>
