@@ -31,7 +31,7 @@ const SignUp =()=>{
       toast.warning("You must upload a profile image!");
       return;
     }
-    console.log(name, photoURL, email, password)
+    console.log(name, photoURL, email, password,)
     try {
       await creatUser(email, password);
       toast.success("Your Sign up successfull!");

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { FaBars, FaTimes } from 'react-icons/fa';
-import { Link, Outlet } from 'react-router';
+import { Link, NavLink, Outlet } from 'react-router';
 
 const Dashboard = () => {
 
@@ -11,22 +11,23 @@ const Dashboard = () => {
     };
 
     return (
-        <div>
+        <main className=''>
             {/* mobile navbar  */}
-            <div className='flex justify-between md:hidden blurNavbar container py-4 items-center'>
-                <div>
-                    <h4>DevTalks</h4>
-                </div>
-                <div>
+            <section className='sticky top-0 z-50 mx-4 pt-3'>
+                <div className="flex justify-between md:hidden blurNavbar py-4 px-6 items-center rounded-full">
+                        <Link to="/">
+                            <h4 className="font-fugaz">DevTalks</h4>
+                        </Link>
+                    <div>
 
-                    <button onClick={toggleSidebar}>
-
-                        {
-                            isOpen ? <FaTimes size={24} /> : <FaBars size={24} />
-                        }
-                    </button>
+                        <button onClick={toggleSidebar}>
+                            {
+                                isOpen ? <FaTimes size={24} /> : <FaBars size={24} />
+                            }
+                        </button>
+                    </div>
                 </div>
-            </div>
+            </section>
 
             <div className="flex min-h-screen">
 
@@ -39,7 +40,9 @@ const Dashboard = () => {
                 >
                     {/* Sidebar Header */}
                     <div className="flex items-center justify-between p-4 border-b border-gray-700">
-                        <h2 className="text-xl font-bold">Dashboard</h2>
+                        <Link to="/">
+                            <h4 className="font-fugaz">DevTalks</h4>
+                        </Link>
                         <button className="md:hidden" onClick={toggleSidebar}>
                             <FaTimes size={24} />
                         </button>
@@ -49,40 +52,58 @@ const Dashboard = () => {
 
                     {/* sidebar menu*/}
                     <nav className="py-4">
-                        <ul className="space-y-2">
-                            <li className='list-none'>
-                                <Link
+                        <div className="flex flex-col">
 
-                                    className="flex items-center rounded-lg px-4 py-2 hover:bg-custom-primary transition-colors"
+                                <NavLink
+                                    to={'/'}
+                                    className="rounded-l-full px-4 py-2 hover:bg-custom-half-primary"
                                 >
                                     <span>Home</span>
-                                </Link>
-                            </li>
-                            <li className='list-none'>
-                                <Link
+                                </NavLink>
 
-                                    className="flex items-center rounded-lg px-4 py-2 hover:bg-custom-primary transition-colors"
+                                <NavLink
+                                    to={'/questions'}
+                                    className="rounded-l-full px-4 py-2 hover:bg-custom-half-primary"
                                 >
-                                    <span>About</span>
-                                </Link>
-                            </li>
-                            <li className='list-none'>
-                                <Link
+                                    <span>Questions</span>
+                                </NavLink>
 
-                                    className="flex items-center rounded-lg px-4 py-2 hover:bg-custom-primary transition-colors"
+                                <NavLink
+                                    to={'/blogs'}
+                                    className="rounded-l-full px-4 py-2 hover:bg-custom-half-primary"
                                 >
-                                    <span>Services</span>
-                                </Link>
-                            </li>
-                            <li className='list-none'>
-                                <Link
+                                    <span>Blogs</span>
+                                </NavLink>
 
-                                    className="flex items-center rounded-lg px-4 py-2 hover:bg-custom-primary transition-colors"
+                                <NavLink
+                                    to="/quiz"
+                                    className="rounded-l-full px-4 py-2 hover:bg-custom-half-primary"
                                 >
-                                    <span>Contact</span>
-                                </Link>
-                            </li>
-                        </ul>
+                                    <span>Quiz</span>
+                                </NavLink>
+
+                                <NavLink
+                                    to="/about"
+                                    className="rounded-l-full px-4 py-2 hover:bg-custom-half-primary"
+                                >
+                                    <span>About us</span>
+                                </NavLink>
+
+                                <NavLink
+                                    to="/contact"
+                                    className="rounded-l-full px-4 py-2 hover:bg-custom-half-primary"
+                                >
+                                    <span>Contact us</span>
+                                </NavLink>
+
+                                <NavLink
+                                    to="/dashboard"
+                                    className="rounded-l-full px-4 py-2 hover:bg-custom-half-primary"
+                                >
+                                    <span>Dashboard</span>
+                                </NavLink>
+
+                        </div>
                     </nav>
                 </div>
 
@@ -102,7 +123,7 @@ const Dashboard = () => {
                     </div>
                 </div>
             </div>
-        </div>
+        </main>
     );
 };
 

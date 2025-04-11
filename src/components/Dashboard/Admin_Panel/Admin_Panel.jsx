@@ -14,7 +14,7 @@ import SocialTraffic from './SocialTraffic';
 
 const Admin_Panel = () => {
     return (
-        <div>
+        <section>
             {/* card section  */}
 
             <div className="grid lg:grid-cols-4 gap-5 md:grid-cols-2 sm:grid-cols-1">
@@ -113,7 +113,7 @@ const Admin_Panel = () => {
            </div>
 
 
-        </div>
+        </section>
     );
 };
 

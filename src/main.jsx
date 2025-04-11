@@ -27,6 +27,13 @@ import SignIn from './components/AuthenticationComponents/SignIn';
 import SignUp from './components/AuthenticationComponents/SignUp';
 import ForgotPassword from './components/AuthenticationComponents/ForgotPassword';
 import AuthProvider from "./Provider/AuthProvider";
+import { normalAxios } from './Hooks/useNormalAxios';
+import Question from './components/QuestionComponent.jsx/Question';
+import AdminRoute from './components/AuthenticationComponents/AdminRoute';
+import Blogs from './components/BlogsPageComponents/blogs';
+import Blog from './components/BlogPageComponents/Blog';
+import ChangePassword from './components/AuthenticationComponents/ChangePassword';
+import PrivateRoute from "./components/AuthenticationComponents/PrivateRoute"
 
 const router = createBrowserRouter([
   {
@@ -49,6 +56,14 @@ const router = createBrowserRouter([
         path: "/questions",
         element: <Questions />,
       },
+      {
+        path: "/question/:_id",
+        loader: async({params})=>{
+          const res = await normalAxios.get(`/questions/question/${params._id}`)
+          return res.data
+        },
+        element: <Question />,
+      },
       // about
       {
         path: "/about",
@@ -61,23 +76,27 @@ const router = createBrowserRouter([
       },
       // profile
       {
-        path: "/profile",
-        element: <ProfilePage />,
+        path: "/profile/:email",
+        element: (
+          <PrivateRoute>
+            <ProfilePage />
+          </PrivateRoute>
+        ),
         children: [
           {
             index: true, // This ensures PfpAllQuestion is shown by default
             element: <PfpAllQuestion />,
           },
           {
-            path: "/profile/questions",
+            path: "questions",
             element: <PfpAllQuestion />,
           },
           {
-            path: "/profile/answers",
+            path: "answers",
             element: <PfpAllAnswer />,
           },
           {
-            path: "/profile/badges",
+            path: "badges",
             element: <PfpAllBadges />,
           },
         ],
@@ -90,12 +109,33 @@ const router = createBrowserRouter([
       // quiz
       {
         path: "/quiz",
-        element: <QuizComponents></QuizComponents>,
+        element: (
+          <PrivateRoute>
+            <QuizComponents/>
+          </PrivateRoute>
+        ),
       },
       // add Blog
       {
         path: "/add-blog",
-        element: <AddBlog />
+        element: (
+          <AdminRoute>
+            <AddBlog />
+          </AdminRoute> 
+        )
+      },
+      // blogs
+      {
+        path: "/blogs",
+        element: <Blogs />,
+      },
+      {
+        path: "/blog/:_id",
+        loader: async({params})=>{
+          const res = await normalAxios.get(`/blogs/blog/${params._id}`)
+          return res.data
+        },
+        element: <Blog />,
       },
       // Authentication
       {
@@ -109,6 +149,14 @@ const router = createBrowserRouter([
       {
         path: "/forgot-password",
         element: <ForgotPassword />,
+      },
+      {
+        path: "/change-password",
+        element: (
+          <PrivateRoute>
+            <ChangePassword />
+          </PrivateRoute>
+        ),
       },
     ],
   },
@@ -132,7 +180,11 @@ const router = createBrowserRouter([
     children:[
       {
         path:'/dashboard',
-        element:<Admin_Panel></Admin_Panel>
+        element:(
+          <AdminRoute>
+            <Admin_Panel/>
+          </AdminRoute>
+        )
       }
     ]
 

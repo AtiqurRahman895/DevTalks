@@ -10,13 +10,19 @@ const NavMenuSidebar = ({menuOpen, setMenuOpen}) => {
         signOutUser()
     }
     return (
-        <div className={`lg:hidden fixed inset-0 w-full h-full bg-black bg-opacity-90 z-[51] transform ${menuOpen ? "translate-x-0" : "-translate-x-full"} transition-transform duration-300`}>
-            <div className="flex flex-col items-center justify-center h-full space-y-6">
+        <div className={`lg:hidden fixed inset-0 w-full min-h-dvh bg-black bg-opacity-90 z-[51] transform ${menuOpen ? "translate-x-0" : "-translate-x-full"} transition-transform duration-300`}>
+            <div className=" h-full flex flex-col items-center justify-center overflow-y-auto space-y-6">
                 <button onClick={() => setMenuOpen(!menuOpen)}>
                     <RxCross2 className="text-3xl text-white" /> 
                 </button>
                 <Link to="/" className="text-2xl" onClick={() => setMenuOpen(false)}>Home</Link>
                 <Link to="/questions" className="text-2xl" onClick={() => setMenuOpen(false)}>Questions</Link>
+                <Link to="/blogs" className="text-2xl" onClick={() => setMenuOpen(false)}>Blogs</Link>
+                {
+                    (user) && (
+                        <Link to="/quiz" className="text-2xl" onClick={() => setMenuOpen(false)}>Quiz</Link>
+                    )
+                }
                 <Link to="/about" className="text-2xl" onClick={() => setMenuOpen(false)}>About Us</Link>
                 <Link to="/contact" className="text-2xl" onClick={() => setMenuOpen(false)}>Contact Us</Link>
                 {

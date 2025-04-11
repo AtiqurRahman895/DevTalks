@@ -1,8 +1,8 @@
 import { useContext, useEffect } from "react";
 import { AuthContext } from "../../Provider/AuthProvider";
-import { Navigate } from "react-router-dom";
 import Loading from "./Loading";
 import { toast } from "react-toastify";
+import { Navigate } from "react-router";
 
 const AdminRoute = ({children}) => {
     const {user,loading,signOutUser}=useContext(AuthContext)
