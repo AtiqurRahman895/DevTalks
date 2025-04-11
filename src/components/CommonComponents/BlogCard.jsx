@@ -23,7 +23,7 @@ const BlogCard = ({blog}) => {
 
                 <div className="text-custom-gray flex flex-wrap gap-3">
 
-                    <Link to="/profile" className="flex items-center gap-1">
+                    <Link to={`/profile/${blog.authorEmail}`} className="flex items-center gap-1">
                         <FaRegUser className="text-white" />
                         <b className="cursor-pointer hover:underline">
                             {blog.author}

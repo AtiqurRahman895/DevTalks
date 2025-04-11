@@ -32,6 +32,8 @@ import Question from './components/QuestionComponent.jsx/Question';
 import AdminRoute from './components/AuthenticationComponents/AdminRoute';
 import Blogs from './components/BlogsPageComponents/blogs';
 import Blog from './components/BlogPageComponents/Blog';
+import ChangePassword from './components/AuthenticationComponents/ChangePassword';
+import PrivateRoute from "./components/AuthenticationComponents/PrivateRoute"
 
 const router = createBrowserRouter([
   {
@@ -108,9 +110,11 @@ const router = createBrowserRouter([
       // add Blog
       {
         path: "/add-blog",
-        element: <AdminRoute>
-                  <AddBlog />
-                </AdminRoute> 
+        element: (
+          <AdminRoute>
+            <AddBlog />
+          </AdminRoute> 
+        )
       },
       // blogs
       {
@@ -137,6 +141,14 @@ const router = createBrowserRouter([
       {
         path: "/forgot-password",
         element: <ForgotPassword />,
+      },
+      {
+        path: "/change-password",
+        element: (
+          <PrivateRoute>
+            <ChangePassword />
+          </PrivateRoute>
+        ),
       },
     ],
   },

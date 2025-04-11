@@ -34,7 +34,7 @@ const Question = () => {
                             <h3 className="!text-wrap break-all">{title}</h3>
                             <div className="flex flex-wrap gap-x-3 gap-y-0">
 
-                                <Link to={`/profile/${asker}`} className="flex items-center gap-1">
+                                <Link to={`/profile/${askerEmail}`} className="flex items-center gap-1">
                                     <FaRegUser className="" />
                                     <p className="cursor-pointer hover:underline">
                                         {asker}
