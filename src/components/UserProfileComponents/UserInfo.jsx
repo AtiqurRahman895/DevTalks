@@ -13,10 +13,6 @@ import ProfileSkeletonLoader from "./ProfileLoader/ProfileLoader";
 const UserInfo = () => {
   const { userDetails, setUserDetails, isLoading } = useContext(ProfileContext) || {};
   const { user } = useContext(AuthContext) || {};
-<<<<<<< Updated upstream
-  console.log(userDetails)
-=======
->>>>>>> Stashed changes
   
   // Early return if required context data is missing
   if (!userDetails || !setUserDetails || !user) {
@@ -45,11 +41,7 @@ const UserInfo = () => {
   };
 
   return (
-<<<<<<< Updated upstream
     <div className="lg:w-96 lg:ml-10 md:ml-8 lg:mt-20 md:mt-12 mt-10">
-=======
-    <div className="w-full lg:w-2/4 mt-10 md:mt-20">
->>>>>>> Stashed changes
       {/* User Information */}
       <section aria-label="User Information">
         <h3 className="md:text-left text-center">
@@ -104,18 +96,5 @@ const UserInfo = () => {
   );
 };
 
-// UserInfo.propTypes = {
-//   // No props are directly passed, but documenting context expectations
-//   userDetails: PropTypes.shape({
-//     name: PropTypes.string,
-//     profession: PropTypes.string,
-//     bio: PropTypes.string,
-//     email: PropTypes.string,
-//   }),
-//   setUserDetails: PropTypes.func,
-//   user: PropTypes.shape({
-//     email: PropTypes.string,
-//   }),
-// };
 
 export default UserInfo;

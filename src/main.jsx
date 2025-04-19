@@ -27,22 +27,13 @@ import SignIn from "./components/AuthenticationComponents/SignIn";
 import SignUp from "./components/AuthenticationComponents/SignUp";
 import ForgotPassword from "./components/AuthenticationComponents/ForgotPassword";
 import AuthProvider from "./Provider/AuthProvider";
-<<<<<<< Updated upstream
 import { normalAxios } from './Hooks/useNormalAxios';
 import Question from './components/QuestionComponent.jsx/Question';
 import AdminRoute from './components/AuthenticationComponents/AdminRoute';
 import Blogs from './components/BlogsPageComponents/blogs';
 import Blog from './components/BlogPageComponents/Blog';
-=======
-import { normalAxios } from "./Hooks/useNormalAxios";
-import Question from "./components/QuestionComponent.jsx/Question";
-import AdminRoute from "./components/AuthenticationComponents/AdminRoute";
-import Blogs from "./components/BlogsPageComponents/blogs";
-import Blog from "./components/BlogPageComponents/Blog";
-import ChangePassword from "./components/AuthenticationComponents/ChangePassword";
 import PrivateRoute from "./components/AuthenticationComponents/PrivateRoute";
 import { ProfileProvider } from "./Provider/ProfileProvider";
->>>>>>> Stashed changes
 
 const router = createBrowserRouter([
   {
@@ -88,9 +79,6 @@ const router = createBrowserRouter([
       // profile
       {
         path: "/profile/:email",
-<<<<<<< Updated upstream
-        element: <ProfilePage />,
-=======
         element: (
           <PrivateRoute>
             <ProfileProvider>
@@ -98,7 +86,6 @@ const router = createBrowserRouter([
             </ProfileProvider>
           </PrivateRoute>
         ),
->>>>>>> Stashed changes
         children: [
           {
             index: true, // This ensures PfpAllQuestion is shown by default
@@ -126,30 +113,20 @@ const router = createBrowserRouter([
       // quiz
       {
         path: "/quiz",
-<<<<<<< Updated upstream
-        element: <QuizComponents></QuizComponents>,
-=======
         element: (
           <PrivateRoute>
             <QuizComponents />
           </PrivateRoute>
         ),
->>>>>>> Stashed changes
       },
       // add Blog
       {
         path: "/add-blog",
-<<<<<<< Updated upstream
-        element: <AdminRoute>
-                  <AddBlog />
-                </AdminRoute> 
-=======
         element: (
           <AdminRoute>
             <AddBlog />
           </AdminRoute>
         ),
->>>>>>> Stashed changes
       },
       // blogs
       {
@@ -197,14 +174,6 @@ const router = createBrowserRouter([
     element: <Dashboard></Dashboard>,
     children: [
       {
-<<<<<<< Updated upstream
-        path:'/dashboard',
-        element:<Admin_Panel></Admin_Panel>
-      }
-    ]
-
-  }
-=======
         path: "/dashboard",
         element: (
           <AdminRoute>
@@ -214,7 +183,6 @@ const router = createBrowserRouter([
       },
     ],
   },
->>>>>>> Stashed changes
 ]);
 
 const queryClient = new QueryClient();

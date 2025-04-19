@@ -8,15 +8,9 @@ import UserInfo from "./UserInfo";
 const ProfilePage = () => {
 
   return (
-<<<<<<< Updated upstream
-    <ProfileProvider>
-      <div className="min-h-screen container mb-10">
-        <PageTitle title="Jhon Profile" />
-=======
     <>
       <div className="min-h-screen container py-16">
         <PageTitle title="Profile" />
->>>>>>> Stashed changes
         {/* user banner image and profile image */}
         <UserBanner />
 
