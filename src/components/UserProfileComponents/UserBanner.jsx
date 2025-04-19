@@ -3,9 +3,10 @@ import { ProfileContext } from "../../Provider/ProfileProvider";
 import { FaCamera } from "react-icons/fa";
 import { AuthContext } from "../../Provider/AuthProvider";
 import BannerPicEditModal from "./Modal/BannerPicEditModal";
+import Loading from "../AuthenticationComponents/Loading";
 
 const UserBanner = () => {
-  const { userDetails, refetch } = useContext(ProfileContext);
+  const { userDetails, refetch, isLoading } = useContext(ProfileContext);
   const { user } = useContext(AuthContext);
   const [isProfileImage, setPfp] = useState(false)
 
@@ -24,6 +25,13 @@ const UserBanner = () => {
     }
   };
 
+  if(isLoading){
+    return(
+      <Loading />
+    )
+  }
+  
+
   const handlePfpPhotoEdit = () => {
     setPfp(true)
     const modal = document.getElementById(modalId);
@@ -34,7 +42,7 @@ const UserBanner = () => {
   return (
     <div className="relative">
       {/* user banner */}
-      {userDetails?.coverImage ? (
+      {userDetails?.coverImage && !isLoading ? (
         <img
           src={userDetails?.coverImage}
           alt=""

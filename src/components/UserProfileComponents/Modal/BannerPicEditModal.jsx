@@ -97,7 +97,7 @@ const BannerPicEditModal = ({ modalId, userEmail, refetch, isProfileImage }) => 
         <div className="flex justify-center gap-4">
           <button
             onClick={handleSave}
-            className={`btn bg-green-600 hover:bg-green-700 text-white font-semibold px-6 py-2 rounded-md transition-colors duration-300 flex items-center gap-2 ${
+            className={`btn bg-custom-primary hover:bg-custom-half-primary text-white font-semibold px-6 py-2 rounded-md transition-colors duration-300 flex items-center gap-2 ${
               isLoading ? "opacity-50 cursor-not-allowed" : ""
             }`}
             disabled={isLoading}
@@ -110,7 +110,7 @@ const BannerPicEditModal = ({ modalId, userEmail, refetch, isProfileImage }) => 
           </button>
           <button
             onClick={handleClose}
-            className="btn bg-red-600 hover:bg-red-700 text-white font-semibold px-6 py-2 rounded-md transition-colors duration-300"
+            className="btn bg-custom-primary hover:bg-custom-half-primary text-white font-semibold px-6 py-2 rounded-md transition-colors duration-300"
             disabled={isLoading}
             aria-label="Cancel"
           >

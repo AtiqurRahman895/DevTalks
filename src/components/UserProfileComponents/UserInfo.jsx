@@ -8,11 +8,15 @@ import { ProfileContext } from "../../Provider/ProfileProvider";
 import UserInfoModal from "./Modal/UserInfoModal";
 import { FaPencilAlt } from "react-icons/fa";
 import Loading from "../AuthenticationComponents/Loading";
+import ProfileSkeletonLoader from "./ProfileLoader/ProfileLoader";
 
 const UserInfo = () => {
   const { userDetails, setUserDetails, isLoading } = useContext(ProfileContext) || {};
   const { user } = useContext(AuthContext) || {};
+<<<<<<< Updated upstream
   console.log(userDetails)
+=======
+>>>>>>> Stashed changes
   
   // Early return if required context data is missing
   if (!userDetails || !setUserDetails || !user) {
@@ -26,7 +30,7 @@ const UserInfo = () => {
 
   if(isLoading){
     return(
-      <Loading />
+      <ProfileSkeletonLoader />
     )
   }
 
@@ -41,7 +45,11 @@ const UserInfo = () => {
   };
 
   return (
+<<<<<<< Updated upstream
     <div className="lg:w-96 lg:ml-10 md:ml-8 lg:mt-20 md:mt-12 mt-10">
+=======
+    <div className="w-full lg:w-2/4 mt-10 md:mt-20">
+>>>>>>> Stashed changes
       {/* User Information */}
       <section aria-label="User Information">
         <h3 className="md:text-left text-center">
@@ -52,6 +60,7 @@ const UserInfo = () => {
             {userDetails.profession}
           </h4>
         )}
+        {/* <ActionButton /> */}
       </section>
 
       {/* Action Button for Mobile */}
