@@ -25,7 +25,7 @@ const QuizComponents = () => {
     setError(null);
 
     try {
-      const response = await axios.get('http://localhost:8080/quizzes/api/quiz', {
+      const response = await axios.get('https://dev-talks-server-blue.vercel.app/quizzes/api/quiz', {
         params: { category, difficulty, limit },
       });
       setQuestions(response.data);

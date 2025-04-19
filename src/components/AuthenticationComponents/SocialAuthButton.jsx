@@ -7,8 +7,7 @@ import useNormalAxios from "../../Hooks/useNormalAxios";
 import { useContext } from "react";
 import { AuthContext } from "../../Provider/AuthProvider";
 import Swal from "sweetalert2";
- 
-import img_wishlist from '../../../public/img-wishlist.gif';
+import img_wishlist from '../../assets/img-wishlist.gif';
 
 const SocialAuthButton = () => {
     const navigate = useNavigate();
@@ -38,7 +37,7 @@ const SocialAuthButton = () => {
                   popup: 'rounded-xl', // Rounded corners for popup
                   image: 'object-cover' // Ensures image fits nicely
                 }
-        })
+            })
             toast.success(`Sign in successful! Welcome, ${userCredential.user.displayName}!`);
         } catch (error) {
             toast.error(error.message ? error.message : error.code);

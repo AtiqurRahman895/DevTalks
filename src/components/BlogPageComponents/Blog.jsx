@@ -32,7 +32,7 @@ const Blog = () => {
                         <b>{shortDescription}</b>
 
                         <div className="flex flex-wrap gap-3">
-                            <Link to="/profile" className="flex items-center gap-1">
+                            <Link to={`/profile/${authorEmail}`} className="flex items-center gap-1">
                                 <FaRegUser className="" />
                                 <p className="cursor-pointer hover:underline">
                                     {author}

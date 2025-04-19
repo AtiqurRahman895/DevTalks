@@ -29,7 +29,7 @@ const ResponseCard = ({responseTo, setResponseTo, responseData }) => {
 
                     <div className="flex flex-wrap gap-x-3 gap-y-0">
 
-                        <Link to={`/profile/${responder}`} className="flex items-center gap-1">
+                        <Link to={`/profile/${responderEmail}`} className="flex items-center gap-1">
                             <FaRegUser className="" />
                             <p className="cursor-pointer hover:underline">
                                 {responder}

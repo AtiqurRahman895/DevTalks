@@ -3,9 +3,12 @@ import { Link } from "react-router";
 import useUserData from "../../../Hooks/User Profile/useUserData";
 import NothingProfile from "../../CommonComponents/UserProfile/NothingProfile";
 import ProfileLoader from "../../CommonComponents/UserProfile/ProfileLoader";
+import useGetRelativeTime from "../../../Hooks/useGetRelativeTime";
+import { FaRegClock } from "react-icons/fa";
 
 const PfpAllQuestion = () => {
   const {data: questions, isLoading: questionLoading} = useUserData("questions/questions")
+  const formatRelativeTime= useGetRelativeTime()
 
   if (questions?.length === 0) {
     return (
@@ -36,9 +39,11 @@ const PfpAllQuestion = () => {
             </Link>
 
             <div className="flex justify-between flex-wrap items-center gap-x-6 gap-y-3">
-              <h6 className="text-custom-primary hover:underline cursor-pointer">
-                View Details
-              </h6>
+              <div className="flex items-center gap-1">
+                <FaRegClock className="text-white" />
+                <span>{formatRelativeTime(question.createdAt)}</span> {/* Relative time */}
+              </div>
+
               <div className="flex gap-2">
                 {question.tags.map((category, index) => (
                   <b

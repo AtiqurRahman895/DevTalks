@@ -10,9 +10,9 @@ const PfpAnswerCard = ({ answer }) => {
   useHighlightCodeBlock(true, highlightRef);
   const formatRelativeTime = useGetRelativeTime();
   return (
-    <div className="py-6 px-4 bg-custom-half-gray border border-custom-half-gray rounded-lg space-y-2">
+    <div className="py-6 px-4 bg-custom-half-gray border border-custom-half-gray rounded-lg space-y-2 overflow-hidden">
       {/* Answer Highlight Section */}
-      <div className="pl-3 rounded-md border-l-4 border-custom-primary">
+      <div className="">
         <div
           ref={highlightRef}
           className="!whitespace-pre-wrap editorContents py-4"

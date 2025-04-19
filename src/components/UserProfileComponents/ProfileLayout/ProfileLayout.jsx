@@ -4,7 +4,7 @@ import { Outlet } from 'react-router'
 
 const ProfileLayout = () => {
   return (
-    <div className='flex-1'>
+    <div className='w-full'>
       {/* profile navbar */}
       <ProfileNav />
 

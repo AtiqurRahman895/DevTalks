@@ -32,8 +32,8 @@ import Question from './components/QuestionComponent.jsx/Question';
 import AdminRoute from './components/AuthenticationComponents/AdminRoute';
 import Blogs from './components/BlogsPageComponents/blogs';
 import Blog from './components/BlogPageComponents/Blog';
-import PrivateRoute from "./components/AuthenticationComponents/PrivateRoute";
-import { ProfileProvider } from "./Provider/ProfileProvider";
+import ChangePassword from './components/AuthenticationComponents/ChangePassword';
+import PrivateRoute from "./components/AuthenticationComponents/PrivateRoute"
 
 const router = createBrowserRouter([
   {
@@ -81,9 +81,7 @@ const router = createBrowserRouter([
         path: "/profile/:email",
         element: (
           <PrivateRoute>
-            <ProfileProvider>
-              <ProfilePage />
-            </ProfileProvider>
+            <ProfilePage />
           </PrivateRoute>
         ),
         children: [
@@ -115,7 +113,7 @@ const router = createBrowserRouter([
         path: "/quiz",
         element: (
           <PrivateRoute>
-            <QuizComponents />
+            <QuizComponents/>
           </PrivateRoute>
         ),
       },
@@ -125,8 +123,8 @@ const router = createBrowserRouter([
         element: (
           <AdminRoute>
             <AddBlog />
-          </AdminRoute>
-        ),
+          </AdminRoute> 
+        )
       },
       // blogs
       {
@@ -154,6 +152,14 @@ const router = createBrowserRouter([
         path: "/forgot-password",
         element: <ForgotPassword />,
       },
+      {
+        path: "/change-password",
+        element: (
+          <PrivateRoute>
+            <ChangePassword />
+          </PrivateRoute>
+        ),
+      },
     ],
   },
 
@@ -174,15 +180,16 @@ const router = createBrowserRouter([
     element: <Dashboard></Dashboard>,
     children: [
       {
-        path: "/dashboard",
-        element: (
+        path:'/dashboard',
+        element:(
           <AdminRoute>
-            <Admin_Panel />
+            <Admin_Panel/>
           </AdminRoute>
-        ),
-      },
-    ],
-  },
+        )
+      }
+    ]
+
+  }
 ]);
 
 const queryClient = new QueryClient();
