@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 import { AuthContext } from "../../Provider/AuthProvider";
 import Swal from 'sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
+import img_wishlist from '../../../public/img-wishlist.gif';
 
 const SignIn =()=>{
   const navigate = useNavigate();
@@ -22,7 +23,21 @@ const SignIn =()=>{
       const userCredential = await signInUser(email, password)
       
 
-     
+      Swal.fire({
+                     position: "center",
+                     timer: 5000,
+                     imageUrl: img_wishlist,  
+                     imageWidth: 800,     
+                     imageHeight: 400,    
+                     imageAlt: "Eid Mubarak",
+                     showConfirmButton: false,
+                     width: '850px',      
+                        
+                     customClass: {
+                       popup: 'rounded-xl', // Rounded corners for popup
+                       image: 'object-cover' // Ensures image fits nicely
+                     }
+             })
       
 
       toast.success(

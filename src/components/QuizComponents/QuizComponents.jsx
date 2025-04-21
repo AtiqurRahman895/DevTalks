@@ -19,6 +19,7 @@ const QuizComponents = () => {
   const difficulty = 'easy';
   const limit = 10;
 
+  console.log('limit');
   
   const fetchQuiz = async () => {
     setLoading(true);
