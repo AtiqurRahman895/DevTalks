@@ -33,7 +33,7 @@ import Blogs from './components/BlogsPageComponents/blogs';
 import Blog from './components/BlogPageComponents/Blog';
 import ChangePassword from './components/AuthenticationComponents/ChangePassword';
 import PrivateRoute from "./components/AuthenticationComponents/PrivateRoute"
-// import Bookmarks from './components/BookMarksComponents/Bookmarks';
+import Bookmarks from './components/BookMarksComponents/Bookmarks';
 
 const router = createBrowserRouter([
   {
@@ -102,10 +102,10 @@ const router = createBrowserRouter([
         ],
       },
       // bookmark
-      // {
-      //   path: "/bookmark",
-      //   element: <Bookmarks/>,
-      // },
+      {
+        path: "/bookmark",
+        element: <Bookmarks/>,
+      },
       // quiz
       {
         path: "/quiz",
