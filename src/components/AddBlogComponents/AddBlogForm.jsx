@@ -17,6 +17,7 @@ const AddBlogForm = () => {
     const [title, setTitle] = useState("")
     const [shortDescription, setShortDescription] = useState("")
     const [editorContents, setEditorContents] = useState({LongDescription:""});
+    const [editorKey, setEditorKey] = useState(0);
     const [selectedTags, setSelectedTags] = useState([])
     const [image, setImage] = useState()
     const {htmlToPlainText, countWordsAndChars} = useWordCount()
@@ -83,7 +84,8 @@ const AddBlogForm = () => {
             setTitle("")
             setShortDescription("")
             setImage()
-            setEditorContents({question:""})
+            setEditorContents({LongDescription:""})
+            setEditorKey(prev => prev + 1); // 💡 This will force remount
             setSelectedTags([])
         } catch (error) {
             console.log(`Unable to add blog now: ${error}`)
@@ -120,7 +122,7 @@ const AddBlogForm = () => {
 
                     <div className="space-y-3">
                         <h5 className='text-custom-primary'>Type long description</h5>
-                        <TextEditor label="LongDescription" setEditorContents={setEditorContents} editorContents={editorContents.LongDescription} />
+                        <TextEditor key={editorKey} label="LongDescription" setEditorContents={setEditorContents} editorContents={editorContents.LongDescription} />
                     </div>
 
 

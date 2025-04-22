@@ -60,7 +60,7 @@ const ResponseTextEditor = ({responseTo, setResponseTo, commentOnly=true, refetc
         }
     };
 
-    console.log(editorContents)
+    // console.log(editorContents)
 
     return (
 

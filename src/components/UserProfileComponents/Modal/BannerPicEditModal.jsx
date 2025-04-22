@@ -1,10 +1,11 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useContext } from "react";
 import PropTypes from "prop-types";
 import { toast } from "react-toastify";
 import CoverImageInput from "../../CommonComponents/CoverImageInput";
 import ProfileImageInput from "../../AuthenticationComponents/ProfileImageInput";
 import { secureAxios } from "../../../Hooks/useSecureAxios";
 import Loading from "../../AuthenticationComponents/Loading";
+import { AuthContext } from "../../../Provider/AuthProvider";
 
 // Constants for better readability and maintainability
 const IMAGE_TYPES = {
@@ -20,6 +21,7 @@ const TOAST_MESSAGES = {
 
 const BannerPicEditModal = ({ modalId, userEmail, refetch, isProfileImage }) => {
   const [image, setImage] = useState("");
+  const { updateUserProfile, user } = useContext(AuthContext);
   const [isLoading, setIsLoading] = useState(false);
 
   // Handle image save with error handling and toast notifications
@@ -37,6 +39,9 @@ const BannerPicEditModal = ({ modalId, userEmail, refetch, isProfileImage }) => 
       });
 
       if (response.data.modifiedCount > 0) {
+        if(isProfileImage){
+          updateUserProfile(user?.displayName, image);
+        }
         toast.success(TOAST_MESSAGES.SUCCESS);
         setImage(""); 
         refetch(); 

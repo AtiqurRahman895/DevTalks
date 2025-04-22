@@ -10,6 +10,7 @@ import useGetResponses from "../../Hooks/useGetResponses";
 import Loading from "../AuthenticationComponents/Loading";
 import ResponseCard from "./ResponseCard";
 import UpvoteDownvoteButtons from "./UpvoteDownvoteButtons";
+import BookmarkButton from "../CommonComponents/BookmarkButton";
 
 const Question = () => {
     const questionData = useLoaderData()
@@ -66,16 +67,7 @@ const Question = () => {
 
                                 <UpvoteDownvoteButtons voteOn={_id} forQuestion={true} totalVotes={questionData.votes||0} />
 
-                                <div className="bookmark p-2 duration-500 text-white hover:text-black hover:bg-white border border-custom-gray hover:border-custom-primary rounded-full">
-                                    <FaBookmark className="" />
-                                </div>
-
-                                <Tooltip
-                                    anchorSelect=".bookmark"
-                                    className="!bg-custom-primary"
-                                >
-                                    Add this Question to wishlist!
-                                </Tooltip>
+                                <BookmarkButton _id={_id} type="question" />
 
                                 <div onClick={()=>setResponseTo((pre)=>pre!==_id&&_id)} className={`respond p-2 duration-500 rounded-full border ${responseTo===_id ? "text-black bg-white" : "text-white border-custom-gray"}`}>
                                     <FaReply className="" />
@@ -85,7 +77,7 @@ const Question = () => {
                                     anchorSelect=".respond"
                                     className="!bg-custom-primary"
                                 >
-                                    Respond.
+                                    Respond
                                 </Tooltip>
 
                             </div>

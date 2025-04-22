@@ -65,7 +65,7 @@ const ResponseCard = ({responseTo, setResponseTo, responseData }) => {
                             anchorSelect=".respond"
                             className="!bg-custom-primary"
                         >
-                            Respond.
+                            Respond
                         </Tooltip>
 
                     </div>

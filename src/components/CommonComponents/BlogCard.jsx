@@ -2,20 +2,23 @@ import { Link } from "react-router";
 import useGetRelativeTime from "../../Hooks/useGetRelativeTime";
 import { FaRegClock, FaRegUser } from "react-icons/fa";
 
-const BlogCard = ({blog}) => {
+const BlogCard = ({blog, showImage=false}) => {
   const formatRelativeTime= useGetRelativeTime()
-
     return (
         <div
-            key={blog._id}
-            className="border border-custom-half-gray rounded-lg"
+            className={`border border-custom-half-gray rounded-lg h-auto ${showImage&&"!bg-[linear-gradient(175deg,rgba(0,0,0,1)0%,rgba(55,55,55,.3)75%);]"}`}
         >
-            <img
-                src={blog.image}
-                alt={blog.title}
-                className="w-full aspect-[3/2] object-cover object-center rounded-t-lg"
-            />
-            <div className="py-6 px-4 space-y-2 !bg-[linear-gradient(175deg,rgba(0,0,0,1)0%,rgba(55,55,55,.3)75%);]">
+            {
+                (showImage) &&(
+                    <img
+                        src={blog.image}
+                        alt={blog.title}
+                        className="w-full aspect-[3/2] object-cover object-center rounded-t-lg"
+                    />
+                )
+            }
+
+            <div className={`py-6 px-4 space-y-2 ${showImage||"!bg-[linear-gradient(175deg,rgba(0,0,0,1)0%,rgba(55,55,55,.3)75%);]"}`}>
 
                 <Link to={`/blog/${blog._id}`} className="text-custom-primary hover:underline cursor-pointer">
                     <h5 className="">{blog.title}</h5>

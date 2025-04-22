@@ -3,6 +3,7 @@ import QuestionCard from "../../CommonComponents/QuestionCard";
 import useNormalAxios from "../../../Hooks/useNormalAxios";
 import { useQuery } from "@tanstack/react-query";
 import Loading from "../../AuthenticationComponents/Loading";
+import NotFound from "../../CommonComponents/NotFound";
 
 const LatestQuestions = () => {
   const normalAxios = useNormalAxios()
@@ -10,7 +11,7 @@ const LatestQuestions = () => {
   const fetchQuestions= async() => {
       const params = {
           sort:{_id:-1}, 
-          limit:6, 
+          limit:5, 
       };
 
       const res=await normalAxios.get("/questions/questions", {params})

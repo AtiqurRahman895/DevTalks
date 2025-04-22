@@ -10,13 +10,14 @@ import ResponseTextEditor from '../CommonComponents/ResponseTextEditor';
 import Loading from '../AuthenticationComponents/Loading';
 import ResponseCard from '../QuestionComponent.jsx/ResponseCard';
 import { FaRegUser } from 'react-icons/fa';
+import BookmarkButton from '../CommonComponents/BookmarkButton';
 
 const Blog = () => {
     const blogData = useLoaderData()
     const {_id, author, authorEmail, title, shortDescription, tags, image, LongDescription, createdAt} = blogData
     const highlightRef = useRef(null);
     useHighlightCodeBlock(true, highlightRef)
-    const formatRelativeTime= useGetRelativeTime()
+    // const formatRelativeTime= useGetRelativeTime()
 
     const [responseTo, setResponseTo] = useState("")
 
@@ -29,7 +30,8 @@ const Blog = () => {
                 <div className="container">
                     <div className="space-y-2">
                         <h3>{title}</h3>
-                        <b>{shortDescription}</b>
+                        <b className='block'>{shortDescription}</b>
+                        <BookmarkButton _id={_id} type='blog'/>
 
                         <div className="flex flex-wrap gap-3">
                             <Link to={`/profile/${authorEmail}`} className="flex items-center gap-1">

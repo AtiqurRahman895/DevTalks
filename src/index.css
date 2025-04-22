@@ -117,8 +117,12 @@
 
     /* Basic editor styles */
     .tiptap:first-child {
-        margin-top: 2rem !important;
+        /* margin-top: 2rem !important; */
         outline: none !important;
+        
+    }
+    .tiptap:first-child{
+        @apply min-h-40 h-auto
     }
 
     .tiptap p.is-empty::before {

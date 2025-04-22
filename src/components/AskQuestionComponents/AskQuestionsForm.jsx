@@ -14,6 +14,7 @@ const AskQuestionsForm = () => {
 
     const [title, setTitle] = useState("")
     const [editorContents, setEditorContents] = useState({question:""});
+    const [editorKey, setEditorKey] = useState(0);
     const [selectedTags, setSelectedTags] = useState([])
     const {htmlToPlainText, countWordsAndChars} = useWordCount()
 
@@ -70,6 +71,7 @@ const AskQuestionsForm = () => {
             setShowPreview(false)
             setTitle("")
             setEditorContents({question:""})
+            setEditorKey(prev => prev + 1); // 💡 This will force remount
             setSelectedTags([])
         } catch (error) {
             console.log(`Unable to creat question now: ${error}`)
@@ -90,7 +92,7 @@ const AskQuestionsForm = () => {
         
                     <div className="space-y-3">
                         <h5 className='text-custom-primary'>Type your question</h5>
-                        <TextEditor label="question" setEditorContents={setEditorContents} editorContents={editorContents.question} />
+                        <TextEditor key={editorKey} label="question" setEditorContents={setEditorContents} editorContents={editorContents.question} />
                     </div>
         
                     <div className="space-y-3">

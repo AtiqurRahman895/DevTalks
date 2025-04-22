@@ -13,7 +13,6 @@ import ProfilePage from './components/UserProfileComponents/ProfilePage';
 import PfpAllQuestion from './components/UserProfileComponents/ProfileLayout/PfpAllQuestion';
 import PfpAllAnswer from './components/UserProfileComponents/ProfileLayout/PfpAllAnswer';
 import PfpAllBadges from './components/UserProfileComponents/ProfileLayout/PfpAllBadges';
-import BookMark from './components/BookMarks/BookMark';
 import QuizComponents from './components/QuizComponents/QuizComponents';
 import TextMessage from "./components/TextMessage/TextMessage";
 import UserInbox from "./components/TextMessage/UserInbox";
@@ -34,6 +33,7 @@ import Blogs from './components/BlogsPageComponents/blogs';
 import Blog from './components/BlogPageComponents/Blog';
 import ChangePassword from './components/AuthenticationComponents/ChangePassword';
 import PrivateRoute from "./components/AuthenticationComponents/PrivateRoute"
+// import Bookmarks from './components/BookMarksComponents/Bookmarks';
 
 const router = createBrowserRouter([
   {
@@ -102,10 +102,10 @@ const router = createBrowserRouter([
         ],
       },
       // bookmark
-      {
-        path: "/bookMark",
-        element: <BookMark></BookMark>,
-      },
+      // {
+      //   path: "/bookmark",
+      //   element: <Bookmarks/>,
+      // },
       // quiz
       {
         path: "/quiz",
