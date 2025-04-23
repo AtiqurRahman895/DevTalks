@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React, { useContext, useRef, useState } from 'react';
 import useHighlightCodeBlock from '../../Hooks/useHighlightCodeBlock';
 import useGetRelativeTime from '../../Hooks/useGetRelativeTime';
@@ -8,8 +7,10 @@ import { Tooltip } from 'react-tooltip';
 import ResponseTextEditor from '../CommonComponents/ResponseTextEditor';
 import useGetResponses from '../../Hooks/useGetResponses';
 import UpvoteDownvoteButtons from './UpvoteDownvoteButtons';
-import { RiEdit2Fill } from 'react-icons/ri';
+import { RiDeleteBin2Fill, RiEdit2Fill } from 'react-icons/ri';
 import { AuthContext } from '../../Provider/AuthProvider';
+import useSecureAxios from '../../Hooks/useSecureAxios';
+import { toast } from 'react-toastify';
 
 const ResponseCard = ({responseTo, setResponseTo, responseData, questionId="", mainRefetch }) => {
     const highlightRef = useRef(null);
@@ -18,6 +19,7 @@ const ResponseCard = ({responseTo, setResponseTo, responseData, questionId="", m
     const {_id, responder, responderEmail, responseType, response, createdAt}= responseData
     const {user} = useContext(AuthContext)
     const {loading, responses, refetch} = useGetResponses(_id)
+    const secureAxios= useSecureAxios() 
 
     const [updateId, setUpdateId] = useState("")
 
@@ -29,6 +31,20 @@ const ResponseCard = ({responseTo, setResponseTo, responseData, questionId="", m
     const handleUpdateButton=()=>{
         setUpdateId((pre)=>pre!==_id&&_id)
         setResponseTo("")
+    }
+
+    const handleDeleteButton= async ()=>{
+        const deleteNote = window.confirm(`Are you sure about deleting this response?`);
+        if (deleteNote) {
+          try {
+            await secureAxios.delete(`/responses/deleteRresponse/${_id}`);
+            mainRefetch()
+            toast.info(`You have successfully deleted one response!`);
+          } catch (error) {
+            toast.error(`Failed to delete one response!`);
+            console.error(error);
+          }
+        }
     }
 
     return (
@@ -82,20 +98,27 @@ const ResponseCard = ({responseTo, setResponseTo, responseData, questionId="", m
                         {
                             (user?.email===responderEmail) && 
                             <>
-                                <div onClick={handleUpdateButton} className={`update p-2 duration-500 rounded-full border ${updateId===_id ? "text-black bg-white" : "text-white border-custom-gray"}`}>
+                                <div onClick={handleUpdateButton} className={`updateResponse p-2 duration-500 rounded-full border ${updateId===_id ? "text-black bg-white" : "text-white border-custom-gray"}`}>
                                     <RiEdit2Fill className="" />
                                 </div>
-                            
                                 <Tooltip
-                                    anchorSelect=".update"
+                                    anchorSelect=".updateResponse"
                                     className="!bg-custom-primary"
                                 >
-                                    Update your response
+                                    Update this response
+                                </Tooltip>
+
+                                <div onClick={handleDeleteButton} className={`deleteResponse p-2 duration-500 rounded-full border text-white border-custom-gray hover:text-black hover:bg-white`}>
+                                    <RiDeleteBin2Fill className="" />
+                                </div>
+                                <Tooltip
+                                    anchorSelect=".deleteResponse"
+                                    className="!bg-custom-primary"
+                                >
+                                    Delete this response
                                 </Tooltip>
                             </>
                         }
-
-
 
                     </div>
                 </div>
@@ -119,7 +142,7 @@ const ResponseCard = ({responseTo, setResponseTo, responseData, questionId="", m
 
                     <div className="pl-2 xs:pl-4 pt-4 border-l border-custom-primary space-y-5">
                         {responses.map((response,index)=>(
-                            <ResponseCard key={index} responseTo={responseTo} setResponseTo={setResponseTo} responseData={response} refetch={refetch}/>
+                            <ResponseCard key={index} responseTo={responseTo} setResponseTo={setResponseTo} responseData={response} mainRefetch={refetch}/>
                         ))}
                     </div>
             }

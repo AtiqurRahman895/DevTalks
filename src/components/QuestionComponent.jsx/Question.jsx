@@ -1,8 +1,8 @@
-import { Link, useLoaderData } from "react-router";
+import { Link, useLoaderData, useNavigate } from "react-router";
 import PageTitle from "../CommonComponents/PageTitle";
 import useGetRelativeTime from "../../Hooks/useGetRelativeTime";
 import useHighlightCodeBlock from "../../Hooks/useHighlightCodeBlock";
-import { useRef, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import { Tooltip } from "react-tooltip";
 import { FaBookmark, FaRegClock, FaRegUser, FaReply } from "react-icons/fa";
 import ResponseTextEditor from "../CommonComponents/ResponseTextEditor";
@@ -11,6 +11,10 @@ import Loading from "../AuthenticationComponents/Loading";
 import ResponseCard from "./ResponseCard";
 import UpvoteDownvoteButtons from "./UpvoteDownvoteButtons";
 import BookmarkButton from "../CommonComponents/BookmarkButton";
+import { AuthContext } from "../../Provider/AuthProvider";
+import useSecureAxios from "../../Hooks/useSecureAxios";
+import { toast } from "react-toastify";
+import { RiDeleteBin2Fill, RiEdit2Fill } from "react-icons/ri";
 
 const Question = () => {
     const questionData = useLoaderData()
@@ -18,10 +22,27 @@ const Question = () => {
     const highlightRef = useRef(null);
     useHighlightCodeBlock(true, highlightRef)
     const formatRelativeTime= useGetRelativeTime()
+    const {user} = useContext(AuthContext)
+    const secureAxios= useSecureAxios() 
+    const navigate= useNavigate()
 
     const [responseTo, setResponseTo] = useState("")
     
     const {loading, responses, refetch} = useGetResponses(_id)
+
+    const handleDeleteButton= async ()=>{
+        const deleteNote = window.confirm(`Are you sure about deleting this question?`);
+        if (deleteNote) {
+            try {
+                await secureAxios.delete(`/questions/deleteQuestion/${_id}`);
+                navigate(-1)
+                toast.info(`You have successfully deleted one question!`);
+            } catch (error) {
+                toast.error(`Failed to delete one question!`);
+                console.error(error);
+            }
+        }
+    }
 
     return (
         <main className="py-16 space-y-8">
@@ -80,13 +101,39 @@ const Question = () => {
                                     Respond
                                 </Tooltip>
 
+                                {
+                                    (user?.email===askerEmail) && 
+                                    <>
+                                        <Link to={`/update-question/${_id}`} className={`updateQuestion p-2 duration-500 rounded-full border text-white border-custom-gray hover:text-black hover:bg-white`}>
+                                            <RiEdit2Fill className="" />
+                                        </Link>
+                                    
+                                        <Tooltip
+                                            anchorSelect=".updateQuestion"
+                                            className="!bg-custom-primary"
+                                        >
+                                            Update your question
+                                        </Tooltip>
+        
+                                        <div onClick={handleDeleteButton} className={`deleteQuestion p-2 duration-500 rounded-full border text-white border-custom-gray hover:text-black hover:bg-white`}>
+                                            <RiDeleteBin2Fill className="" />
+                                        </div>
+                                        <Tooltip
+                                            anchorSelect=".deleteQuestion"
+                                            className="!bg-custom-primary"
+                                        >
+                                            Delete this question
+                                        </Tooltip>
+                                    </>
+                                }
+
                             </div>
                         </div>
 
                         {
                             (responseTo===_id) && 
                             <div className="py-4 border-t border-custom-gray">
-                                <ResponseTextEditor responseTo={responseTo} setResponseTo={setResponseTo} commentOnly={false} refetch={refetch} />
+                                <ResponseTextEditor responseTo={responseTo} setResponseTo={setResponseTo} commentOnly={false} refetch={refetch} defaultResponseType="comment"/>
                             </div>
                         }
                     </div>
