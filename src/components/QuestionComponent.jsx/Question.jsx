@@ -20,7 +20,7 @@ const Question = () => {
     const formatRelativeTime= useGetRelativeTime()
 
     const [responseTo, setResponseTo] = useState("")
-
+    
     const {loading, responses, refetch} = useGetResponses(_id)
 
     return (
@@ -101,7 +101,7 @@ const Question = () => {
                         <h4>{responses.length===0?"No answers or comments yet":"Answers & Comments"}</h4>
 
                         {responses.map((response,index)=>(
-                            <ResponseCard key={index} responseTo={responseTo} setResponseTo={setResponseTo} responseData={response} refetch={refetch} />
+                            <ResponseCard key={index} responseTo={responseTo} setResponseTo={setResponseTo} responseData={response} questionId={_id} mainRefetch={refetch} />
                         ))}
                     </div>
 

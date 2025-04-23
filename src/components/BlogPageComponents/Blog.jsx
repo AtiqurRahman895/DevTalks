@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { Link, useLoaderData } from 'react-router';
 import useHighlightCodeBlock from '../../Hooks/useHighlightCodeBlock';
-import useGetRelativeTime from '../../Hooks/useGetRelativeTime';
+// import useGetRelativeTime from '../../Hooks/useGetRelativeTime';
 import PageTitle from '../CommonComponents/PageTitle';
 import { HiOutlineCalendarDateRange } from 'react-icons/hi2';
 import { IoMdTime } from 'react-icons/io';
@@ -78,7 +78,7 @@ const Blog = () => {
                         loading ? <Loading /> :
                         (
                             responses.map((response,index)=>(
-                                <ResponseCard key={index} responseTo={responseTo} setResponseTo={setResponseTo} responseData={response} refetch={refetch} />
+                                <ResponseCard key={index} responseTo={responseTo} setResponseTo={setResponseTo} responseData={response} mainRefetch={refetch} />
                             ))
                         )
                     }

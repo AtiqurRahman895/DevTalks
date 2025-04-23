@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, { useRef } from 'react';
+import React, { useContext, useRef, useState } from 'react';
 import useHighlightCodeBlock from '../../Hooks/useHighlightCodeBlock';
 import useGetRelativeTime from '../../Hooks/useGetRelativeTime';
 import { Link } from 'react-router';
@@ -8,15 +8,28 @@ import { Tooltip } from 'react-tooltip';
 import ResponseTextEditor from '../CommonComponents/ResponseTextEditor';
 import useGetResponses from '../../Hooks/useGetResponses';
 import UpvoteDownvoteButtons from './UpvoteDownvoteButtons';
+import { RiEdit2Fill } from 'react-icons/ri';
+import { AuthContext } from '../../Provider/AuthProvider';
 
-const ResponseCard = ({responseTo, setResponseTo, responseData }) => {
+const ResponseCard = ({responseTo, setResponseTo, responseData, questionId="", mainRefetch }) => {
     const highlightRef = useRef(null);
     useHighlightCodeBlock(true, highlightRef)
     const formatRelativeTime= useGetRelativeTime()
     const {_id, responder, responderEmail, responseType, response, createdAt}= responseData
-
+    const {user} = useContext(AuthContext)
     const {loading, responses, refetch} = useGetResponses(_id)
 
+    const [updateId, setUpdateId] = useState("")
+
+    const handleRespondButton=()=>{
+        setResponseTo((pre)=>pre!==_id&&_id)
+        setUpdateId("")
+    }
+
+    const handleUpdateButton=()=>{
+        setUpdateId((pre)=>pre!==_id&&_id)
+        setResponseTo("")
+    }
 
     return (
         <div className="">
@@ -55,9 +68,7 @@ const ResponseCard = ({responseTo, setResponseTo, responseData }) => {
                             <UpvoteDownvoteButtons voteOn={_id} totalVotes={responseData.votes||0} />
                         }
 
-
-
-                        <div onClick={()=>setResponseTo((pre)=>pre!==_id&&_id)} className={`respond p-2 duration-500 rounded-full border ${responseTo===_id ? "text-black bg-white" : "text-white border-custom-gray"}`}>
+                        <div onClick={handleRespondButton} className={`respond p-2 duration-500 rounded-full border ${responseTo===_id ? "text-black bg-white" : "text-white border-custom-gray"}`}>
                             <FaReply className="" />
                         </div>
                     
@@ -68,6 +79,24 @@ const ResponseCard = ({responseTo, setResponseTo, responseData }) => {
                             Respond
                         </Tooltip>
 
+                        {
+                            (user?.email===responderEmail) && 
+                            <>
+                                <div onClick={handleUpdateButton} className={`update p-2 duration-500 rounded-full border ${updateId===_id ? "text-black bg-white" : "text-white border-custom-gray"}`}>
+                                    <RiEdit2Fill className="" />
+                                </div>
+                            
+                                <Tooltip
+                                    anchorSelect=".update"
+                                    className="!bg-custom-primary"
+                                >
+                                    Update your response
+                                </Tooltip>
+                            </>
+                        }
+
+
+
                     </div>
                 </div>
 
@@ -77,6 +106,12 @@ const ResponseCard = ({responseTo, setResponseTo, responseData }) => {
                         <ResponseTextEditor responseTo={responseTo} setResponseTo={setResponseTo} refetch={refetch} />
                     </div>
                 }
+                {
+                    (updateId===_id) && 
+                    <div className="py-4 border-t border-custom-gray">
+                        <ResponseTextEditor responseTo={responseTo} setResponseTo={setResponseTo} commentOnly={questionId!==responseData.responseTo} refetch={mainRefetch||refetch} defaultResponseType={responseType} defaultResponse={response} updateId={updateId} setUpdateId={setUpdateId} />
+                    </div>
+                }
             </div>
 
             {
@@ -84,7 +119,7 @@ const ResponseCard = ({responseTo, setResponseTo, responseData }) => {
 
                     <div className="pl-2 xs:pl-4 pt-4 border-l border-custom-primary space-y-5">
                         {responses.map((response,index)=>(
-                            <ResponseCard key={index} responseTo={responseTo} setResponseTo={setResponseTo} responseData={response} refetch={refetch} />
+                            <ResponseCard key={index} responseTo={responseTo} setResponseTo={setResponseTo} responseData={response} refetch={refetch}/>
                         ))}
                     </div>
             }
