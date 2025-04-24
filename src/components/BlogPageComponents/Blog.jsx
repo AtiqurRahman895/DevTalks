@@ -19,7 +19,7 @@ import { Tooltip } from 'react-tooltip';
 
 const Blog = () => {
     const blogData = useLoaderData()
-    const {_id, author, authorEmail, title, shortDescription, tags, image, LongDescription, createdAt} = blogData
+    const {_id, author, authorEmail, title, shortDescription, tags, image, longDescription, createdAt} = blogData
     const highlightRef = useRef(null);
     useHighlightCodeBlock(true, highlightRef)
     // const formatRelativeTime= useGetRelativeTime()
@@ -113,7 +113,7 @@ const Blog = () => {
 
                         <img src={image?image:""} alt="Blog cover image" className="bg-custom-primary max-w-full m-auto !my-6" />
 
-                        <div ref={highlightRef} className="!whitespace-pre-wrap editorContents" dangerouslySetInnerHTML={{ __html: LongDescription }}></div>
+                        <div ref={highlightRef} className="!whitespace-pre-wrap editorContents" dangerouslySetInnerHTML={{ __html: longDescription }}></div>
 
                     </div>
                 </div>

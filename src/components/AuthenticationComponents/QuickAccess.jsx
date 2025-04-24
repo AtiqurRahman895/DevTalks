@@ -46,8 +46,8 @@ const QuickAccess = () => {
             <h4 className="">Quick Access for Recruiters & Testers as a</h4>
 
             <div className="flex items-center justify-center gap-4">
-                <button onClick={(e)=>handleSignIn(e, "emonhassan895@gmail.com", "1aA@1a")} type="submit" className="outlineButton !rounded-full">ordinary user</button>
-                <button onClick={(e)=>handleSignIn(e, "test.admin@devtalks.com", "1aA@1a")} type="submit" className="outlineButton !rounded-full">admin user</button>
+                <button onClick={(e)=>handleSignIn(e, "emonhassan895@gmail.com", "1aA@1a")} type="submit" className="outlineButton hover:!bg-white hover:!text-custom-primary !rounded-full">Ordinary user</button>
+                <button onClick={(e)=>handleSignIn(e, "test.admin@devtalks.com", "1aA@1a")} type="submit" className="outlineButton hover:!bg-white hover:!text-custom-primary !rounded-full">Admin user</button>
             </div>
 
             </div>

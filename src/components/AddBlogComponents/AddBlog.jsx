@@ -1,18 +1,18 @@
 import React from 'react';
 import PageTitle from '../CommonComponents/PageTitle';
-import AddBlogForm from './AddBlogForm';
+import BlogForm from './BlogForm';
 
 const AddBlog = () => {
     return (
         <main>
-            <PageTitle title="Ask question" />
+            <PageTitle title="Add blog" />
             <section className="py-16">
                 <div className="container space-y-6">
 
                     <h3>Add a blog</h3>
 
                     <div className="w-full">
-                        <AddBlogForm />
+                        <BlogForm />
                     </div>
 
 

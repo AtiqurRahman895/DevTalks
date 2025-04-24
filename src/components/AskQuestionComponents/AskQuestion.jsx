@@ -1,6 +1,6 @@
 import React from 'react';
 import PageTitle from '../CommonComponents/PageTitle';
-import AskQuestionsForm from './AskQuestionsForm';
+import QuestionForm from './QuestionForm';
 
 const AskQuestion = () => {
     return (
@@ -12,7 +12,7 @@ const AskQuestion = () => {
                     <h3>Ask a public question</h3>
 
                     <div className="w-full">
-                        <AskQuestionsForm />
+                        <QuestionForm />
                     </div>
 
 

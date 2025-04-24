@@ -34,6 +34,8 @@ import Blog from './components/BlogPageComponents/Blog';
 import ChangePassword from './components/AuthenticationComponents/ChangePassword';
 import PrivateRoute from "./components/AuthenticationComponents/PrivateRoute"
 import Bookmarks from './components/BookMarksComponents/Bookmarks';
+import UpdateBlog from './components/UpdateBlogComponents/UpdateBlog';
+import UpdateQuestion from './components/UpdateQuestionComponents/UpdateQuestion';
 
 const router = createBrowserRouter([
   {
@@ -63,6 +65,21 @@ const router = createBrowserRouter([
           return res.data
         },
         element: <Question />,
+      },
+      {
+        path: "/update-question/:_id",
+        loader: async({params})=>{
+          const res = await normalAxios.get(`/questions/question/${params._id}`)
+          if(localStorage.getItem("email")!==res.data.askerEmail){
+            throw new Response("Page not found", { status: 404 });
+          }
+          return res.data
+        },
+        element: (
+          <PrivateRoute>
+            <UpdateQuestion />
+          </PrivateRoute> 
+        )
       },
       // about
       {
@@ -136,6 +153,21 @@ const router = createBrowserRouter([
           return res.data
         },
         element: <Blog />,
+      },
+      {
+        path: "/update-blog/:_id",
+        loader: async({params})=>{
+          const res = await normalAxios.get(`/blogs/blog/${params._id}`)
+          if(localStorage.getItem("email")!==res.data.authorEmail){
+            throw new Response("Page not found", { status: 404 });
+          }
+          return res.data
+        },
+        element: (
+          <AdminRoute>
+            <UpdateBlog />
+          </AdminRoute> 
+        )
       },
       // Authentication
       {

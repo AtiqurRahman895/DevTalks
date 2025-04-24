@@ -25,8 +25,6 @@ import {
   AiOutlineCode,
   AiOutlineOrderedList,
   AiOutlineUnorderedList,
-  AiOutlineFontColors,
-  AiOutlineClear,
 } from 'react-icons/ai';
 import { BsCodeSlash, BsBlockquoteLeft, BsHr } from 'react-icons/bs';
 import { LuHeading1, LuHeading2, LuHeading3 } from 'react-icons/lu';
@@ -65,7 +63,7 @@ const MenuBar = () => {
                 }}
             className={`btn btn-xs border-0 ${editor.isActive('textStyle', { color: '#352cd4' }) ? 'bg-custom-primary hover:bg-custom-primary !text-white' : 'bg-custom-gray/45 hover:bg-custom-gray/45 text-black'}`}
         >
-          Color
+          Highlight
         </button>
 
         {[4, 5, 6].map(level => (
