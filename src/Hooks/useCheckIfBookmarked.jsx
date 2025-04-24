@@ -17,8 +17,6 @@ const useCheckIfBookmarked = (item, setBooked) => {
 
             if(res.data){
                 setBooked(1)
-            console.log(res.data)
-
                 return res.data
             }else{
                 setBooked(0)

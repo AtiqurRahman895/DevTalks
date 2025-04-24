@@ -74,7 +74,7 @@ const ResponseCard = ({responseTo, setResponseTo, responseData, questionId="", m
 
                 </div>
 
-                <div ref={highlightRef} className="!whitespace-pre-wrap editorContents py-4" dangerouslySetInnerHTML={{ __html: response }}></div>
+                <div ref={highlightRef} className="editorContents py-4" dangerouslySetInnerHTML={{ __html: response }}></div>
 
                 <div className="py-4 border-t border-custom-gray">
                     <div className="flex flex-wrap gap-3">

@@ -113,7 +113,7 @@ const Blog = () => {
 
                         <img src={image?image:""} alt="Blog cover image" className="bg-custom-primary max-w-full m-auto !my-6" />
 
-                        <div ref={highlightRef} className="!whitespace-pre-wrap editorContents" dangerouslySetInnerHTML={{ __html: longDescription }}></div>
+                        <div ref={highlightRef} className="editorContents" dangerouslySetInnerHTML={{ __html: longDescription }}></div>
 
                     </div>
                 </div>

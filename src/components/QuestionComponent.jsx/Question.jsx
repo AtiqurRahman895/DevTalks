@@ -4,7 +4,7 @@ import useGetRelativeTime from "../../Hooks/useGetRelativeTime";
 import useHighlightCodeBlock from "../../Hooks/useHighlightCodeBlock";
 import { useContext, useRef, useState } from "react";
 import { Tooltip } from "react-tooltip";
-import { FaBookmark, FaRegClock, FaRegUser, FaReply } from "react-icons/fa";
+import { FaRegClock, FaRegUser, FaReply } from "react-icons/fa";
 import ResponseTextEditor from "../CommonComponents/ResponseTextEditor";
 import useGetResponses from "../../Hooks/useGetResponses";
 import Loading from "../AuthenticationComponents/Loading";
@@ -15,6 +15,7 @@ import { AuthContext } from "../../Provider/AuthProvider";
 import useSecureAxios from "../../Hooks/useSecureAxios";
 import { toast } from "react-toastify";
 import { RiDeleteBin2Fill, RiEdit2Fill } from "react-icons/ri";
+import AiResponseCard from "./AiResponseCard";
 
 const Question = () => {
     const questionData = useLoaderData()
@@ -81,7 +82,7 @@ const Question = () => {
                             </div>
                         </div>
 
-                        <div ref={highlightRef} className="!whitespace-pre-wrap editorContents py-4" dangerouslySetInnerHTML={{ __html: question }}></div>
+                        <div ref={highlightRef} className=" editorContents py-4" dangerouslySetInnerHTML={{ __html: question }}></div>
 
                         <div className="py-4 border-t border-custom-gray">
                             <div className="flex flex-wrap gap-3">
@@ -145,6 +146,12 @@ const Question = () => {
                     loading ? <Loading /> :
 
                     <div className="container space-y-5">
+
+                        {
+                            questionData?.aiResponse &&
+                            <AiResponseCard aiResponse={questionData.aiResponse}/>
+                        }
+
                         <h4>{responses.length===0?"No answers or comments yet":"Answers & Comments"}</h4>
 
                         {responses.map((response,index)=>(

@@ -15,7 +15,7 @@ const PfpAnswerCard = ({ answer }) => {
       <div className="">
         <div
           ref={highlightRef}
-          className="!whitespace-pre-wrap editorContents py-4"
+          className="editorContents py-4"
           dangerouslySetInnerHTML={{ __html: answer.response }}
         ></div>
       </div>

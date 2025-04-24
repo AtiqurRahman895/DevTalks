@@ -133,8 +133,18 @@
 
     /* Code and preformatted text styles */
     p,h4,h6, li, pre {
-        white-space: pre-wrap;
+        /* white-space: pre-wrap; */
         word-wrap: break-word;
+    }
+
+    p, h4, h6, li {
+        /* white-space: pre-wrap; ❌ remove this */
+        word-wrap: break-word; /* keep this if needed */
+    }
+    
+    /* ✅ KEEP IT ONLY FOR THESE */
+    pre, pre *, code, .code-block {
+        white-space: pre-wrap !important;
     }
 
     pre {
@@ -189,7 +199,6 @@
     .tiptap h6, .editorContents h6{
         margin-block: 8px !important;
     }
-
 
     /* Indentation styles for data-indent */
     [data-indent="0"], .tt-indent-0 {
