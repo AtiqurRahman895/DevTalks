@@ -18,7 +18,8 @@ const SearchBar = () => {
     const filterOptions = [
         { label: "javascript", value: "javascript" },
         { label: "html", value: "html" },
-        { label: "react", value: "react" }
+        { label: "react", value: "react" },
+        { label: "go", value: "go" },
     ];
 
     const handleSubmit=(e)=>{

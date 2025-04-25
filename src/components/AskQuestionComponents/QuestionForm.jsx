@@ -6,15 +6,23 @@ import useWordCount from '../../Hooks/useWordCount';
 import PreviewQuestion from './PreviewQuestion';
 import { AuthContext } from '../../Provider/AuthProvider';
 import useSecureAxios from '../../Hooks/useSecureAxios';
+import { useNavigate } from 'react-router';
 
-const AskQuestionsForm = () => {
-    const [showPreview, setShowPreview] = useState(false)
+const QuestionForm = ({defaultQuestionData}) => {
     const {user} = useContext(AuthContext)
     const secureAxios= useSecureAxios() 
+    const navigate = useNavigate()
 
-    const [title, setTitle] = useState("")
-    const [editorContents, setEditorContents] = useState({question:""});
-    const [selectedTags, setSelectedTags] = useState([])
+    const [showPreview, setShowPreview] = useState(false)
+
+    const [title, setTitle] = useState(defaultQuestionData?.title||"")
+    const [editorContents, setEditorContents] = useState({question:defaultQuestionData?.question||""});
+    const [editorKey, setEditorKey] = useState(0);
+    const [selectedTags, setSelectedTags] = useState(
+        defaultQuestionData?.tags
+          ? defaultQuestionData.tags.map((tag) => ({ label: tag, value: tag }))
+          : []
+    );
     const {htmlToPlainText, countWordsAndChars} = useWordCount()
 
     const verify=()=>{
@@ -62,19 +70,37 @@ const AskQuestionsForm = () => {
         const asker= user?.displayName
         const askerEmail= user?.email
 
-        const credentials={asker, askerEmail, title, question, tags, createdAt}
+        if(!defaultQuestionData){
+            const credentials={asker, askerEmail, title, question, tags, createdAt}
         
-        try {
-            await secureAxios.post("/questions/creatQuestion",credentials)
-            toast.success("You have successfully created a question.")
-            setShowPreview(false)
-            setTitle("")
-            setEditorContents({question:""})
-            setSelectedTags([])
-        } catch (error) {
-            console.log(`Unable to creat question now: ${error}`)
-            toast.info(`Unable to creat question now, try again later`)
+            try {
+                await secureAxios.post("/questions/creatQuestion",credentials)
+                toast.success("You have successfully created a question.")
+                setShowPreview(false)
+                setTitle("")
+                setEditorContents({question:""})
+                setEditorKey(prev => prev + 1); // 💡 This will force remount
+                setSelectedTags([])
+            } catch (error) {
+                console.log(`Unable to creat question now: ${error}`)
+                toast.info(`Unable to creat question now, try again later`)
+            }
+
+        }else{
+            const credentials={title, question, tags}
+            
+            try {
+                await secureAxios.put(`/questions/updateQuestion/${defaultQuestionData._id}`,credentials)
+                toast.success("You have successfully updated a question.")
+                setEditorKey(prev => prev + 1); // 💡 This will force remount
+                navigate(`/question/${defaultQuestionData._id}`)
+            } catch (error) {
+                console.log(`Unable to update question now: ${error}`)
+                toast.info(`Unable to update question now, try again later`)
+            }
         }
+
+
     };
 
     return (
@@ -90,7 +116,7 @@ const AskQuestionsForm = () => {
         
                     <div className="space-y-3">
                         <h5 className='text-custom-primary'>Type your question</h5>
-                        <TextEditor label="question" setEditorContents={setEditorContents} editorContents={editorContents.question} />
+                        <TextEditor key={editorKey} label="question" setEditorContents={setEditorContents} editorContents={editorContents.question} />
                     </div>
         
                     <div className="space-y-3">
@@ -105,7 +131,7 @@ const AskQuestionsForm = () => {
 
             <div className="flex gap-4">
                 <button onClick={handleSubmit} className="primaryButton">
-                    Submit
+                    {!defaultQuestionData?"Submit":"Update"}
                 </button>
                 <button onClick={handlePreview} className="outlineButton">
                     {showPreview?"Show Form":"Show Preview"}
@@ -117,4 +143,4 @@ const AskQuestionsForm = () => {
     
 };
 
-export default AskQuestionsForm;
+export default QuestionForm;

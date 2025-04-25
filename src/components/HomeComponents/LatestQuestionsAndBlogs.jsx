@@ -1,7 +1,7 @@
-import LatestNews from "./Latest-Components/LatestNews";
+import LatestBlogs from "./Latest-Components/LatestBlogs";
 import LatestQuestions from "./Latest-Components/LatestQuestions";
 
-const LatestQuestionsAndNews = () => {
+const LatestQuestionsAndBlogs = () => {
     return (
             <section className="">
                 <div className="container flex flex-col md:flex-row gap-x-8 gap-y-12">
@@ -9,11 +9,11 @@ const LatestQuestionsAndNews = () => {
                         <LatestQuestions />
                     </div>
                     <div className="w-full md:w-5/12 mx-auto">
-                        <LatestNews />
+                        <LatestBlogs />
                     </div>
                 </div>
             </section>
     );
 };
 
-export default LatestQuestionsAndNews;
+export default LatestQuestionsAndBlogs;

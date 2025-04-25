@@ -3,7 +3,7 @@ import PageTitle from "../CommonComponents/PageTitle";
 
 const ErrorPage = () => {
   const { error, status, statusText } = useRouteError();
-  console.log(error);
+  // console.log(error);
 
   return (
     <>
@@ -12,7 +12,7 @@ const ErrorPage = () => {
       <div className="h-lvh place-items-center grid gap-3 content-center bg-white">
         {status === 404 ? (
           <img
-            src={'pageNotFound.svg'}
+            src={'/pageNotFound.svg'}
             alt={`Error ${status}: ${statusText}`}
             className="w-[200px]"
           />
