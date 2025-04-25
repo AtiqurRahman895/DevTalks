@@ -34,6 +34,7 @@ import Blogs from './components/BlogsPageComponents/blogs';
 import Blog from './components/BlogPageComponents/Blog';
 import ChangePassword from './components/AuthenticationComponents/ChangePassword';
 import PrivateRoute from "./components/AuthenticationComponents/PrivateRoute"
+import CreateQuizPage from "./components/QuizComponents/InputQiz";
 
 const router = createBrowserRouter([
   {
@@ -113,10 +114,16 @@ const router = createBrowserRouter([
         path: "/quiz",
         element: (
           <PrivateRoute>
-            <QuizComponents/>
+            <CreateQuizPage/>
           </PrivateRoute>
         ),
       },
+        {
+          path: "/quiz/questions",
+          element:(
+            <QuizComponents />
+          )
+        },
       // add Blog
       {
         path: "/add-blog",
