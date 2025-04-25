@@ -5,7 +5,9 @@ import PageTitle from "../CommonComponents/PageTitle";
 import UserInfo from "./UserInfo";
 import { ProfileProvider } from "../../Provider/ProfileProvider";
 
+
 const ProfilePage = () => {
+
   return (
     <ProfileProvider>
       <div className="min-h-screen container py-16">
@@ -20,7 +22,8 @@ const ProfilePage = () => {
           <ProfileLayout />
         </div>
       </div>
-    </ProfileProvider>
+      </ProfileProvider>
+
   );
 };
 

@@ -16,15 +16,15 @@ import PfpAllBadges from './components/UserProfileComponents/ProfileLayout/PfpAl
 import QuizComponents from './components/QuizComponents/QuizComponents';
 import TextMessage from "./components/TextMessage/TextMessage";
 import UserInbox from "./components/TextMessage/UserInbox";
-import Dashboard from './components/Dashboard/Dashboard';
-import AskQuestion from './components/AskQuestionComponents/AskQuestion';
-import AddBlog from './components/AddBlogComponents/AddBlog';
+import Dashboard from "./components/Dashboard/Dashboard";
+import AskQuestion from "./components/AskQuestionComponents/AskQuestion";
+import AddBlog from "./components/AddBlogComponents/AddBlog";
 import Admin_Panel from "./components/Dashboard/Admin_Panel/Admin_Panel";
 import About from "./components/AboutComponents/About";
 import ContactUs from "./components/ContactUsComponents/ContactUs";
-import SignIn from './components/AuthenticationComponents/SignIn';
-import SignUp from './components/AuthenticationComponents/SignUp';
-import ForgotPassword from './components/AuthenticationComponents/ForgotPassword';
+import SignIn from "./components/AuthenticationComponents/SignIn";
+import SignUp from "./components/AuthenticationComponents/SignUp";
+import ForgotPassword from "./components/AuthenticationComponents/ForgotPassword";
 import AuthProvider from "./Provider/AuthProvider";
 import { normalAxios } from './Hooks/useNormalAxios';
 import Question from './components/QuestionComponent.jsx/Question';
@@ -33,6 +33,7 @@ import Blogs from './components/BlogsPageComponents/blogs';
 import Blog from './components/BlogPageComponents/Blog';
 import ChangePassword from './components/AuthenticationComponents/ChangePassword';
 import PrivateRoute from "./components/AuthenticationComponents/PrivateRoute"
+import CreateQuizPage from "./components/QuizComponents/InputQiz";
 import Bookmarks from './components/BookMarksComponents/Bookmarks';
 import UpdateBlog from './components/UpdateBlogComponents/UpdateBlog';
 import UpdateQuestion from './components/UpdateQuestionComponents/UpdateQuestion';
@@ -51,7 +52,7 @@ const router = createBrowserRouter([
       // ask question
       {
         path: "/ask-question",
-        element: <AskQuestion />
+        element: <AskQuestion />,
       },
       // questions
       {
@@ -60,9 +61,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/question/:_id",
-        loader: async({params})=>{
-          const res = await normalAxios.get(`/questions/question/${params._id}`)
-          return res.data
+        loader: async ({ params }) => {
+          const res = await normalAxios.get(
+            `/questions/question/${params._id}`
+          );
+          return res.data;
         },
         element: <Question />,
       },
@@ -128,10 +131,16 @@ const router = createBrowserRouter([
         path: "/quiz",
         element: (
           <PrivateRoute>
-            <QuizComponents/>
+            <CreateQuizPage/>
           </PrivateRoute>
         ),
       },
+        {
+          path: "/quiz/questions",
+          element:(
+            <QuizComponents />
+          )
+        },
       // add Blog
       {
         path: "/add-blog",
@@ -148,9 +157,9 @@ const router = createBrowserRouter([
       },
       {
         path: "/blog/:_id",
-        loader: async({params})=>{
-          const res = await normalAxios.get(`/blogs/blog/${params._id}`)
-          return res.data
+        loader: async ({ params }) => {
+          const res = await normalAxios.get(`/blogs/blog/${params._id}`);
+          return res.data;
         },
         element: <Blog />,
       },
@@ -193,23 +202,22 @@ const router = createBrowserRouter([
     ],
   },
 
-
   // chat
   {
     path: "/message",
     element: <TextMessage />,
-    children:[
+    children: [
       {
-        path:"/message/:user",
-        element: <UserInbox />
-      }
-    ]
+        path: "/message/:user",
+        element: <UserInbox />,
+      },
+    ],
   },
   // dashboard
   {
-    path:'/dashboard',
-    element:<Dashboard></Dashboard>,
-    children:[
+    path: "/dashboard",
+    element: <Dashboard></Dashboard>,
+    children: [
       {
         path:'/dashboard',
         element:(
@@ -230,8 +238,8 @@ createRoot(document.getElementById("root")).render(
   <QueryClientProvider client={queryClient}>
     <HelmetProvider>
       <AuthProvider>
-      <ToastContainer position="top-center" />
-      <RouterProvider router={router} />
+        <ToastContainer position="top-center" />
+        <RouterProvider router={router} />
       </AuthProvider>
     </HelmetProvider>
   </QueryClientProvider>

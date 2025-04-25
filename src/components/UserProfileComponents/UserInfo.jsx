@@ -8,6 +8,7 @@ import { ProfileContext } from "../../Provider/ProfileProvider";
 import UserInfoModal from "./Modal/UserInfoModal";
 import { FaPencilAlt } from "react-icons/fa";
 import Loading from "../AuthenticationComponents/Loading";
+import ProfileSkeletonLoader from "./ProfileLoader/ProfileLoader";
 
 const UserInfo = () => {
   const { userDetails, setUserDetails, isLoading } = useContext(ProfileContext) || {};
@@ -26,7 +27,7 @@ const UserInfo = () => {
 
   if(isLoading){
     return(
-      <Loading />
+      <ProfileSkeletonLoader />
     )
   }
 
@@ -52,6 +53,7 @@ const UserInfo = () => {
             {userDetails.profession}
           </h4>
         )}
+        {/* <ActionButton /> */}
       </section>
 
       {/* Bio */}
@@ -90,18 +92,5 @@ const UserInfo = () => {
   );
 };
 
-// UserInfo.propTypes = {
-//   // No props are directly passed, but documenting context expectations
-//   userDetails: PropTypes.shape({
-//     name: PropTypes.string,
-//     profession: PropTypes.string,
-//     bio: PropTypes.string,
-//     email: PropTypes.string,
-//   }),
-//   setUserDetails: PropTypes.func,
-//   user: PropTypes.shape({
-//     email: PropTypes.string,
-//   }),
-// };
 
 export default UserInfo;
