@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import {
   FaMapMarkerAlt,
@@ -12,9 +12,12 @@ import { secureAxios } from "../../../Hooks/useSecureAxios";
 import { toast } from "react-toastify";
 import FormField from "./FormField";
 import SocialMediaField from "./SocialMediaField";
+import { AuthContext } from "../../../Provider/AuthProvider";
 
 const UserInfoModal = ({ modalId, userDetails, setUserDetails }) => {
   const [loader, setLoader] = useState(false);
+  const { updateUserProfile, user } = useContext(AuthContext);
+  
   const {
     register,
     handleSubmit,
@@ -57,11 +60,11 @@ const UserInfoModal = ({ modalId, userDetails, setUserDetails }) => {
     }
   }, [userDetails, reset]);
 
-  const getUsernameFromSocialLink = (link) => {
+  const getUsernameFromSocialLink = async (link) => {
     try {
       // Ensure the URL starts with a protocol
-      console.log(link)
-      const fixedLink = link.startsWith("http") ? link : `https://${link}`;
+      // console.log(link)
+      const fixedLink = await link.startsWith("http") ? link : `https://${link}`;
       const url = new URL(fixedLink);
       const username = url.pathname.replace("/", "").trim();
       return username;
@@ -72,9 +75,9 @@ const UserInfoModal = ({ modalId, userDetails, setUserDetails }) => {
 
   const onSubmit = async (data) => {
     console.log(data.facebookLink)
-    const twitterName= getUsernameFromSocialLink(data.twitterLink) || ""
-    const linkedinName= getUsernameFromSocialLink(data.linkedinLink) || ""
-    const facebookName= getUsernameFromSocialLink(data.facebookLink) || ""
+    const twitterName= await getUsernameFromSocialLink(data.twitterLink) || ""
+    const linkedinName= await getUsernameFromSocialLink(data.linkedinLink) || ""
+    const facebookName= await getUsernameFromSocialLink(data.facebookLink) || ""
 
     const socialUsernames={
       twitterName, linkedinName, facebookName
@@ -89,6 +92,7 @@ const UserInfoModal = ({ modalId, userDetails, setUserDetails }) => {
       );
       if (res.data.modifiedCount > 0) {
         setUserDetails((prev) => ({ ...prev, ...data }));
+        await updateUserProfile(data.name, user?.photoURL);
         toast.success("User Details Updated");
       } else {
         toast.info("No changes were made to the user details");
