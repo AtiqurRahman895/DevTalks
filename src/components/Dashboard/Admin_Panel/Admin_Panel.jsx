@@ -7,12 +7,15 @@ import LineCharts from './LineChart';
 import CustomBarChart from './BarCharts';
 import DashboardWidgets from './TeamMembers';
 import TeamMembers from './TeamMembers';
-import MeetingSlat from './MeetingSlat';
+import MeetingSlat from './TopViewedQuestions';
 import ProgressTrack from './Progress_Topic';
 import PageVisits from './PageVisits';
 import SocialTraffic from './SocialTraffic';
 import useSecureAxios from '../../../Hooks/useSecureAxios';
 import { useQuery } from '@tanstack/react-query';
+import TopViewedQuestions from './TopViewedQuestions';
+import TopViewedBlogs from './TopViewedBlogs';
+import TopVotedQuestions from './TopVotedQuestions';
 
 const Admin_Panel = () => {
     const secureAxios = useSecureAxios()
@@ -46,13 +49,12 @@ const Admin_Panel = () => {
 
     return (
         <section className='space-y-8'>
-            {/* card section  */}
 
             <div className="grid lg:grid-cols-4 gap-5 md:grid-cols-2 sm:grid-cols-1">
 
                 <div className='bg-custom-primary rounded-lg p-6 flex justify-between items-center'>
                     <div>
-                        <p>Total Traffic</p>
+                        <p>Total traffic</p>
                         <h4>{totalTraffics}</h4>
                         <p>Since last 7 days</p>
                     </div>
@@ -130,9 +132,11 @@ const Admin_Panel = () => {
             {/* table  card  */}
 
             <div className='grid sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-3 gap-4'>
-                  <TeamMembers></TeamMembers>
-                  <MeetingSlat></MeetingSlat>
-                  <ProgressTrack></ProgressTrack>
+                  <TopVotedQuestions />
+                  <TopViewedQuestions />
+                  <TopViewedBlogs />
+                  {/* <MeetingSlat></MeetingSlat> */}
+                  {/* <ProgressTrack></ProgressTrack> */}
             </div>
 
             <div className="grid grid-cols-8 gap-4 my-6">
