@@ -20,20 +20,17 @@ const Questions = () => {
     const memorizedPageNo=useMemo(()=> pageNo,[pageNo])
 
     const fetchQuestions= async() => {
-        console.log(memorizedSearchQuery)
         const params = {
             query:memorizedSearchQuery ? { $text: { $search: memorizedSearchQuery } } : {}, 
             skip:memorizedPageNo == 1? 0: (memorizedPageNo-1)*limit, 
             limit, 
         };
-        console.log(params)
 
         if (memorizedTag) {
             params.query.tags = { $in: [memorizedTag] };  // Use $in for exact matches or $text if you have a text index on `tags`
         }
 
         const res=await normalAxios.get("/questions/questions", {params})
-        console.log(res.data)
         return res.data
     };
 

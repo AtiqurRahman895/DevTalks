@@ -1,10 +1,10 @@
-import { Link, useLoaderData, useNavigate } from "react-router";
+import { Link, useLoaderData, useNavigate, useRevalidator } from "react-router";
 import PageTitle from "../CommonComponents/PageTitle";
 import useGetRelativeTime from "../../Hooks/useGetRelativeTime";
 import useHighlightCodeBlock from "../../Hooks/useHighlightCodeBlock";
 import { useContext, useRef, useState } from "react";
 import { Tooltip } from "react-tooltip";
-import { FaRegClock, FaRegUser, FaReply } from "react-icons/fa";
+import { FaRegClock, FaRegEye, FaRegUser, FaReply } from "react-icons/fa";
 import ResponseTextEditor from "../CommonComponents/ResponseTextEditor";
 import useGetResponses from "../../Hooks/useGetResponses";
 import Loading from "../AuthenticationComponents/Loading";
@@ -16,10 +16,13 @@ import useSecureAxios from "../../Hooks/useSecureAxios";
 import { toast } from "react-toastify";
 import { RiDeleteBin2Fill, RiEdit2Fill } from "react-icons/ri";
 import AiResponseCard from "./AiResponseCard";
+import useUpdateViews from "../../Hooks/useUpdateViews";
 
 const Question = () => {
     const questionData = useLoaderData()
+    const { revalidate } = useRevalidator();
     const {_id, asker, askerEmail, title, question, tags, createdAt} = questionData
+    useUpdateViews(_id, revalidate, "question")
     const highlightRef = useRef(null);
     useHighlightCodeBlock(true, highlightRef)
     const formatRelativeTime= useGetRelativeTime()
@@ -67,6 +70,11 @@ const Question = () => {
                                 <div className="flex items-center gap-1">
                                     <FaRegClock className="" />
                                     <p>{formatRelativeTime(createdAt)} ({new Date(createdAt).toLocaleDateString()})</p> 
+                                </div>
+
+                                <div className="flex items-center gap-1">
+                                    <FaRegEye className="" />
+                                    <p>{questionData.views?.length}</p> 
                                 </div>
                                         
                             </div>

@@ -51,11 +51,11 @@ const QuizComponents = () => {
 
     const correct = selectedOption === questions[index].correctAnswer;
     setIsCorrect(correct);
-    if (correct) {
-      toast.success('Correct!');
-    } else {
-      toast.error('Incorrect!');
-    }
+    // if (correct) {
+    //   toast.success('Correct!');
+    // } else {
+    //   toast.error('Incorrect!');
+    // }
 
     // Save the user's answer
     const newAnswer = {
@@ -107,7 +107,7 @@ const QuizComponents = () => {
 
     try {
       const response = await secureAxios.post('/users/user-answer', payload);
-      console.log(response);
+      // console.log(response);
       setScoreData(response.data);
       setShowAnswers(true);
     } catch (error) {
@@ -152,7 +152,7 @@ const QuizComponents = () => {
         ) : showAnswers ? (
           <div>
             <h2 className="text-2xl font-bold text-white text-center mb-6">Your Answers</h2>
-            {scoreData.answers.answers.map((answer, idx) => (
+            {scoreData?.answers?.answers?.map((answer, idx) => (
               <div key={answer.questionId} className="mb-6 p-4 bg-gray-800 rounded-md">
                 <p className="text-lg text-white font-semibold">
                   {idx + 1}. {answer.question}
