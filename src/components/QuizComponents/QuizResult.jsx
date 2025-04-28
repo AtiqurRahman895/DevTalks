@@ -9,7 +9,7 @@ const MOTIVATIONAL_QUOTES = [
   "Mistakes are just steps to learning something new!",
 ];
 
-const QuizResult = ({ score, quizData, handleReset }) => {
+const QuizResult = ({ score, quizData, handleReset, answers }) => {
   // Select a random motivational quote
   const randomQuote = MOTIVATIONAL_QUOTES[Math.floor(Math.random() * MOTIVATIONAL_QUOTES.length)];
 
@@ -53,12 +53,7 @@ const QuizResult = ({ score, quizData, handleReset }) => {
       </p>
 
       {/* Try Again Button */}
-      <button
-        onClick={handleReset}
-        className="w-full h-12 text-lg bg-indigo-600 text-white rounded-md hover:bg-indigo-500 transition-all"
-      >
-        Try Again
-      </button>
+      <QuizExplain answers={answers} />
     </div>
   );
 };

@@ -90,6 +90,8 @@ const QuizComponents = ({ quizData }) => {
     }
   };
 
+  console.log(answers)
+
   // Reset quiz
   const handleReset = () => {
     setCurrentQuestionIndex(0);
@@ -118,7 +120,8 @@ const QuizComponents = ({ quizData }) => {
     <div className="min-h-screen bg-black">
       {quizCompleted ? (
         <ProfileProvider>
-       <QuizResult 
+       <QuizResult
+       answers={answers} 
        score={score}
        quizData={quizData}
        handleReset={handleReset}
