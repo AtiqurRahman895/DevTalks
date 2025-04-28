@@ -1,5 +1,5 @@
-import React from 'react';
-import QuizExplain from './QuizExplain';
+import React from "react";
+import QuizExplain from "./QuizExplain";
 
 // List of motivational quotes
 const MOTIVATIONAL_QUOTES = [
@@ -12,7 +12,8 @@ const MOTIVATIONAL_QUOTES = [
 
 const QuizResult = ({ score, quizData, answers }) => {
   // Select a random motivational quote
-  const randomQuote = MOTIVATIONAL_QUOTES[Math.floor(Math.random() * MOTIVATIONAL_QUOTES.length)];
+  const randomQuote =
+    MOTIVATIONAL_QUOTES[Math.floor(Math.random() * MOTIVATIONAL_QUOTES.length)];
 
   // Calculate total questions
   const totalQuestions = quizData?.questions?.length || 0;
@@ -21,11 +22,11 @@ const QuizResult = ({ score, quizData, answers }) => {
   const circleColor =
     totalQuestions === 5
       ? score >= 4
-        ? 'bg-green-600'
+        ? "bg-green-600"
         : score === 3
-        ? 'bg-yellow-500'
-        : 'bg-red-600'
-      : 'bg-gray-600'; // Fallback color if totalQuestions is not 5
+        ? "bg-yellow-500"
+        : "bg-red-600"
+      : "bg-gray-600"; // Fallback color if totalQuestions is not 5
 
   return (
     <div className="w-[93%] mx-auto bg-custom-half-gray p-6 rounded-xl border border-gray-700">
@@ -47,16 +48,11 @@ const QuizResult = ({ score, quizData, answers }) => {
           </p>
         </div>
       </div>
+      {/* Motivational Quote */}
+      <p className="text-gray-400 italic text-center mb-6">"{randomQuote}"</p>
 
       {/* Try Again Button */}
       <QuizExplain answers={answers} />
-
-
-      {/* Motivational Quote */}
-      <p className="text-gray-400 italic text-center mb-6">
-        "{randomQuote}"
-      </p>
-
     </div>
   );
 };
