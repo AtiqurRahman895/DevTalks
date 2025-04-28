@@ -135,12 +135,12 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
-        {
-          path: "/quiz/questions",
-          element:(
-            <QuizComponents />
-          )
-        },
+        // {
+        //   path: "/quiz/questions",
+        //   element:(
+        //     <QuizComponents />
+        //   )
+        // },
       // add Blog
       {
         path: "/add-blog",
