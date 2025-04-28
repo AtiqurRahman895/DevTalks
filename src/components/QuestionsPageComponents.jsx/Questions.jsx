@@ -9,6 +9,7 @@ import useNormalAxios from "../../Hooks/useNormalAxios";
 import UseUrlQuery from "../../Hooks/UseUrlQuery";
 import { useQuery } from "@tanstack/react-query";
 import NextPreButtons from "../CommonComponents/NextPreButtons";
+import useGetQuestionsCount from "../../Hooks/useGetQuestionsCount";
 
 const Questions = () => {
     const limit = 6;
@@ -34,34 +35,17 @@ const Questions = () => {
         return res.data
     };
 
-    const { isLoading:loading, data:questions=[], isError, error } = useQuery(
+    const { isLoading:loading, data:questions=[] } = useQuery(
         ['questions', memorizedSearchQuery, memorizedPageNo, memorizedTag],
         fetchQuestions,
-    );
-
-    const fetchQuestionsCount = async () => {
-        const params = {
-            query:
-            memorizedSearchQuery ? { $text: { $search: memorizedSearchQuery } } : {},
-        };
-
-        if (memorizedTag) {
-            params.query.tags = { $in: [memorizedTag] };  // Use $in for exact matches or $text if you have a text index on `tags`
+        {
+            onError: (error) => {
+              console.error("Error fetching questions:", error);
+            }
         }
-
-        const res = await normalAxios.get("/questions/questionsCount", { params });
-
-        return res.data;
-    };
-
-    const { data: questionsCount = 0 } = useQuery(
-        ["questionsCount", memorizedSearchQuery, memorizedTag],
-        fetchQuestionsCount,
     );
 
-    if (isError) {
-        console.error(error);
-    }
+    const {questionsCount} = useGetQuestionsCount(memorizedSearchQuery, memorizedTag)
 
 
     return (

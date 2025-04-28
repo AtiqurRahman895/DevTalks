@@ -17,8 +17,13 @@ const TopVotedQuestions = () => {
   };
 
   const { data:questions=[], isError, error } = useQuery(
-      ['topVotedQuestions'],
-      fetchTopVotedQuestions,
+        ['topVotedQuestions'],
+        fetchTopVotedQuestions,
+        {
+            onError: (error) => {
+                console.error(error);
+            }
+        }
   );
 
   if (isError) {

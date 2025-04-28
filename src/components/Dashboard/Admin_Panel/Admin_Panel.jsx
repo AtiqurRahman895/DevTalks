@@ -1,14 +1,8 @@
 import React, { useState } from 'react';
-import { FcTimeline } from "react-icons/fc";
+import { FcNews, FcQuestions } from "react-icons/fc";
 import { FcConferenceCall } from "react-icons/fc";
-import { FcDocument } from "react-icons/fc";
 import { FcComboChart } from "react-icons/fc";
 import LineCharts from './LineChart';
-import CustomBarChart from './BarCharts';
-import DashboardWidgets from './TeamMembers';
-import TeamMembers from './TeamMembers';
-import MeetingSlat from './TopViewedQuestions';
-import ProgressTrack from './Progress_Topic';
 import PageVisits from './PageVisits';
 import SocialTraffic from './SocialTraffic';
 import useSecureAxios from '../../../Hooks/useSecureAxios';
@@ -16,13 +10,16 @@ import { useQuery } from '@tanstack/react-query';
 import TopViewedQuestions from './TopViewedQuestions';
 import TopViewedBlogs from './TopViewedBlogs';
 import TopVotedQuestions from './TopVotedQuestions';
+import useGetQuestionsCount from '../../../Hooks/useGetQuestionsCount';
+import useGetBlogsCount from '../../../Hooks/useGetBlogsCount';
+import useGetUsersCount from '../../../Hooks/useGetUsersCount';
 
 const Admin_Panel = () => {
     const secureAxios = useSecureAxios()
     const [totalTraffics, setTotalTraffics]= useState(0)
     const [totalUniqueTraffics, setTotalUniqueTraffics]= useState(0)
 
-    const fetchResponses= async() => {
+    const fetchTraffics= async() => {
         const res=await secureAxios.get("/traffics/traffics")
         let totalPageViews=0
         let totalUniqueVisitors=0
@@ -37,15 +34,20 @@ const Admin_Panel = () => {
         return res.data
     };
 
-    const { data:traffics=[], isError, error } = useQuery(
-        ['responses'],
-        fetchResponses,
-
+    const { data:traffics=[] } = useQuery(
+        ['traffics'],
+        fetchTraffics,
+        {
+            onError: (error) => {
+              console.error("Error fetching traffics:", error);
+            }
+        }
     );
 
-    if (isError) {
-        console.error(error);
-    }
+    const {questionsCount} = useGetQuestionsCount()
+    const {blogsCount} = useGetBlogsCount()
+    const {usersCount} = useGetUsersCount()
+
 
     return (
         <section className='space-y-8'>
@@ -59,19 +61,18 @@ const Admin_Panel = () => {
                         <p>Since last 7 days</p>
                     </div>
                     <div>
-                        <FcTimeline className='bg-white text-6xl p-3 rounded-full' />
+                        <FcComboChart className='bg-white text-6xl p-3 rounded-full' />
                     </div>
                 </div>
 
 
                 <div className='bg-custom-primary rounded-lg p-6 flex justify-between items-center'>
                     <div>
-                        <p>Total unique visitor</p>
-                        <h4>{totalUniqueTraffics}</h4>
-                        <p>Since last 7 days</p>
+                        <p>Total questions</p>
+                        <h4>{questionsCount}</h4>
                     </div>
                     <div>
-                        <FcTimeline className='bg-white text-6xl p-3 rounded-full' />
+                        <FcQuestions className='bg-white text-6xl p-3 rounded-full' />
                     </div>
                 </div>
 
@@ -79,8 +80,7 @@ const Admin_Panel = () => {
                 <div className='bg-custom-primary rounded-lg p-6 flex justify-between items-center'>
                     <div>
                         <p>Total User</p>
-                        <h4>4,500</h4>
-                        <p>Since last 7 days</p>
+                        <h4>{usersCount}</h4>
                     </div>
                     <div>
                         <FcConferenceCall className='bg-white text-6xl p-3 rounded-full' />
@@ -92,12 +92,11 @@ const Admin_Panel = () => {
 
                 <div className='bg-custom-primary rounded-lg p-6 flex justify-between items-center'>
                     <div>
-                        <p>Total Post</p>
-                        <h4>2,570</h4>
-                        <p>Since last 7 days</p>
+                        <p>Total blogs</p>
+                        <h4>{blogsCount}</h4>
                     </div>
                     <div>
-                        <FcDocument className='bg-white text-6xl p-3 rounded-full' />
+                        <FcNews className='bg-white text-6xl p-3 rounded-full' />
                     </div>
                 </div>
 
@@ -135,8 +134,6 @@ const Admin_Panel = () => {
                   <TopVotedQuestions />
                   <TopViewedQuestions />
                   <TopViewedBlogs />
-                  {/* <MeetingSlat></MeetingSlat> */}
-                  {/* <ProgressTrack></ProgressTrack> */}
             </div>
 
             <div className="grid grid-cols-8 gap-4 my-6">

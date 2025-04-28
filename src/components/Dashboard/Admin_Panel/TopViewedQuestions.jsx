@@ -16,14 +16,15 @@ const TopViewedQuestions = () => {
       return res.data
   };
 
-  const { data:questions=[], isError, error } = useQuery(
+  const { data:questions=[] } = useQuery(
       ['topViewedQuestions'],
       fetchTopViewedQuestions,
+      {
+        onError: (error) => {
+          console.error(error);
+        }
+      }
   );
-
-  if (isError) {
-    console.error(error);
-  }
 
   return (
     <div className="p-4 bg-custom-primary rounded-lg shadow-md space-y-5">
