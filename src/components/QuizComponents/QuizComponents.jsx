@@ -106,6 +106,8 @@ const QuizComponents = ({ quizData }) => {
     );
   }
 
+  console.log(quizData)
+
   const currentQuestion = quizData?.questions?.[currentQuestionIndex];
   const optionKeys = ['A', 'B', 'C', 'D'];
 
@@ -149,23 +151,12 @@ const QuizComponents = ({ quizData }) => {
                   onClick={() => handleOptionSelect(key)}
                   className={`relative w-full py-4 px-4 text-left rounded-md border border-gray-600 transition-all ${
                     selectedOption === key
-                      ? isCorrect === true
-                        ? 'bg-green-600 text-white'
-                        : isCorrect === false
-                        ? 'bg-red-600 text-white'
-                        : 'bg-purple-500 text-white'
-                      : 'bg-gray-700 text-white hover:bg-gray-600'
+                     && "bg-custom-half-primary"
                   }`}
                   disabled={isCorrect !== null}
                 >
                   <span className="mr-2 font-semibold">{key}</span>
                   {currentQuestion.options[key]}
-                  {selectedOption === key && isCorrect === true && (
-                    <span className="absolute right-4 text-xl text-white">✔</span>
-                  )}
-                  {selectedOption === key && isCorrect === false && (
-                    <span className="absolute right-4 text-xl text-white">✖</span>
-                  )}
                 </button>
               ) : null
             )}
