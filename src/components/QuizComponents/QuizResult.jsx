@@ -1,4 +1,5 @@
 import React from 'react';
+import QuizExplain from './QuizExplain';
 
 // List of motivational quotes
 const MOTIVATIONAL_QUOTES = [
@@ -9,7 +10,7 @@ const MOTIVATIONAL_QUOTES = [
   "Mistakes are just steps to learning something new!",
 ];
 
-const QuizResult = ({ score, quizData, handleReset, answers }) => {
+const QuizResult = ({ score, quizData, answers }) => {
   // Select a random motivational quote
   const randomQuote = MOTIVATIONAL_QUOTES[Math.floor(Math.random() * MOTIVATIONAL_QUOTES.length)];
 
@@ -47,13 +48,15 @@ const QuizResult = ({ score, quizData, handleReset, answers }) => {
         </div>
       </div>
 
+      {/* Try Again Button */}
+      <QuizExplain answers={answers} />
+
+
       {/* Motivational Quote */}
       <p className="text-gray-400 italic text-center mb-6">
         "{randomQuote}"
       </p>
 
-      {/* Try Again Button */}
-      <QuizExplain answers={answers} />
     </div>
   );
 };
