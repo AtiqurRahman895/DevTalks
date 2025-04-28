@@ -6,6 +6,7 @@ import 'highlight.js/styles/monokai.css';
 import useSecureAxios from '../../Hooks/useSecureAxios';
 import { AuthContext } from '../../Provider/AuthProvider';
 import QuizResult from './QuizResult';
+import { ProfileProvider } from '../../Provider/ProfileProvider';
 
 
 const QuizComponents = ({ quizData }) => {
@@ -116,11 +117,13 @@ const QuizComponents = ({ quizData }) => {
   return (
     <div className="min-h-screen bg-black">
       {quizCompleted ? (
+        <ProfileProvider>
        <QuizResult 
        score={score}
        quizData={quizData}
        handleReset={handleReset}
-       /> 
+       />
+       </ProfileProvider>
       ) : (
         <div className="w-[90%] min-w-[600px] mx-auto bg-gray-900 p-6 rounded-xl border border-gray-700">
           <h5 className="font-bold text-white mb-2">
