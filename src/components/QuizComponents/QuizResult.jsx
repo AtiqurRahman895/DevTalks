@@ -28,7 +28,7 @@ const QuizResult = ({ score, quizData, answers }) => {
       : 'bg-gray-600'; // Fallback color if totalQuestions is not 5
 
   return (
-    <div className="w-[70%] max-w-4xl min-w-[600px] mx-auto bg-gray-900 p-6 rounded-xl border border-gray-700">
+    <div className="w-[93%] mx-auto bg-custom-half-gray p-6 rounded-xl border border-gray-700">
       <div className="flex flex-col justify-center items-center">
         {/* Circular Badge with Score */}
         <div
