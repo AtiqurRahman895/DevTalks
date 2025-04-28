@@ -151,7 +151,7 @@ const QuizComponents = ({ quizData }) => {
                   onClick={() => handleOptionSelect(key)}
                   className={`relative w-full py-4 px-4 text-left rounded-md border border-gray-600 transition-all ${
                     selectedOption === key
-                     && "bg-custom-half-primary"
+                     && "bg-custom-primary"
                   }`}
                   disabled={isCorrect !== null}
                 >
@@ -164,8 +164,8 @@ const QuizComponents = ({ quizData }) => {
           <button
             onClick={handleNextQuestion}
             disabled={!selectedOption}
-            className={`w-full mt-4 h-12 text-lg bg-indigo-600 text-white rounded-md transition-all ${
-              !selectedOption ? 'opacity-50 cursor-not-allowed' : 'hover:bg-indigo-500'
+            className={`w-full mt-4 h-12 text-lg bg-custom-primary text-white rounded-md transition-all ${
+              !selectedOption ? 'opacity-50 cursor-not-allowed' : 'hover:bg-custom-half-primary'
             }`}
           >
             {currentQuestionIndex < (quizData?.questions?.length || 0) - 1 ? 'Next Question' : 'Finish Quiz'}
