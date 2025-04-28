@@ -1,5 +1,4 @@
-import React, { useContext } from 'react'
-import { AuthContext } from '../../Provider/AuthProvider';
+import React from 'react';
 
 // List of motivational quotes
 const MOTIVATIONAL_QUOTES = [
@@ -10,44 +9,58 @@ const MOTIVATIONAL_QUOTES = [
   "Mistakes are just steps to learning something new!",
 ];
 
-const QuizResult = ({score, quizData, handleReset}) => {
+const QuizResult = ({ score, quizData, handleReset }) => {
+  // Select a random motivational quote
+  const randomQuote = MOTIVATIONAL_QUOTES[Math.floor(Math.random() * MOTIVATIONAL_QUOTES.length)];
 
-  const {user} = useContext(AuthContext);
-  console.log(user)
+  // Calculate total questions
+  const totalQuestions = quizData?.questions?.length || 0;
 
-   // Select a random motivational quote
-   const randomQuote = MOTIVATIONAL_QUOTES[Math.floor(Math.random() * MOTIVATIONAL_QUOTES.length)];
+  // Determine circle color based on score (assuming totalQuestions is 5)
+  const circleColor =
+    totalQuestions === 5
+      ? score >= 4
+        ? 'bg-green-600'
+        : score === 3
+        ? 'bg-yellow-500'
+        : 'bg-red-600'
+      : 'bg-gray-600'; // Fallback color if totalQuestions is not 5
 
   return (
-    <div className="w-[70%] max-w-5xl min-w-[600px] mx-auto bg-gray-900 p-6 rounded-xl border border-gray-700 text-center">
-      {/* <div className="flex flex-col md:flex-row items-center md:items-start gap-6 mb-6"> */}
-        {/* Left Side: User Profile Photo and Name */}
-        <div className="flex flex-col items-center md:w-1/3">
-          <img
-            src={user?.photoURL}
-            alt="User Profile"
-            className="w-24 h-24 rounded-full border-2 border-gray-600 mb-2 object-cover"
-          />
-          <h3 className="text-lg font-semibold text-white text-center">
-            {user?.displayName || 'User'}
-          </h3>
+    <div className="w-[70%] max-w-4xl min-w-[600px] mx-auto bg-gray-900 p-6 rounded-xl border border-gray-700">
+      <div className="flex flex-col justify-center items-center">
+        {/* Circular Badge with Score */}
+        <div
+          className={`w-44 h-44 rounded-full ${circleColor} flex items-center justify-center mb-4 border-2 border-gray-600`}
+        >
+          <p className="text-white text-xl font-bold">
+            {score}/{totalQuestions}
+          </p>
         </div>
 
+        {/* Quiz Result Message */}
+        <div className="text-center">
+          <h4 className="font-bold text-white mb-2">Quiz Completed!</h4>
+          <p className="text-gray-200 text-lg">
+            Your score: {score}/{totalQuestions}
+          </p>
+        </div>
+      </div>
 
+      {/* Motivational Quote */}
+      <p className="text-gray-400 italic text-center mb-6">
+        "{randomQuote}"
+      </p>
 
-    <h2 className="text-2xl font-bold text-white mb-4">Quiz Completed!</h2>
-    <p className="text-gray-200 mb-4">
-      Your score: {score}/{quizData?.questions?.length || 0}
-    </p>
-    <button
-      onClick={handleReset}
-      className="w-full h-12 text-lg bg-indigo-600 text-white rounded-md hover:bg-indigo-500 transition-all"
-    >
-      Try Again
-    </button>
-  </div>
-  )
-}
+      {/* Try Again Button */}
+      <button
+        onClick={handleReset}
+        className="w-full h-12 text-lg bg-indigo-600 text-white rounded-md hover:bg-indigo-500 transition-all"
+      >
+        Try Again
+      </button>
+    </div>
+  );
+};
 
 export default QuizResult;
-
