@@ -1,4 +1,3 @@
-import React from 'react';
 import useNormalAxios from './useNormalAxios';
 
 const useTrackTraffic = () => {
