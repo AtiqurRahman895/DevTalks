@@ -32,6 +32,7 @@ import Question from './components/QuestionComponent.jsx/Question';
 import AdminRoute from './components/AuthenticationComponents/AdminRoute';
 import Blogs from './components/BlogsPageComponents/blogs';
 import Blog from './components/BlogPageComponents/Blog';
+import Chat from './components/Chat_Component/Chat';
 
 const router = createBrowserRouter([
   {
@@ -152,6 +153,12 @@ const router = createBrowserRouter([
         element: <UserInbox />
       }
     ]
+  },
+
+  // chat page
+  {
+     path:'/chat',
+     element:<Chat></Chat>
   },
   // dashboard
   {
