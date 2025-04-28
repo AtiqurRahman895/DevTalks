@@ -1,6 +1,11 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { AuthContext } from '../../Provider/AuthProvider';
 
-const QuizAnswer = ({score, quizData, handleReset}) => {
+const QuizResult = ({score, quizData, handleReset}) => {
+
+  const {user} = useContext(AuthContext);
+  console.log(user)
+
   return (
     <div className="w-[70%] max-w-5xl min-w-[600px] mx-auto bg-gray-900 p-6 rounded-xl border border-gray-700 text-center">
     <h2 className="text-2xl font-bold text-white mb-4">Quiz Completed!</h2>
@@ -17,5 +22,5 @@ const QuizAnswer = ({score, quizData, handleReset}) => {
   )
 }
 
-export default QuizAnswer
+export default QuizResult;
 

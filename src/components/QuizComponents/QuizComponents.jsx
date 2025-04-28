@@ -5,7 +5,8 @@ import hljs from 'highlight.js';
 import 'highlight.js/styles/monokai.css';
 import useSecureAxios from '../../Hooks/useSecureAxios';
 import { AuthContext } from '../../Provider/AuthProvider';
-import QuizAnswer from './QuizAnswer';
+import QuizResult from './QuizResult';
+
 
 const QuizComponents = ({ quizData }) => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -115,7 +116,7 @@ const QuizComponents = ({ quizData }) => {
   return (
     <div className="min-h-screen bg-black">
       {quizCompleted ? (
-       <QuizAnswer 
+       <QuizResult 
        score={score}
        quizData={quizData}
        handleReset={handleReset}
