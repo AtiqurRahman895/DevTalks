@@ -123,7 +123,6 @@ const QuizComponents = ({ quizData }) => {
        <QuizResult
        answers={answers} 
        score={score}
-       quizData={quizData}
        handleReset={handleReset}
        />
        </ProfileProvider>

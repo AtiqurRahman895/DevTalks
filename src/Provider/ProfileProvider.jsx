@@ -34,8 +34,6 @@ export const ProfileProvider = ({ children }) => {
     },
   });
 
-  console.log("userDetails",userDetails)
-
   // Provide the context value
   const value = {
     userDetails,

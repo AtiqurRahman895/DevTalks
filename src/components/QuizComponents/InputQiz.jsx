@@ -4,7 +4,7 @@ import "react-toastify/dist/ReactToastify.css";
 import useSecureAxios from "../../Hooks/useSecureAxios";
 import { AuthContext } from "../../Provider/AuthProvider";
 import QuizComponents from "./QuizComponents";
-import QuizResult from "./QuizResult"; // Import QuizResult component
+import QuizResult from "./QuizResult";
 import SectionBanner from "../CommonComponents/SectionBanner";
 import { ProfileContext } from "../../Provider/ProfileProvider";
 
@@ -13,27 +13,29 @@ const CreateQuizPage = () => {
   const [difficulty, setDifficulty] = useState("");
   const [loading, setLoading] = useState(false);
   const [quizData, setQuizData] = useState(null);
-  const [storedQuizData, setStoredQuizData] = useState(null); // To store quiz data fetched from quizId
+  const [daysRemaining, setDaysRemaining] = useState(0);
   const secureAxios = useSecureAxios();
   const { user } = useContext(AuthContext);
   const { userDetails } = useContext(ProfileContext);
 
-  // Fetch quiz data if userDetails contains a quizId
-  useEffect(() => {
-    const fetchStoredQuizData = async () => {
-      if (userDetails?.answers?.quizId) {
-        try {
-          const response = await secureAxios.get(`/quizzes/${userDetails.answers.quizId}`);
-          setStoredQuizData(response.data);
-        } catch (error) {
-          console.error("Error fetching stored quiz data:", error);
-          toast.error("Failed to load previous quiz data.");
-        }
-      }
-    };
+  // console.log("userDerails: ",userDetails?.answers?.quizDate)
+  const quizDate = userDetails?.answers?.quizDate
 
-    fetchStoredQuizData();
-  }, [userDetails, secureAxios]);
+  useEffect(() => {
+    if (quizDate) {
+      const lastDate = new Date(quizDate);
+      const now = new Date();
+      const diffTime = now - lastDate;
+      const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+      const remaining = 7 - diffDays;
+
+      if (remaining > 0) {
+        setDaysRemaining(remaining);
+      } else {
+        setDaysRemaining(0);
+      }
+    }
+  }, [userDetails]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -45,6 +47,11 @@ const CreateQuizPage = () => {
 
     if (!user || !user.email) {
       toast.error("User not authenticated. Please log in.");
+      return;
+    }
+
+    if (daysRemaining > 0) {
+      toast.warning(`Please wait ${daysRemaining} day(s) before taking another quiz.`);
       return;
     }
 
@@ -60,7 +67,6 @@ const CreateQuizPage = () => {
       const response = await secureAxios.post("/quizzes/create-quiz", payload);
       toast.success("Quiz created successfully!");
       setQuizData(response.data);
-      setStoredQuizData(null); // Clear stored quiz data to allow taking a new quiz
     } catch (error) {
       console.error("Error creating quiz:", error.message);
       if (error.response) {
@@ -73,40 +79,34 @@ const CreateQuizPage = () => {
     }
   };
 
-  const handleCreateNewQuiz = () => {
-    setQuizData(null); // Clear quizData to show the form again
-    setStoredQuizData(null); // Clear stored quiz data
-  };
-
   return (
     <div className="min-h-screen bg-black">
-      {/* Section Banner */}
       <SectionBanner title="Quiz Page" />
 
-      {/* Conditional Rendering */}
       {!quizData ? (
-        // If userDetails has answers and storedQuizData is fetched, show QuizResult
-        userDetails?.answers && storedQuizData ? (
+        quizDate ? (
           <div className="p-8">
             <div className="mx-auto">
               <div className="flex justify-between items-center mb-6">
-                <h2 className="text-3xl font-bold text-white">Your Previous Quiz Result</h2>
-                <button
-                  onClick={handleCreateNewQuiz}
-                  className="bg-custom-primary text-white px-4 py-2 rounded-md hover:bg-custom-half-primary transition-all"
-                >
-                  Create New Quiz
-                </button>
+              <h3 className="font-bold text-white">
+                Your Previous Quiz Result
+              </h3>
+              {daysRemaining > 0 && (
+                <div className="bg-custom-primary text-white py-4 px-6 rounded-xl text-center shadow-lg">
+                <p className="text-lg font-semibold">
+                  🚫 You can take a new quiz after{" "}
+                  <span className="font-bold text-lg underline">{daysRemaining}</span> day(s).
+                </p>
+              </div>
+              )}
               </div>
               <QuizResult
-                score={userDetails.answers.score}
-                quizData={storedQuizData}
-                answers={userDetails.answers.answers}
+                score={userDetails?.answers?.score}
+                answers={userDetails?.answers?.answers}
               />
             </div>
           </div>
         ) : (
-          // Otherwise, show the form
           <div className="flex flex-col md:flex-row justify-center items-center py-12 px-6">
             <div className="md:w-1/2 max-w-md mx-auto bg-gray-900 p-8 rounded-xl shadow-2xl border border-gray-700">
               <h2 className="text-3xl font-bold text-white mb-6 text-center">Create Your Quiz</h2>
@@ -115,7 +115,6 @@ const CreateQuizPage = () => {
               </p>
 
               <form onSubmit={handleSubmit} className="space-y-6">
-                {/* Language Input */}
                 <div>
                   <label htmlFor="language" className="block text-white text-sm font-medium mb-2">
                     Language
@@ -131,7 +130,6 @@ const CreateQuizPage = () => {
                   />
                 </div>
 
-                {/* Difficulty Select */}
                 <div>
                   <label htmlFor="difficulty" className="block text-white text-sm font-medium mb-2">
                     Difficulty
@@ -150,7 +148,6 @@ const CreateQuizPage = () => {
                   </select>
                 </div>
 
-                {/* Submit Button */}
                 <button
                   type="submit"
                   className={`w-full h-12 text-lg bg-custom-primary transition-all ${

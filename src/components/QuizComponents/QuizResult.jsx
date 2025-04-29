@@ -15,7 +15,7 @@ const MOTIVATIONAL_QUOTES = [
   "Mistakes are just steps to learning something new!",
 ];
 
-const QuizResult = ({ score, quizData, answers }) => {
+const QuizResult = ({ score, answers }) => {
   const { user } = useContext(AuthContext);
   const [suggestion, setSuggestion] = useState(null);
   const [showSuggestion, setShowSuggestion] = useState(false);
@@ -26,7 +26,7 @@ const QuizResult = ({ score, quizData, answers }) => {
     MOTIVATIONAL_QUOTES[Math.floor(Math.random() * MOTIVATIONAL_QUOTES.length)];
 
   // Calculate total questions
-  const totalQuestions = quizData?.questions?.length || 0;
+  const totalQuestions = 5;
 
   // Determine circle color based on score (assuming totalQuestions is 5)
   const circleColor =
@@ -57,7 +57,7 @@ const QuizResult = ({ score, quizData, answers }) => {
   };
 
   return (
-    <div className="w-[93%] mx-auto bg-custom-half-gray p-6 rounded-xl border border-gray-700">
+    <div className="w-[98%] mx-auto bg-custom-half-gray p-6 rounded-xl border border-gray-700">
       <div className="flex flex-col justify-center items-center">
         {/* Circular Badge with Score */}
         <div
