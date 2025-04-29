@@ -1,19 +1,36 @@
 import axios from 'axios';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import io from 'socket.io-client';
-
-const socket = io('http://localhost:8080');
+import chat_bg from '../../assets/chat_bg.jpg';
 
 function Chat() {
   const [username, setUsername] = useState('');
   const [message, setMessage] = useState('');
-  const [messages, setMessages] = useState([]);  // Only private messages here
+  const [messages, setMessages] = useState([]);
   const [isConnected, setIsConnected] = useState(false);
   const [users, setUsers] = useState([]);
   const [selectedUser, setSelectedUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [hasJoined, setHasJoined] = useState(false);
+
+  const socketRef = useRef(null);
+
+  useEffect(() => {
+    socketRef.current = io('http://localhost:3001');
+
+    socketRef.current.on('connect', () => {
+      setIsConnected(true);
+    });
+
+    socketRef.current.on('private message', ({ from, message }) => {
+      setMessages((prev) => [...prev, { from, message }]);
+    });
+
+    return () => {
+      socketRef.current.disconnect();
+    };
+  }, []);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -29,25 +46,9 @@ function Chat() {
     fetchData();
   }, []);
 
-  useEffect(() => {
-    socket.on('connect', () => {
-      setIsConnected(true);
-    });
-
-    socket.on('private message', ({ from, message }) => {
-      setMessages((prev) => [...prev, { from, message }]);
-    });
-
-    return () => {
-      socket.off('connect');
-      socket.off('private message');
-    };
-  }, []);
-
   const handleJoin = () => {
     if (username.trim() && !hasJoined) {
-      socket.emit('join', username);
-       
+      socketRef.current.emit('join', username);
       setHasJoined(true);
     }
   };
@@ -55,7 +56,7 @@ function Chat() {
   const handleSendMessage = (e) => {
     e.preventDefault();
     if (message.trim() && username && selectedUser) {
-      socket.emit('private message', { to: selectedUser, message });
+      socketRef.current.emit('private message', { to: selectedUser, message });
       setMessages((prev) => [...prev, { from: username, message }]);
       setMessage('');
     }
@@ -69,8 +70,10 @@ function Chat() {
     setSelectedUser(user.name);
   };
 
+   
+
   return (
-    <div className="min-h-screen bg-gray-100 flex items-center justify-center">
+    <div className="min-h-screen bg-black flex items-center justify-center">
       {!hasJoined ? (
         <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
           <h1 className="text-2xl font-bold mb-4 text-center">Join Private Chat</h1>
@@ -82,7 +85,7 @@ function Chat() {
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               placeholder="Enter your username"
-              className="w-full p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full p-2 border text-black rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
             <button
               onClick={handleJoin}
@@ -96,16 +99,16 @@ function Chat() {
       ) : (
         <div className="flex w-full h-screen">
           {/* Sidebar */}
-          <div className="w-1/4 bg-white shadow-md p-4 overflow-y-auto">
+          <div className="w-1/4 bg-black shadow-md p-4 overflow-y-auto">
             <h2 className="text-lg font-semibold mb-4">All Users</h2>
             <ul className="space-y-2">
               {users
-                .filter((u) => u.username !== username) // Don't show yourself
+                .filter((u) => u.username !== username)
                 .map((user, index) => (
                   <li
                     key={index}
                     onClick={() => handleSelectUser(user)}
-                    className={`cursor-pointer p-2 rounded ${selectedUser === user.name ? 'bg-blue-500 text-white' : 'hover:bg-gray-200'}`}
+                    className={`cursor-pointer p-2 rounded list-none ${selectedUser === user.name ? 'bg-custom-primary text-white' : 'hover:bg-custom-primary'}`}
                   >
                     {user.name}
                   </li>
@@ -115,16 +118,15 @@ function Chat() {
 
           {/* Chat Area */}
           <div className="flex-1 flex flex-col p-4">
-            {/* Chat Header */}
             <div className="flex justify-between items-center mb-4">
               <h2 className="text-xl font-semibold">
+                  <img src="" alt="" />
                 {selectedUser ? `Chatting with @${selectedUser}` : 'Select a user to start chatting'}
               </h2>
               <span className="text-sm text-gray-500">{isConnected ? '🟢 Connected' : '🔴 Disconnected'}</span>
             </div>
 
-            {/* Messages */}
-            <div className="flex-1 overflow-y-auto p-4 bg-gray-50 rounded border mb-4">
+            <div className="flex-1 overflow-y-auto p-4 bg-gray-900 rounded border mb-4 bg-blend-overlay" style={{backgroundImage:`url(${chat_bg})`}}>
               {selectedUser ? (
                 messages
                   .filter(
@@ -138,7 +140,7 @@ function Chat() {
                       className={`mb-2 ${msg.from === username ? 'text-right' : 'text-left'}`}
                     >
                       <span
-                        className={`inline-block p-2 rounded ${msg.from === username
+                        className={`inline-block p-2 rounded-full px-4 ${msg.from === username
                           ? 'bg-blue-500 text-white'
                           : 'bg-gray-200 text-gray-800'
                         }`}
@@ -152,7 +154,9 @@ function Chat() {
               )}
             </div>
 
-            {/* Message input */}
+
+            {/* form area */}
+
             {selectedUser && (
               <form onSubmit={handleSendMessage} className="flex space-x-2">
                 <input
@@ -160,11 +164,11 @@ function Chat() {
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
                   placeholder={`Message @${selectedUser}...`}
-                  className="flex-1 p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="flex-1 p-2 border rounded-full focus:outline-none focus:ring-2 focus:ring-custom-primary"
                 />
                 <button
                   type="submit"
-                  className="bg-blue-500 text-white p-2 rounded hover:bg-blue-600 transition"
+                  className="bg-custom-primary px-4 text-white p-2 rounded hover:bg-custom-primary transition"
                 >
                   Send
                 </button>
