@@ -1,15 +1,18 @@
 /* eslint-disable no-unused-vars */
-import React, { createContext, useState } from "react"; // Add useContext
+import React, { createContext, useContext, useState } from "react"; // Add useContext
 import { useParams } from "react-router";
 import { useQuery } from "@tanstack/react-query";
 import { normalAxios } from "../Hooks/useNormalAxios";
+import { AuthContext } from "./AuthProvider";
 
 // Create the UserContext
 export const ProfileContext = createContext();
 
 // Create a provider component
 export const ProfileProvider = ({ children }) => {
-  const { email:userEmail } = useParams();
+  const {user} = useContext(AuthContext)
+  // const { email:userEmail } = useParams();
+  const userEmail = user?.email
   const [userDetails, setUserDetails] = useState(null);
 
   // Use TanStack Query to fetch user details
@@ -31,7 +34,7 @@ export const ProfileProvider = ({ children }) => {
     },
   });
 
-  // console.log(userDetails)
+  console.log("userDetails",userDetails)
 
   // Provide the context value
   const value = {

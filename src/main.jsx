@@ -37,6 +37,7 @@ import CreateQuizPage from "./components/QuizComponents/InputQiz";
 import Bookmarks from './components/BookMarksComponents/Bookmarks';
 import UpdateBlog from './components/UpdateBlogComponents/UpdateBlog';
 import UpdateQuestion from './components/UpdateQuestionComponents/UpdateQuestion';
+import { ProfileProvider } from './Provider/ProfileProvider';
 
 const router = createBrowserRouter([
   {
@@ -131,7 +132,9 @@ const router = createBrowserRouter([
         path: "/quiz",
         element: (
           <PrivateRoute>
+            <ProfileProvider>
             <CreateQuizPage/>
+            </ProfileProvider>
           </PrivateRoute>
         ),
       },

@@ -1,5 +1,10 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import QuizExplain from "./QuizExplain";
+import { AuthContext } from "../../Provider/AuthProvider";
+import useSecureAxios from "../../Hooks/useSecureAxios";
+import AISuggestion from "./AISuggestion";
+import { FaCross, FaRobot } from "react-icons/fa";
+import Loading from "../AuthenticationComponents/Loading";
 
 // List of motivational quotes
 const MOTIVATIONAL_QUOTES = [
@@ -11,7 +16,12 @@ const MOTIVATIONAL_QUOTES = [
 ];
 
 const QuizResult = ({ score, quizData, answers }) => {
-  // Select a random motivational quote
+  const { user } = useContext(AuthContext);
+  const [suggestion, setSuggestion] = useState(null);
+  const [showSuggestion, setShowSuggestion] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const secureAxios = useSecureAxios();
+
   const randomQuote =
     MOTIVATIONAL_QUOTES[Math.floor(Math.random() * MOTIVATIONAL_QUOTES.length)];
 
@@ -26,7 +36,25 @@ const QuizResult = ({ score, quizData, answers }) => {
         : score === 3
         ? "bg-yellow-500"
         : "bg-red-600"
-      : "bg-gray-600"; // Fallback color if totalQuestions is not 5
+      : "bg-gray-600";
+
+  const handleAiSuggestion = async () => {
+    if (showSuggestion) {
+      setShowSuggestion(false);
+      return;
+    }
+
+    setLoading(true);
+    try {
+      const response = await secureAxios.post(`/users/user-feedback/${user?.email}`);
+      setSuggestion(response.data);
+      setShowSuggestion(true);
+    } catch (error) {
+      console.error("Failed to fetch AI suggestion:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="w-[93%] mx-auto bg-custom-half-gray p-6 rounded-xl border border-gray-700">
@@ -51,8 +79,25 @@ const QuizResult = ({ score, quizData, answers }) => {
       {/* Motivational Quote */}
       <p className="text-gray-400 italic text-center mb-6">"{randomQuote}"</p>
 
-      {/* Try Again Button */}
+      {/* Quiz Explanation */}
       <QuizExplain answers={answers} />
+
+      {/* Get AI Suggestion / Close Button */}
+      <button
+        onClick={handleAiSuggestion}
+        className={`w-full h-12 text-lg bg-custom-primary text-white rounded-md hover:bg-custom-half-primary transition-all mt-10 flex items-center justify-center gap-2`}
+        disabled={loading}
+      >
+        {loading ? (
+          <Loading />
+        ) : (
+          <FaRobot className="text-xl" />
+        )}
+        {loading ? "Loading..." : showSuggestion ? "Close" : "Get AI Suggestion"}
+      </button>
+
+      {/* AI Suggestion Component */}
+      {showSuggestion && suggestion && <AISuggestion suggestion={suggestion} />}
     </div>
   );
 };

@@ -46,6 +46,7 @@ const QuizExplain = ({ answers }) => {
             {index < answers.length - 1 && (
               <div className="border-t border-gray-600 my-6"></div>
             )}
+
           </React.Fragment>
         ))}
       </div>
