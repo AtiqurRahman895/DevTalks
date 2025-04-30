@@ -109,14 +109,20 @@ const Navbar = ({menuOpen, setMenuOpen}) => {
                                     )}
 
                                     <li>
-                                    <Link to={`/profile/${user.email}`} className="">
-                                        Profile
-                                    </Link>
+                                        <Link to={`/profile/${user.email}`} className="">
+                                            Profile
+                                        </Link>
                                     </li>
                                     <li>
-                                    <Link to={"/change-password"} className="">
-                                        Change Password
-                                    </Link>
+                                        <Link to={`/bookmark`} className="">
+                                            Bookmark
+                                        </Link>
+                                    </li>
+
+                                    <li>
+                                        <Link to={"/change-password"} className="">
+                                            Change Password
+                                        </Link>
                                     </li>
                                     <li className="hover:scale-105 duration-200 lg:hidden">
                                         <p onClick={signOutUser}>Sign out</p>
