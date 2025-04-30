@@ -28,8 +28,6 @@ const QuizResult = ({ score, answers }) => {
   // Calculate total questions
   const totalQuestions = 5;
 
-  console.log(answers)
-
   // Determine circle color based on score (assuming totalQuestions is 5)
   const circleColor =
     totalQuestions === 5
