@@ -45,7 +45,7 @@
         @apply text-[14px] leading-loose;
     }
     a{
-        @apply hover:scale-105 duration-500
+        @apply duration-500
     }
     header a{
         @apply hover:text-inherit duration-500
@@ -72,11 +72,25 @@
 
 @layer utilities{
 
+    /* Scrollbar */
+
+    .hide-scrollbar {
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+    }
+    .hide-scrollbar::-webkit-scrollbar {
+        display: none;
+    }
+
     /* NavBar */
 
     .blurNavbar {
         background-color: #3f405a40;
         backdrop-filter: blur(20px);
+    }
+
+    .active{
+        @apply text-custom-primary
     }
 
     /* Section Header */
@@ -103,8 +117,12 @@
 
     /* Basic editor styles */
     .tiptap:first-child {
-        margin-top: 2rem !important;
+        /* margin-top: 2rem !important; */
         outline: none !important;
+        
+    }
+    .tiptap:first-child{
+        @apply min-h-40 h-auto
     }
 
     .tiptap p.is-empty::before {
@@ -115,8 +133,18 @@
 
     /* Code and preformatted text styles */
     p,h4,h6, li, pre {
-        white-space: pre-wrap;
+        /* white-space: pre-wrap; */
         word-wrap: break-word;
+    }
+
+    p, h4, h6, li {
+        /* white-space: pre-wrap; ❌ remove this */
+        word-wrap: break-word; /* keep this if needed */
+    }
+    
+    /* ✅ KEEP IT ONLY FOR THESE */
+    pre, pre *, code, .code-block {
+        white-space: pre-wrap !important;
     }
 
     pre {
@@ -125,7 +153,7 @@
         color: white;
         font-family: 'JetBrainsMono', monospace;
         margin: 1rem 0;
-        padding: 0.75rem 1rem;
+        padding: 0.75rem;
         overflow-x: auto ;
 
     }
@@ -171,7 +199,6 @@
     .tiptap h6, .editorContents h6{
         margin-block: 8px !important;
     }
-
 
     /* Indentation styles for data-indent */
     [data-indent="0"], .tt-indent-0 {

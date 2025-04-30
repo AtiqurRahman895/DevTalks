@@ -10,6 +10,7 @@ import { useQuery } from "@tanstack/react-query";
 import NextPreButtons from "../CommonComponents/NextPreButtons";
 import { AuthContext } from "../../Provider/AuthProvider";
 import AllBlogs from "./AllBlogs";
+import useGetBlogsCount from "../../Hooks/useGetBlogsCount";
 
 const Blogs = () => {
     const limit = 6;
@@ -38,35 +39,17 @@ const Blogs = () => {
         return res.data
     };
 
-    const { isLoading:loading, data:blogs=[], isError, error } = useQuery(
+    const { isLoading:loading, data:blogs=[] } = useQuery(
         ['blogs', memorizedSearchQuery, memorizedPageNo, memorizedTag],
         fetchBlogs,
-    );
-
-    const fetchBlogsCount = async () => {
-        const params = {
-            query:
-            memorizedSearchQuery ? { $text: { $search: memorizedSearchQuery } } : {},
-        };
-
-        if (memorizedTag) {
-            params.query.tags = { $in: [memorizedTag] };  // Use $in for exact matches or $text if you have a text index on `tags`
+        {
+            onError: (error) => {
+              console.error("Error fetching blogs:", error);
+            }
         }
-
-        const res = await normalAxios.get("/blogs/blogsCount", { params });
-
-        return res.data;
-    };
-
-    const { data: blogsCount = 0 } = useQuery(
-        ["blogsCount", memorizedSearchQuery, memorizedTag],
-        fetchBlogsCount,
     );
 
-    if (isError) {
-        console.error(error);
-    }
-
+    const {blogsCount} = useGetBlogsCount(memorizedSearchQuery, memorizedTag)
 
     return (
         <main>
@@ -92,9 +75,9 @@ const Blogs = () => {
 
                             <NotFound NotFoundText={searchQuery?"No blog found!":"Unable to load blogs for some reasion!"}/>:
 
-                            <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+                            // <div className="w-full">
                                 <AllBlogs blogsCount={blogsCount} allBlogs={blogs} />
-                            </div>
+                            // </div>
                         }</>
                     }
 

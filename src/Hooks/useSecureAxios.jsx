@@ -6,8 +6,8 @@ import { useNavigate } from "react-router";
 
 
 export const secureAxios = axios.create({
-    baseURL: 'http://localhost:8080',
-    // baseURL: 'https://dev-talks-server-blue.vercel.app',
+    // baseURL: 'http://localhost:8080',
+    baseURL: 'https://dev-talks-server-blue.vercel.app',
 });
 
 const useSecureAxios = (safeEmail="") => {

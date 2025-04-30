@@ -8,7 +8,8 @@ import { toast } from "react-toastify";
 import { AuthContext } from "../../Provider/AuthProvider";
 import Swal from 'sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
-import img_wishlist from '../../../public/img-wishlist.gif';
+import img_wishlist from '../../assets/img-wishlist.gif';
+import QuickAccess from "./QuickAccess";
 
 const SignIn =()=>{
   const navigate = useNavigate();
@@ -16,43 +17,36 @@ const SignIn =()=>{
   const [email, setEmail]=useState("")
   const [password, setPassword]=useState("")
 
-  const SignInOnSubmit = async (e) => {
+  const handleSignIn = async (e) => {
     e.preventDefault();
 
     try {
       const userCredential = await signInUser(email, password)
-      
-
+      navigate("/");
       Swal.fire({
-                     position: "center",
-                     timer: 5000,
-                     imageUrl: img_wishlist,  
-                     imageWidth: 800,     
-                     imageHeight: 400,    
-                     imageAlt: "Eid Mubarak",
-                     showConfirmButton: false,
-                     width: '850px',      
-                        
-                     customClass: {
-                       popup: 'rounded-xl', // Rounded corners for popup
-                       image: 'object-cover' // Ensures image fits nicely
-                     }
-             })
-      
-
+          position: "center",
+          timer: 5000,
+          imageUrl: img_wishlist,  
+          imageWidth: 800,     
+          imageHeight: 400,    
+          imageAlt: "Eid Mubarak",
+          showConfirmButton: false,
+          width: '850px',      
+              
+          customClass: {
+            popup: 'rounded-xl', // Rounded corners for popup
+            image: 'object-cover' // Ensures image fits nicely
+          }
+      })
       toast.success(
         `Sign in successful! Welcome, ${userCredential.user.displayName}!`
       );
-      navigate("/");
-      
-      
-    
-      
-
     } catch (error) {
       toast.error(error.message ? error.message : error.code);
     }
   };
+
+
 
   return (
     <main className="py-16">
@@ -65,7 +59,7 @@ const SignIn =()=>{
             <h3 className="">Welcome back</h3>
             <SocialAuthButton/>
 
-            <form onSubmit={(e)=>SignInOnSubmit(e)} className="space-y-4">
+            <form onSubmit={(e)=>handleSignIn(e)} className="space-y-4">
               <label className="input p-2 bg-custom-half-gray flex items-center gap-2">
                 <MdEmail />
                 <input type="text" value={email} onChange={(e)=>setEmail(e.target.value)} className="grow !bg-transparent" placeholder="Email" required/>
@@ -75,19 +69,13 @@ const SignIn =()=>{
 
               <button type="submit" className="primaryButton !w-full">Sign In</button>
             </form>
+
+            <p className="pt-2">Don't have an Account? <Link to={'/sign-up'} className="font-bold text-custom-primary hover:underline">Sign Up</Link></p>
+
           </div>
 
           {/* Sidebar */}
-          <div className={`!p-4 md:!p-8 bg-custom-primary flex flex-col justify-center text-center rounded-b-lg sm:rounded-l-none sm:rounded-r-lg`}>
-            <div>
-              <h3 className="">Hello, Friend!</h3>
-              <p className="mb-2">Don't have an Account? Start your journey with us now!</p>
-
-              <Link to={'/sign-up'} className="outlineButton !rounded-full inline-block">
-                Sign Up
-              </Link>
-            </div>
-          </div>
+          <QuickAccess />
 
         </div>
       </section>

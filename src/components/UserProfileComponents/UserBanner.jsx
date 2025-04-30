@@ -3,13 +3,14 @@ import { ProfileContext } from "../../Provider/ProfileProvider";
 import { FaCamera } from "react-icons/fa";
 import { AuthContext } from "../../Provider/AuthProvider";
 import BannerPicEditModal from "./Modal/BannerPicEditModal";
+import Loading from "../AuthenticationComponents/Loading";
 
 const UserBanner = () => {
-  const { userDetails, refetch } = useContext(ProfileContext);
+  const { userDetails, refetch, isLoading } = useContext(ProfileContext);
   const { user } = useContext(AuthContext);
   const [isProfileImage, setPfp] = useState(false)
 
-  console.log(userDetails);
+  // console.log(userDetails);
 
   const isCurrentUser = user?.email === userDetails?.email;
   const modalId = `my_modal_${
@@ -24,6 +25,13 @@ const UserBanner = () => {
     }
   };
 
+  if(isLoading){
+    return(
+      <Loading />
+    )
+  }
+  
+
   const handlePfpPhotoEdit = () => {
     setPfp(true)
     const modal = document.getElementById(modalId);
@@ -34,7 +42,7 @@ const UserBanner = () => {
   return (
     <div className="relative">
       {/* user banner */}
-      {userDetails?.coverImage ? (
+      {userDetails?.coverImage && !isLoading ? (
         <img
           src={userDetails?.coverImage}
           alt=""
@@ -48,14 +56,14 @@ const UserBanner = () => {
       )}
 
       {/* user profile photo*/}
-      <div className="avatar absolute lg:-bottom-24 md:-bottom-16 sm:-bottom-7 -bottom-10 md:left-10 sm:left-20 left-[32%]">
+      <div className="avatar absolute lg:-bottom-24 md:-bottom-16 sm:-bottom-7 -bottom-10 left-4">
         <div className="lg:w-60 md:w-40 w-32 rounded-full border-4 object-cover object-center border-custom-primary">
           <img src={userDetails?.photoURL} className="" />
         </div>
         {isCurrentUser && (
         <button
           onClick={handlePfpPhotoEdit}
-          className="btn absolute right-2 bottom-2 text-base rounded-full"
+          className="btn btn-circle absolute right-2 bottom-2 text-white"
         >
           <FaCamera />
         </button>
@@ -65,9 +73,9 @@ const UserBanner = () => {
       {isCurrentUser && (
         <button
           onClick={handleCoverPhotoEdit}
-          className="btn absolute right-1 bottom-1 text-base"
+          className="btn absolute right-1 bottom-1 text-white"
         >
-          <FaCamera /> Edit Cover Photo
+          <FaCamera /> Edit
         </button>
       )}
 

@@ -40,7 +40,7 @@ const UserBadge = () => {
         {badges.badges?.slice(0, 3).map((item, index) => (
           <div
             key={index}
-            className="flex flex-col items-center gap-2 bg-gray-800 p-3 rounded-lg shadow-md hover:scale-105 transition-transform"
+            className="flex flex-col items-center gap-2 bg-custom-half-gray p-3 rounded-lg shadow-md hover:scale-105 transition-transform"
           >
             <span className="text-lg">{getBadgeIcon(item.name)}</span>
             <p className="text-sm font-medium text-gray-300 text-center">{item.name}</p>

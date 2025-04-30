@@ -11,15 +11,15 @@ const VALIDATION_PATTERNS = {
 };
 
 const FormField = ({ label, name, register, errors, type = "text", placeholder, icon: Icon }) => (
-  <div className={Icon ? "flex items-center space-x-3" : ""}>
-    {Icon && <Icon className="text-gray-400 text-lg" />}
+  <div className={Icon ? "flex items-center gap-3" : ""}>
+    {Icon && <Icon className="text-custom-primary text-lg mt-8" />}
     <div className={Icon ? "flex-1" : ""}>
-      <label className="block text-sm font-semibold text-gray-300 mb-1">{label}</label>
+      <label className="block text-custom-primary font-semibold mb-2">{label}</label>
       {type === "textarea" ? (
         <textarea
           rows={8}
           {...register(name, { required: VALIDATION_MESSAGES.REQUIRED })}
-          className="w-full p-3 rounded-lg bg-gray-700 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-sm transition-all"
+          className="w-full p-3 rounded-lg bg-custom-half-gray focus:outline-none transition-all"
           placeholder={placeholder}
         />
       ) : (
@@ -34,7 +34,7 @@ const FormField = ({ label, name, register, errors, type = "text", placeholder, 
               },
             }),
           })}
-          className="w-full p-3 rounded-lg bg-gray-700 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-sm transition-all"
+          className="w-full p-3 rounded-lg bg-custom-half-gray focus:outline-none transition-all"
           placeholder={placeholder}
         />
       )}

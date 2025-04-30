@@ -137,7 +137,7 @@ const UpvoteDownvoteButtons = ({voteOn, forQuestion=false, totalVotes }) => {
                 anchorSelect=".upvote"
                 className="!bg-custom-primary"
             >
-                Upvote, if this question is helpful and well-written
+                Upvote
             </Tooltip>
 
             <p>{votes}</p>
@@ -150,7 +150,7 @@ const UpvoteDownvoteButtons = ({voteOn, forQuestion=false, totalVotes }) => {
                 anchorSelect=".downvote"
                 className="!bg-custom-primary"
             >
-                Downvote, if this question is unclear, or unhelpful
+                Downvote
             </Tooltip>
             
         </>

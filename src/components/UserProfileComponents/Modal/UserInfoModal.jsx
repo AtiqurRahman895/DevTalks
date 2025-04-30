@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import {
   FaMapMarkerAlt,
@@ -12,9 +12,12 @@ import { secureAxios } from "../../../Hooks/useSecureAxios";
 import { toast } from "react-toastify";
 import FormField from "./FormField";
 import SocialMediaField from "./SocialMediaField";
+import { AuthContext } from "../../../Provider/AuthProvider";
 
 const UserInfoModal = ({ modalId, userDetails, setUserDetails }) => {
   const [loader, setLoader] = useState(false);
+  const { updateUserProfile, user } = useContext(AuthContext);
+  
   const {
     register,
     handleSubmit,
@@ -28,11 +31,11 @@ const UserInfoModal = ({ modalId, userDetails, setUserDetails }) => {
       location: "",
       email: "",
       organization: "",
-      twitterName: "",
+      // twitterName: "",
       twitterLink: "",
-      linkedinName: "",
+      // linkedinName: "",
       linkedinLink: "",
-      facebookName: "",
+      // facebookName: "",
       facebookLink: "",
     },
   });
@@ -47,17 +50,40 @@ const UserInfoModal = ({ modalId, userDetails, setUserDetails }) => {
         location: userDetails.location || "",
         email: userDetails.email || "",
         organization: userDetails.organization || "",
-        twitterName: userDetails.twitterName || "",
+        // twitterName: userDetails.twitterName || "",
         twitterLink: userDetails.twitterLink || "",
-        linkedinName: userDetails.linkedinName || "",
+        // linkedinName: userDetails.linkedinName || "",
         linkedinLink: userDetails.linkedinLink || "",
-        facebookName: userDetails.facebookName || "",
+        // facebookName: userDetails.facebookName || "",
         facebookLink: userDetails.facebookLink || "",
       });
     }
   }, [userDetails, reset]);
 
+  const getUsernameFromSocialLink = async (link) => {
+    try {
+      // Ensure the URL starts with a protocol
+      // console.log(link)
+      const fixedLink = await link.startsWith("http") ? link : `https://${link}`;
+      const url = new URL(fixedLink);
+      const username = url.pathname.replace("/", "").trim();
+      return username;
+    } catch (error) {
+      return null;
+    }
+  };
+
   const onSubmit = async (data) => {
+    console.log(data.facebookLink)
+    const twitterName= await getUsernameFromSocialLink(data.twitterLink) || ""
+    const linkedinName= await getUsernameFromSocialLink(data.linkedinLink) || ""
+    const facebookName= await getUsernameFromSocialLink(data.facebookLink) || ""
+
+    const socialUsernames={
+      twitterName, linkedinName, facebookName
+    }
+
+    data={...data,...socialUsernames}
     try {
       setLoader(true);
       const res = await secureAxios.put(
@@ -66,6 +92,7 @@ const UserInfoModal = ({ modalId, userDetails, setUserDetails }) => {
       );
       if (res.data.modifiedCount > 0) {
         setUserDetails((prev) => ({ ...prev, ...data }));
+        await updateUserProfile(data.name, user?.photoURL);
         toast.success("User Details Updated");
       } else {
         toast.info("No changes were made to the user details");
@@ -83,14 +110,14 @@ const UserInfoModal = ({ modalId, userDetails, setUserDetails }) => {
   return (
     <>
       <dialog id={modalId} className="modal">
-        <div className="modal-box shadow-xl rounded-xl bg-black">
+        <div className="modal-box shadow-xl rounded-xl bg-white text-black hide-scrollbar border border-custom-gray">
           <form method="dialog">
             {/* Close button */}
-            <button className="btn btn-circle btn-ghost absolute right-3 top-3 text-gray-400 hover:text-gray-200 transition-colors">
+            <button className="btn btn-circle absolute right-3 top-3 hover:text-gray-200 transition-colors">
               ✕
             </button>
           </form>
-          <h3 className="font-bold text-2xl text-center text-white mb-2">
+          <h3 className="font-bold text-2xl text-center mb-2">
             Edit Details
           </h3>
           {/* Divider */}
@@ -191,7 +218,7 @@ const UserInfoModal = ({ modalId, userDetails, setUserDetails }) => {
               <button
                 disabled={loader}
                 type="submit"
-                className="btn bg-custom-primary text-white hover:bg-custom-half-primary px-6 py-2 rounded-lg shadow-md hover:shadow-lg transition-all"
+                className="primaryButton hover:bg-custom-half-primary hover:text-custom-primary"
               >
                 {loader? "Updating...." : "Save Changes"}
               </button>

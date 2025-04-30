@@ -7,28 +7,34 @@ import CoverImageInput from '../CommonComponents/CoverImageInput';
 import PreviewBlog from './PreviewBlog';
 import { AuthContext } from '../../Provider/AuthProvider';
 import useSecureAxios from '../../Hooks/useSecureAxios';
+import { useNavigate } from 'react-router';
 
-const AddBlogForm = () => {
+const BlogForm = ({defaultBlogData={}}) => {
     const {user} = useContext(AuthContext)
     const secureAxios= useSecureAxios() 
-
+    const navigate = useNavigate()
+    
     const [showPreview, setShowPreview] = useState(false)
 
-    const [title, setTitle] = useState("")
-    const [shortDescription, setShortDescription] = useState("")
-    const [editorContents, setEditorContents] = useState({LongDescription:""});
-    const [selectedTags, setSelectedTags] = useState([])
-    const [image, setImage] = useState()
+    const [title, setTitle] = useState(defaultBlogData?.title||"")
+    const [shortDescription, setShortDescription] = useState(defaultBlogData?.shortDescription||"")
+    const [editorContents, setEditorContents] = useState({longDescription:defaultBlogData?.longDescription||""});
+    const [editorKey, setEditorKey] = useState(0);
+    const [selectedTags, setSelectedTags] = useState(
+        defaultBlogData?.tags
+          ? defaultBlogData.tags.map((tag) => ({ label: tag, value: tag }))
+          : []
+    );
+    const [image, setImage] = useState(defaultBlogData?.image||"")
     const {htmlToPlainText, countWordsAndChars} = useWordCount()
-
 
     const verify=()=>{
         const {wordCount:titleTextCount}=countWordsAndChars(title)
         const {wordCount:shortDescriptionCount}=countWordsAndChars(shortDescription)
 
-        const LongDescription = editorContents.LongDescription;
-        const plainLongDescriptionText= htmlToPlainText(LongDescription||"")
-        const {wordCount:longDescriptionTextCount}=countWordsAndChars(plainLongDescriptionText)
+        const longDescription = editorContents.longDescription;
+        const plainlongDescriptionText= htmlToPlainText(longDescription||"")
+        const {wordCount:longDescriptionTextCount}=countWordsAndChars(plainlongDescriptionText)
         
         if (!user){
             toast.warning(`Currently you are not signned in! Please sign in first to Add blog.`);
@@ -68,27 +74,44 @@ const AddBlogForm = () => {
             return
         }
 
-        const LongDescription = editorContents.LongDescription;
+        const longDescription = editorContents.longDescription;
         const tags = selectedTags.map((tag) => tag.value);
         const createdAt= new Date()
         const author= user?.displayName
         const authorEmail= user?.email
 
-        const credentials= {author, authorEmail, title, shortDescription, tags, image, LongDescription, createdAt}
+        if(!defaultBlogData){
+            const credentials= {author, authorEmail, title, shortDescription, tags, image, longDescription, createdAt}
 
-        try {
-            await secureAxios.post("/blogs/creatBlog",credentials)
-            toast.success("You have successfully added a blogs.")
-            setShowPreview(false)
-            setTitle("")
-            setShortDescription("")
-            setImage()
-            setEditorContents({question:""})
-            setSelectedTags([])
-        } catch (error) {
-            console.log(`Unable to add blog now: ${error}`)
-            toast.info(`Unable to add blog now, try again later`)
+            try {
+                await secureAxios.post("/blogs/creatBlog",credentials)
+                toast.success("You have successfully added a blogs.")
+                setShowPreview(false)
+                setTitle("")
+                setShortDescription("")
+                setImage()
+                setEditorContents({longDescription:""})
+                setEditorKey(prev => prev + 1); // 💡 This will force remount
+                setSelectedTags([])
+            } catch (error) {
+                console.log(`Unable to add blog now: ${error}`)
+                toast.info(`Unable to add blog now, try again later`)
+            }
+        }else{
+            const credentials= { title, shortDescription, tags, image, longDescription}
+
+            try {
+                await secureAxios.put(`/blogs/updateBlog/${defaultBlogData._id}`,credentials)
+                toast.success("You have successfully updated this blogs.")
+                setEditorKey(prev => prev + 1); // 💡 This will force remount
+                navigate(`/blog/${defaultBlogData._id}`)
+            } catch (error) {
+                console.log(`Unable to update this blog now: ${error}`)
+                toast.info(`Unable to update this blog now, try again later`)
+            }
         }
+
+
     };
 
 
@@ -120,19 +143,19 @@ const AddBlogForm = () => {
 
                     <div className="space-y-3">
                         <h5 className='text-custom-primary'>Type long description</h5>
-                        <TextEditor label="LongDescription" setEditorContents={setEditorContents} editorContents={editorContents.LongDescription} />
+                        <TextEditor key={editorKey} label="longDescription" setEditorContents={setEditorContents} editorContents={editorContents.longDescription} />
                     </div>
 
 
                 </div>
                 :
-                <PreviewBlog showPreview={showPreview} title={title} shortDescription={shortDescription} createdAt={new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)} selectedTags={selectedTags} image={image} editorContents={editorContents.LongDescription} />
+                <PreviewBlog showPreview={showPreview} title={title} shortDescription={shortDescription} createdAt={new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)} selectedTags={selectedTags} image={image} editorContents={editorContents.longDescription} />
             }
 
 
             <div className="flex gap-4">
                 <button onClick={handleSubmit} className="primaryButton">
-                    Submit
+                    {!defaultBlogData?"Submit":"Update"}
                 </button>
                 <button onClick={handlePreview} className="outlineButton">
                     {showPreview?"Show Form":"Show Preview"}
@@ -143,4 +166,4 @@ const AddBlogForm = () => {
     );
 };
 
-export default AddBlogForm;
+export default BlogForm;

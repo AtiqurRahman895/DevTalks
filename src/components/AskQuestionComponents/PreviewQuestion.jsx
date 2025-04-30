@@ -39,7 +39,7 @@ const PreviewQuestion = ({showPreview, title, createdAt, selectedTags, editorCon
                         }
                     </div>
                 </div>
-                <div ref={highlightRef} className="!whitespace-pre-wrap editorContents p-5" dangerouslySetInnerHTML={{ __html: editorContents }}></div>
+                <div ref={highlightRef} className="editorContents p-5" dangerouslySetInnerHTML={{ __html: editorContents }}></div>
 
                 <div className="p-5 border-t border-custom-gray">
                     <div className="flex flex-wrap gap-3">

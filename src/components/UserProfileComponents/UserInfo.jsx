@@ -8,11 +8,12 @@ import { ProfileContext } from "../../Provider/ProfileProvider";
 import UserInfoModal from "./Modal/UserInfoModal";
 import { FaPencilAlt } from "react-icons/fa";
 import Loading from "../AuthenticationComponents/Loading";
+import ProfileSkeletonLoader from "./ProfileLoader/ProfileLoader";
 
 const UserInfo = () => {
   const { userDetails, setUserDetails, isLoading } = useContext(ProfileContext) || {};
   const { user } = useContext(AuthContext) || {};
-  console.log(userDetails)
+  // console.log(userDetails)
   
   // Early return if required context data is missing
   if (!userDetails || !setUserDetails || !user) {
@@ -26,7 +27,7 @@ const UserInfo = () => {
 
   if(isLoading){
     return(
-      <Loading />
+      <ProfileSkeletonLoader />
     )
   }
 
@@ -41,23 +42,19 @@ const UserInfo = () => {
   };
 
   return (
-    <div className="lg:w-96 lg:ml-10 md:ml-8 lg:mt-20 md:mt-12 mt-10">
+    <div className="w-full lg:w-3/4 mt-10 md:mt-20">
       {/* User Information */}
       <section aria-label="User Information">
-        <h3 className="md:text-left text-center">
+        <h3 className="">
           {userDetails.name || "Unnamed User"}
         </h3>
         {userDetails.profession && (
-          <h4 className="md:text-left text-center text-custom-primary">
+          <h4 className="text-custom-primary">
             {userDetails.profession}
           </h4>
         )}
+        {/* <ActionButton /> */}
       </section>
-
-      {/* Action Button for Mobile */}
-      <div className="md:hidden flex justify-center mt-4">
-        <ActionButton />
-      </div>
 
       {/* Bio */}
       {userDetails.bio && (
@@ -68,13 +65,13 @@ const UserInfo = () => {
       <ProfileLinks userDetails={userDetails} />
 
       {/* Divider */}
-      <hr className="border-b border-gray-600 my-4" />
+      <hr className="border-b border-custom-gray my-4" />
 
       {/* Edit Button (only for current user) */}
       {isCurrentUser && (
         <button
           onClick={handleEditClick}
-          className="w-full btn text-white bg-custom-half-gray border border-gray-600"
+          className="w-full btn text-white bg-custom-half-gray border border-custom-gray"
           aria-label="Edit Profile Details"
         >
           <FaPencilAlt />
@@ -95,18 +92,5 @@ const UserInfo = () => {
   );
 };
 
-// UserInfo.propTypes = {
-//   // No props are directly passed, but documenting context expectations
-//   userDetails: PropTypes.shape({
-//     name: PropTypes.string,
-//     profession: PropTypes.string,
-//     bio: PropTypes.string,
-//     email: PropTypes.string,
-//   }),
-//   setUserDetails: PropTypes.func,
-//   user: PropTypes.shape({
-//     email: PropTypes.string,
-//   }),
-// };
 
 export default UserInfo;

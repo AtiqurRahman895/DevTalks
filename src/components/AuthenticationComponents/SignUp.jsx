@@ -9,6 +9,7 @@ import ProfileImageInput from "./ProfileImageInput";
 import { toast } from "react-toastify";
 import { AuthContext } from "../../Provider/AuthProvider";
 import useNormalAxios from "../../Hooks/useNormalAxios";
+import QuickAccess from "./QuickAccess";
 
 const SignUp =()=>{
   const navigate = useNavigate();
@@ -74,19 +75,11 @@ const SignUp =()=>{
 
                   <button type="submit" className="primaryButton !w-full">Sign Up</button>
               </form>
+              <p className="pt-2">Already have an Account? <Link to={'/sign-in'} className="font-bold text-custom-primary hover:underline">Sign Up</Link></p>
           </div>
 
           {/* Sidebar */}
-          <div className={`p-4 md:p-8 bg-custom-primary flex flex-col justify-center text-center rounded-b-lg sm:rounded-l-none sm:rounded-r-lg`}>
-            <div>
-              <h3 className="">Hello, Friend!</h3>
-              <p className="mb-2">Already have an Account? Sign in with your personal info now!</p>
-
-              <Link to={'/sign-in'} className="outlineButton !rounded-full inline-block">
-                  Sign In
-              </Link>
-            </div>
-          </div>
+          <QuickAccess />
 
         </div>
       </section>

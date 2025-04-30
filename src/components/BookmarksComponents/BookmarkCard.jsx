@@ -2,7 +2,7 @@ import React from 'react';
 import { FaBookmark } from "react-icons/fa";
 import { RiDeleteBin6Line } from "react-icons/ri";
 
-const BookMarkCard = () => {
+const BookmarkCard = () => {
     return (
         <div>
 
@@ -31,4 +31,4 @@ const BookMarkCard = () => {
     );
 };
 
-export default BookMarkCard;
+export default BookmarkCard;

@@ -1,55 +1,46 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef, useContext } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
- 
- 
-import axios from 'axios';
+import { useLocation } from 'react-router';
+import hljs from 'highlight.js';
+import 'highlight.js/styles/monokai.css';
+import useSecureAxios from '../../Hooks/useSecureAxios';
+import { AuthContext } from '../../Provider/AuthProvider';
 
 const QuizComponents = () => {
   const [index, setIndex] = useState(0);
-  const [score, setScore] = useState(0);
-  const [showScore, setShowScore] = useState(false);
   const [selectedOption, setSelectedOption] = useState('');
+  const [isCorrect, setIsCorrect] = useState(null);
   const [questions, setQuestions] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [answers, setAnswers] = useState([]);
+  const [showCheckAnswers, setShowCheckAnswers] = useState(false);
+  const [scoreData, setScoreData] = useState(null);
+  const [showAnswers, setShowAnswers] = useState(false);
+  const codeRef = useRef(null);
+  const location = useLocation();
+  const secureAxios = useSecureAxios();
+  const { user } = useContext(AuthContext);
 
- 
-  const category = 'Code';
-  const difficulty = 'easy';
-  const limit = 10;
-
-  console.log('limit');
-  
-  const fetchQuiz = async () => {
-    setLoading(true);
-    setError(null);
-
-    try {
-      const response = await axios.get('http://localhost:8080/quizzes/api/quiz', {
-        params: { category, difficulty, limit },
-      });
-      setQuestions(response.data);
-    } catch (err) {
-      console.error('Frontend error fetching questions:', err.message);
-      if (err.response) {
-        console.error('Response status:', err.response.status);
-        console.error('Response data:', err.response.data);
-      }
-      setError('Failed to fetch quiz questions. Please try again.');
-      toast.error('Failed to fetch quiz questions.');
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  // Fetch questions when the component mounts
+  // Get quiz data from location state
   useEffect(() => {
-    fetchQuiz();
-  }, []);
+    const quizData = location.state?.quizData;
+    if (quizData && quizData.questions) {
+      setQuestions(quizData.questions);
+    } else {
+      toast.error('No quiz data available. Please create a quiz first.');
+    }
+  }, [location.state]);
+
+  // Apply highlight.js to the code snippet
+  useEffect(() => {
+    if (codeRef.current) {
+      hljs.highlightElement(codeRef.current);
+    }
+  }, [index, questions]);
 
   const handleInput = (e) => {
     setSelectedOption(e.target.value);
+    setIsCorrect(null);
   };
 
   const handleNext = (e) => {
@@ -58,101 +49,195 @@ const QuizComponents = () => {
       return toast.error('Must select an option');
     }
 
-    if (selectedOption === questions[index].ans) {
-      setScore((prev) => prev + 1);
-     
-    }  
+    const correct = selectedOption === questions[index].correctAnswer;
+    setIsCorrect(correct);
+    // if (correct) {
+    //   toast.success('Correct!');
+    // } else {
+    //   toast.error('Incorrect!');
+    // }
 
-    if (index < questions.length - 1) {
-      setIndex((prev) => prev + 1);
-      setSelectedOption('');
-    } else {
-      setShowScore(true);
-    }
+    // Save the user's answer
+    const newAnswer = {
+      questionId: questions[index].id,
+      userSelect: selectedOption,
+    };
+    setAnswers((prev) => {
+      const updatedAnswers = [...prev];
+      updatedAnswers[index] = newAnswer;
+      return updatedAnswers;
+    });
+
+    setTimeout(() => {
+      if (index < questions.length - 1) {
+        setIndex((prev) => prev + 1);
+        setSelectedOption('');
+        setIsCorrect(null);
+      } else {
+        setShowCheckAnswers(true);
+      }
+    }, 1000);
   };
 
   const handlePrevious = () => {
     if (index > 0) {
       setIndex((prev) => prev - 1);
-      setSelectedOption('');
+      setSelectedOption(answers[index - 1]?.userSelect || '');
+      setIsCorrect(null);
+    }
+  };
+
+  const handleCheckAnswers = async () => {
+    if (!user || !user.email) {
+      toast.error('User not authenticated. Please log in.');
+      return;
+    }
+
+    const quizId = location.state?.quizData?._id;
+    if (!quizId) {
+      toast.error('Quiz ID not found. Please create a quiz first.');
+      return;
+    }
+
+    const payload = {
+      email: user.email,
+      quizId: quizId,
+      userAnswers: answers,
+    };
+
+    try {
+      const response = await secureAxios.post('/users/user-answer', payload);
+      // console.log(response);
+      setScoreData(response.data);
+      setShowAnswers(true);
+    } catch (error) {
+      console.error('Error checking answers:', error.message);
+      if (error.response) {
+        console.error('Response status:', error.response.status);
+        console.error('Response data:', error.response.data);
+      }
+      toast.error('Failed to check answers. Please try again.');
     }
   };
 
   const reset = () => {
     setIndex(0);
-    setScore(0);
-    setShowScore(false);
     setSelectedOption('');
-    fetchQuiz(); // Fetch new questions on reset
+    setIsCorrect(null);
+    setAnswers([]);
+    setShowCheckAnswers(false);
+    setScoreData(null);
+    setShowAnswers(false);
   };
 
-  if (loading) {
-    return <div className="text-center text-lg">Loading...</div>;
-  }
-
-  if (error) {
-    return (
-      <div className="text-center text-red-500">
-        {error}
-        <button
-          onClick={fetchQuiz}
-          className="ml-4 px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700"
-        >
-          Retry
-        </button>
-      </div>
-    );
-  }
-
   if (questions.length === 0) {
-    return <div className="text-center text-lg">No questions available.</div>;
+    return <div className="text-center text-lg text-white">No questions available.</div>;
   }
 
   return (
-    <div>
-      <div className="text-center py-16 container bg-[#3f405a40] rounded-lg my-8">
-        <h3 className="text-2xl font-bold text-white">Quiz</h3>
-        <p className="md:w-2/4 sm:w-4/5 mx-auto leading-[17px] text-white">
-          Challenge yourself with coding quizzes, improve problem-solving, and compete with the community to earn rewards!
-        </p>
-      </div>
-
-      <div className="bg-[#3f405a40] max-w-3xl p-8 mx-auto my-20 rounded-xl shadow-lg">
-        {showScore ? (
+    <div className="min-h-screen">
+      <div className="max-w-6xl p-8 mx-auto my-20 rounded-xl shadow-lg">
+        {scoreData && !showAnswers ? (
           <div className="text-center">
             <p className="text-2xl font-bold text-white">
-              Your Score: {score} / {questions.length}
+              Your Score: {scoreData.answers.score} / 5
             </p>
             <button
-              onClick={reset}
-              className="mt-4 w-36 h-10 text-lg bg-indigo-600 text-white rounded-lg hover:bg-indigo-700"
+              onClick={() => setShowAnswers(true)}
+              className="mt-4 w-36 h-10 text-lg bg-custom-primary text-white rounded-lg hover:bg-opacity-90"
             >
-              Try Again
+              View Answers
             </button>
+          </div>
+        ) : showAnswers ? (
+          <div>
+            <h2 className="text-2xl font-bold text-white text-center mb-6">Your Answers</h2>
+            {scoreData?.answers?.answers?.map((answer, idx) => (
+              <div key={answer.questionId} className="mb-6 p-4 bg-gray-800 rounded-md">
+                <p className="text-lg text-white font-semibold">
+                  {idx + 1}. {answer.question}
+                </p>
+                <p className="text-white mt-2">
+                  <span className="font-medium">Your Answer:</span> {answer.userSelect} - {questions[idx].options[answer.userSelect]}
+                </p>
+                <p className={`text-white mt-1 ${answer.isCorrect ? 'text-green-400' : 'text-red-400'}`}>
+                  <span className="font-medium">
+                    {answer.isCorrect ? 'Correct Answer:' : 'Correct Answer:'}
+                  </span>{' '}
+                  {answer.correctAnswer} - {questions[idx].options[answer.correctAnswer]}{' '}
+                  {answer.isCorrect ? (
+                    <span className="text-green-400">(Correct ✅)</span>
+                  ) : (
+                    <span className="text-red-400">(Incorrect ❌)</span>
+                  )}
+                </p>
+                {answer.explanation && (
+                  <p className="text-white mt-2">
+                    <span className="font-medium">Explanation:</span> {answer.explanation}
+                  </p>
+                )}
+              </div>
+            ))}
+            <div className="text-center">
+              <button
+                onClick={reset}
+                className="mt-4 w-36 h-10 text-lg bg-custom-primary text-white rounded-lg hover:bg-opacity-90"
+              >
+                Try Again
+              </button>
+            </div>
           </div>
         ) : (
           <div>
-            <div className="text-center">
+            <div className="text-left">
               <h1 className="text-xl font-bold text-white">
-                Q: {questions[index].q}
+                Question {index + 1}
               </h1>
+              <p className="text-lg text-white mt-2">
+                {questions[index].question}
+              </p>
+              {questions[index].code && (
+                <div className="mt-4 bg-gray-900 p-4 rounded-md">
+                  <pre>
+                    <code ref={codeRef} className="language-html">
+                      {questions[index].code}
+                    </code>
+                  </pre>
+                </div>
+              )}
             </div>
 
-            <div className="mt-4">
-              {['a', 'b', 'c', 'd'].map((option) => (
-                <label key={option} className="flex items-center cursor-pointer">
+            <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+              {['A', 'B', 'C', 'D'].map((option) => (
+                <label
+                  key={option}
+                  className={`flex items-center p-4 bg-gray-800 rounded-md cursor-pointer relative ${
+                    selectedOption === option
+                      ? isCorrect === true
+                        ? 'bg-green-600'
+                        : isCorrect === false
+                        ? 'bg-red-600'
+                        : 'bg-gray-700'
+                      : 'bg-gray-800'
+                  }`}
+                >
                   <input
                     name="select"
                     type="radio"
+                    value={option}
                     onChange={handleInput}
                     className="w-6 cursor-pointer"
-                    value={questions[index][option]}
-                    checked={selectedOption === questions[index][option]}
-                    required
+                    checked={selectedOption === option}
                   />
                   <p className="ml-2 text-lg text-white">
-                    {option.toUpperCase()} : {questions[index][option]}
+                    {option}: {questions[index].options[option]}
                   </p>
+                  {selectedOption === option && isCorrect === false && (
+                    <span className="absolute right-4 text-2xl text-white">✖</span>
+                  )}
+                  {selectedOption === option && isCorrect === true && (
+                    <span className="absolute right-4 text-2xl text-white">✔</span>
+                  )}
                 </label>
               ))}
             </div>
@@ -163,17 +248,26 @@ const QuizComponents = () => {
                 className={`w-36 h-10 text-lg bg-indigo-600 text-white rounded-lg ${
                   index === 0 ? 'opacity-50 cursor-not-allowed' : ''
                 }`}
-                disabled={index === 0}
+                disabled={index === 0 || showCheckAnswers}
               >
                 Previous
               </button>
 
-              <button
-                onClick={handleNext}
-                className="w-36 h-10 text-lg bg-indigo-600 text-white rounded-lg"
-              >
-                {index === questions.length - 1 ? 'Finish' : 'Next'}
-              </button>
+              {showCheckAnswers ? (
+                <button
+                  onClick={handleCheckAnswers}
+                  className="w-36 h-10 text-lg bg-custom-primary text-white rounded-lg hover:bg-opacity-90"
+                >
+                  Check Answers
+                </button>
+              ) : (
+                <button
+                  onClick={handleNext}
+                  className="w-36 h-10 text-lg bg-indigo-600 text-white rounded-lg"
+                >
+                  {index === questions.length - 1 ? 'Finish' : 'Next'}
+                </button>
+              )}
             </div>
           </div>
         )}
