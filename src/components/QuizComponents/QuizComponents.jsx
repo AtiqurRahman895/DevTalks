@@ -53,9 +53,10 @@ const QuizComponents = ({ quizData }) => {
     const optionText = currentQuestion?.options?.[selectedOption] || '';
     const formattedUserSelect = `${selectedOption}. ${optionText}`;
 
-    // Save answer with formatted userSelect
+    // Save answer with formatted userSelect and question text
     const newAnswer = {
       questionId: currentQuestion?.id || currentQuestionIndex,
+      question: currentQuestion?.question || '', // Add question text
       userSelect: formattedUserSelect, // e.g., "B. var"
       isCorrect: isCorrectAnswer,
       explanation: currentQuestion?.explanation,
@@ -78,7 +79,8 @@ const QuizComponents = ({ quizData }) => {
           quizId: quizData._id,
           userAnswers: [...answers, newAnswer].map(answer => ({
             questionId: answer.questionId,
-            userSelect: answer.userSelect, // Send "B. var" to backend
+            question: answer.question, // Include question text
+            userSelect: answer.userSelect, // Send "B. var"
           })),
         };
 
@@ -86,8 +88,8 @@ const QuizComponents = ({ quizData }) => {
           await secureAxios.post('/users/user-answer', payload);
           toast.success(`Quiz completed! Your score: ${score + (isCorrectAnswer ? 1 : 0)}/${quizData?.questions?.length || 0}`);
         } catch (error) {
-          console.error('Error submitting answers:', error.message);
-          toast.error('Failed to submit answers. Please try again.');
+          // console.error('Error submitting answers:', error.message);
+          toast.error(`Failed to submit answers. Please try again. Error submitting answers:', ${error.message}`);
         }
       } else {
         toast.error('User not authenticated or quiz ID missing.');
