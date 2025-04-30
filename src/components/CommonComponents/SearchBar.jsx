@@ -47,9 +47,9 @@ const SearchBar = () => {
     }
 
     return (
-        <div className="join !items-center">
+        <div className={`!items-center ${path=="/dashboard"?"flex justify-between":"join"}`}>
             <form onSubmit={handleSubmit}>
-                <input type="search" onChange={e=>setSearchInput(e.target.value)} value={searchInput} name="searchInput" className={`input join-item bg-[rgba(71,71,71,0.4)] focus:!outline-none !rounded-r-none placeholder:text-white placeholder:text-sm`} placeholder="Search.." />
+                <input type="search" onChange={e=>setSearchInput(e.target.value)} value={searchInput} name="searchInput" className={`input join-item bg-[rgba(71,71,71,0.4)] focus:!outline-none ${path!=="/dashboard"&&"!rounded-r-none"} placeholder:text-white placeholder:text-sm`} placeholder="Search.." />
             </form>
 
             {
