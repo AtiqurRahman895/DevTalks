@@ -86,8 +86,7 @@ const CreateQuizPage = () => {
       {!quizData ? (
         quizDate ? (
           <div className="p-8">
-            <div className="mx-auto">
-              <div className="flex justify-between items-center mb-6">
+              <div className="flex justify-between items-center mb-6 mx-3">
               <h3 className="font-bold text-white">
                 Your Previous Quiz Result
               </h3>
@@ -104,7 +103,6 @@ const CreateQuizPage = () => {
                 score={userDetails?.answers?.score}
                 answers={userDetails?.answers?.answers}
               />
-            </div>
           </div>
         ) : (
           <div className="flex flex-col md:flex-row justify-center items-center py-12 px-6">
