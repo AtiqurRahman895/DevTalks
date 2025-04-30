@@ -134,7 +134,7 @@ const AISuggestion = ({ suggestion }) => {
         <div className="absolute left-0 top-4 -ml-2 w-4 h-4 bg-bg-custom-half-gray border-l border-b border-gray-600 transform rotate-45"></div>
 
         {/* Summary */}
-        <h4 className="text-lg font-semibold text-white mb-2">AI Feedback</h4>
+        <h4 className="text-lg font-semibold text-white mb-2">Quibly Feedback</h4>
         <p className={`text-gray-200 mb-4 ${currentSection === 'summary' ? 'blinking-cursor' : ''}`}>
           {displayedSummary}
         </p>
