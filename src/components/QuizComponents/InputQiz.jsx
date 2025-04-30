@@ -94,7 +94,7 @@ const CreateQuizPage = () => {
                 <div className="bg-custom-primary text-white py-4 px-6 rounded-xl text-center shadow-lg">
                 <p className="text-lg font-semibold">
                   🚫 You can take a new quiz after{" "}
-                  <span className="font-bold text-lg underline">{daysRemaining}</span> day(s).
+                  <span className="font-bold text-lg">{daysRemaining}</span> day(s).
                 </p>
               </div>
               )}

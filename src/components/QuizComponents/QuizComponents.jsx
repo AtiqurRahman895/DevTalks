@@ -98,47 +98,6 @@ const QuizComponents = ({ quizData }) => {
     }
   };
 
-  const handleCheckAnswers = async () => {
-    if (!user || !user.email) {
-      toast.error('User not authenticated. Please log in.');
-      return;
-    }
-
-    const quizId = location.state?.quizData?._id;
-    if (!quizId) {
-      toast.error('Quiz ID not found. Please create a quiz first.');
-      return;
-    }
-
-    const payload = {
-      email: user.email,
-      quizId: quizId,
-      userAnswers: answers,
-    };
-
-    try {
-      const response = await secureAxios.post('/users/user-answer', payload);
-      // console.log(response);
-      setScoreData(response.data);
-      setShowAnswers(true);
-    } catch (error) {
-      console.error('Error checking answers:', error.message);
-      if (error.response) {
-        console.error('Response status:', error.response.status);
-        console.error('Response data:', error.response.data);
-      }
-      toast.error('Failed to check answers. Please try again.');
-    }
-  };
-
-  const reset = () => {
-    setIndex(0);
-    setSelectedOption('');
-    setIsCorrect(null);
-    setScore(0);
-    setAnswers([]);
-    setQuizCompleted(false);
-  };
 
   if (!quizData || !quizData?.questions || quizData?.questions?.length === 0) {
     return (
@@ -159,7 +118,6 @@ const QuizComponents = ({ quizData }) => {
           <QuizResult
             answers={answers}
             score={score}
-            handleReset={handleReset}
           />
         </ProfileProvider>
       ) : (
