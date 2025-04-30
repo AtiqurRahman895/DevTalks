@@ -1,5 +1,5 @@
 import React, { useContext, useRef, useState } from 'react';
-import { Link, useLoaderData, useNavigate } from 'react-router';
+import { Link, useLoaderData, useNavigate, useRevalidator } from 'react-router';
 import useHighlightCodeBlock from '../../Hooks/useHighlightCodeBlock';
 // import useGetRelativeTime from '../../Hooks/useGetRelativeTime';
 import PageTitle from '../CommonComponents/PageTitle';
@@ -9,17 +9,20 @@ import useGetResponses from "../../Hooks/useGetResponses";
 import ResponseTextEditor from '../CommonComponents/ResponseTextEditor';
 import Loading from '../AuthenticationComponents/Loading';
 import ResponseCard from '../QuestionComponent.jsx/ResponseCard';
-import { FaRegUser } from 'react-icons/fa';
+import { FaRegEye, FaRegUser } from 'react-icons/fa';
 import BookmarkButton from '../CommonComponents/BookmarkButton';
 import { AuthContext } from '../../Provider/AuthProvider';
 import useSecureAxios from '../../Hooks/useSecureAxios';
 import { toast } from 'react-toastify';
 import { RiDeleteBin2Fill, RiEdit2Fill } from 'react-icons/ri';
 import { Tooltip } from 'react-tooltip';
+import useUpdateViews from '../../Hooks/useUpdateViews';
 
 const Blog = () => {
     const blogData = useLoaderData()
+    const { revalidate } = useRevalidator();
     const {_id, author, authorEmail, title, shortDescription, tags, image, longDescription, createdAt} = blogData
+    useUpdateViews(_id, revalidate, "blog")
     const highlightRef = useRef(null);
     useHighlightCodeBlock(true, highlightRef)
     // const formatRelativeTime= useGetRelativeTime()
@@ -99,6 +102,11 @@ const Blog = () => {
                                 <IoMdTime /> 
                                 <p>{formatRelativeTime(createdAt)}</p>
                             </div> */}
+
+                            <div className="flex items-center gap-1">
+                                <FaRegEye className="" />
+                                <p>{blogData.views?.length}</p> 
+                            </div>
                         </div>
 
                         <div className="flex flex-wrap gap-1">

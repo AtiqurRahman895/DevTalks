@@ -29,13 +29,13 @@ const Dashboard = () => {
                 </div>
             </section>
 
-            <div className="flex min-h-screen">
+            <section className="flex min-h-screen">
 
 
 
                 {/* Sidebar */}
                 <div
-                    className={`fixed inset-y-0 left-0 z-50 w-64   blurNavbar text-white transform ${isOpen ? 'translate-x-0' : '-translate-x-full'
+                    className={`fixed inset-y-0 left-0 z-50 w-64 blurNavbar text-white transform ${isOpen ? 'translate-x-0' : '-translate-x-full'
                         } md:relative md:translate-x-0 transition-transform duration-300 ease-in-out`}
                 >
                     {/* Sidebar Header */}
@@ -108,7 +108,7 @@ const Dashboard = () => {
                 </div>
 
                 {/* Main Content */}
-                <div className="flex-1">
+                <div className="flex-1 overflow-x-hidden">
                     {/* Overlay for mobile when sidebar is open */}
                     {isOpen && (
                         <div
@@ -122,7 +122,7 @@ const Dashboard = () => {
                          <Outlet />
                     </div>
                 </div>
-            </div>
+            </section>
         </main>
     );
 };
