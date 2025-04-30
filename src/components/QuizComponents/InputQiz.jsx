@@ -155,7 +155,7 @@ const CreateQuizPage = () => {
                   }`}
                   disabled={loading}
                 >
-                  {loading ? "Creating..." : "Create Quiz"}
+                 {loading ? "Thinking..." : "Generate Quiz"}
                 </button>
               </form>
             </div>

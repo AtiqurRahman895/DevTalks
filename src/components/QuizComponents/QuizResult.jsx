@@ -88,12 +88,8 @@ const QuizResult = ({ score, answers }) => {
         className={`w-full h-12 text-lg bg-custom-primary text-white rounded-md hover:bg-custom-half-primary transition-all mt-10 flex items-center justify-center gap-2`}
         disabled={loading}
       >
-        {loading ? (
-          <Loading />
-        ) : (
-          <FaRobot className="text-xl" />
-        )}
-        {loading ? "Loading..." : showSuggestion ? "Close" : "Get AI Suggestion"}
+        <FaRobot className="text-xl" />
+        {loading ? "Thinking..." : showSuggestion ? "Close Suggestion" : "Ask Quibly"}
       </button>
 
       {/* AI Suggestion Component */}
