@@ -1,7 +1,8 @@
 import React from 'react';
 import bg from '../../assets/background-4.jpg'
+import { Link } from 'react-router';
 
-const Join_developer = () => {
+const Join_developer = ({user}) => {
     return (
         <section className="relative bg-cover bg-no-repeat bg-fixed py-24 before:bg-custom-primary/60 before:absolute before:inset-0 before:z-10 " style={{ backgroundImage: `url('${bg}')` }}>
 
@@ -16,12 +17,11 @@ const Join_developer = () => {
 
                     {/* Buttons */}
                     <div className="pt-4 space-x-4">
-                        <button className="primaryButton">
-                            Sign Up
-                        </button>
-                        <button className="outlineButton">
-                            Learn More
-                        </button>
+                        {
+                            user?.email && <Link to={'/sign-up'} className="primaryButton">Join</Link>
+                        }
+                        
+                        <Link to={"/about"} className="outlineButton">Learn more</Link>
                     </div>
                 </div>
             </div>

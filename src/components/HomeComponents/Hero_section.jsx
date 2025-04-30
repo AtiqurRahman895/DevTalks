@@ -1,7 +1,8 @@
 import React from 'react';
 import hero_img from '../../assets/hero-img.jpg'
+import { Link } from 'react-router';
 
-const Hero_section = () => {
+const Hero_section = ({user}) => {
 
 
     return (
@@ -18,8 +19,10 @@ const Hero_section = () => {
                             Connect with developers worldwide to share knowledge, solve challenges, and grow together in a collaborative space.
                         </h5>
                         <div className="flex gap-4">
-                            <button className="primaryButton">Join</button>
-                            <button className="outlineButton">Learn more</button>
+                            {
+                                user?.email && <Link to={'/sign-up'} className="primaryButton">Join</Link>
+                            }
+                            <Link to={"/about"} className="outlineButton">Learn more</Link>
                         </div>
                     </div>
                 </div>
