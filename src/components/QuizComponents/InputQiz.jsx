@@ -50,10 +50,10 @@ const CreateQuizPage = () => {
       return;
     }
 
-    // if (daysRemaining > 0) {
-    //   toast.warning(`Please wait ${daysRemaining} day(s) before taking another quiz.`);
-    //   return;
-    // }
+    if (daysRemaining > 0) {
+      toast.warning(`Please wait ${daysRemaining} day(s) before taking another quiz.`);
+      return;
+    }
 
     const payload = {
       topic: language,
