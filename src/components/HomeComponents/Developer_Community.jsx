@@ -69,7 +69,7 @@ const Developer_Community = ({user}) => {
             
                 <div className="mt-10 flex justify-center gap-6">
                     {
-                        user || <Link to={'/sign-up'} className="primaryButton">Join</Link>
+                        user?.email || <Link to={'/sign-up'} className="primaryButton">Join</Link>
                     }
                     <Link to={"/about"} className="outlineButton">Learn more</Link>
                 </div>
