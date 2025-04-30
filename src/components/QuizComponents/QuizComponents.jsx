@@ -1,89 +1,100 @@
 import React, { useState, useEffect, useRef, useContext } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useLocation } from 'react-router';
 import hljs from 'highlight.js';
 import 'highlight.js/styles/monokai.css';
 import useSecureAxios from '../../Hooks/useSecureAxios';
 import { AuthContext } from '../../Provider/AuthProvider';
+import QuizResult from './QuizResult';
+import { ProfileProvider } from '../../Provider/ProfileProvider';
 
-const QuizComponents = () => {
-  const [index, setIndex] = useState(0);
-  const [selectedOption, setSelectedOption] = useState('');
+const QuizComponents = ({ quizData }) => {
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const [selectedOption, setSelectedOption] = useState(null);
   const [isCorrect, setIsCorrect] = useState(null);
-  const [questions, setQuestions] = useState([]);
+  const [score, setScore] = useState(0);
   const [answers, setAnswers] = useState([]);
-  const [showCheckAnswers, setShowCheckAnswers] = useState(false);
-  const [scoreData, setScoreData] = useState(null);
-  const [showAnswers, setShowAnswers] = useState(false);
+  const [quizCompleted, setQuizCompleted] = useState(false);
   const codeRef = useRef(null);
-  const location = useLocation();
   const secureAxios = useSecureAxios();
   const { user } = useContext(AuthContext);
 
-  // Get quiz data from location state
-  useEffect(() => {
-    const quizData = location.state?.quizData;
-    if (quizData && quizData.questions) {
-      setQuestions(quizData.questions);
-    } else {
-      toast.error('No quiz data available. Please create a quiz first.');
-    }
-  }, [location.state]);
-
-  // Apply highlight.js to the code snippet
+  // Apply highlight.js to code snippets
   useEffect(() => {
     if (codeRef.current) {
       hljs.highlightElement(codeRef.current);
     }
-  }, [index, questions]);
+  }, [currentQuestionIndex]);
 
-  const handleInput = (e) => {
-    setSelectedOption(e.target.value);
-    setIsCorrect(null);
+  // Handle option selection
+  const handleOptionSelect = (optionKey) => {
+    setSelectedOption(optionKey);
+    const currentQuestion = quizData?.questions?.[currentQuestionIndex];
+    const correct = optionKey === currentQuestion?.correctAnswer;
+    setIsCorrect(correct);
   };
 
-  const handleNext = (e) => {
-    e.preventDefault();
+  // Handle next question or quiz completion
+  const handleNextQuestion = async () => {
     if (!selectedOption) {
-      return toast.error('Must select an option');
+      toast.error('Please select an option');
+      return;
     }
 
-    const correct = selectedOption === questions[index].correctAnswer;
-    setIsCorrect(correct);
-    // if (correct) {
-    //   toast.success('Correct!');
-    // } else {
-    //   toast.error('Incorrect!');
-    // }
+    const currentQuestion = quizData?.questions?.[currentQuestionIndex];
+    const isCorrectAnswer = selectedOption === currentQuestion?.correctAnswer;
 
-    // Save the user's answer
+    // Update score if correct
+    if (isCorrectAnswer) {
+      setScore((prev) => prev + 1);
+    }
+
+    // Format userSelect as "B. var"
+    const optionText = currentQuestion?.options?.[selectedOption] || '';
+    const formattedUserSelect = `${selectedOption}. ${optionText}`;
+
+    // Save answer with formatted userSelect and question text
     const newAnswer = {
-      questionId: questions[index].id,
-      userSelect: selectedOption,
+      questionId: currentQuestion?.id || currentQuestionIndex,
+      question: currentQuestion?.question || '', // Add question text
+      userSelect: formattedUserSelect, // e.g., "B. var"
+      isCorrect: isCorrectAnswer,
+      explanation: currentQuestion?.explanation,
+      weakPoint: currentQuestion?.weakPoint,
     };
-    setAnswers((prev) => {
-      const updatedAnswers = [...prev];
-      updatedAnswers[index] = newAnswer;
-      return updatedAnswers;
-    });
+    setAnswers((prev) => [...prev, newAnswer]);
 
-    setTimeout(() => {
-      if (index < questions.length - 1) {
-        setIndex((prev) => prev + 1);
-        setSelectedOption('');
+    // Move to next question or finish quiz
+    if (currentQuestionIndex < (quizData?.questions?.length || 0) - 1) {
+      setTimeout(() => {
+        setCurrentQuestionIndex((prev) => prev + 1);
+        setSelectedOption(null);
         setIsCorrect(null);
-      } else {
-        setShowCheckAnswers(true);
-      }
-    }, 1000);
-  };
+      }, 1000); // Delay to show feedback
+    } else {
+      // Submit answers to backend
+      if (user?.email && quizData?._id) {
+        const payload = {
+          email: user.email,
+          quizId: quizData._id,
+          userAnswers: [...answers, newAnswer].map(answer => ({
+            questionId: answer.questionId,
+            question: answer.question, // Include question text
+            userSelect: answer.userSelect, // Send "B. var"
+          })),
+        };
 
-  const handlePrevious = () => {
-    if (index > 0) {
-      setIndex((prev) => prev - 1);
-      setSelectedOption(answers[index - 1]?.userSelect || '');
-      setIsCorrect(null);
+        try {
+          await secureAxios.post('/users/user-answer', payload);
+          toast.success(`Quiz completed! Your score: ${score + (isCorrectAnswer ? 1 : 0)}/${quizData?.questions?.length || 0}`);
+        } catch (error) {
+          // console.error('Error submitting answers:', error.message);
+          toast.error(`Failed to submit answers. Please try again. Error submitting answers:', ${error.message}`);
+        }
+      } else {
+        toast.error('User not authenticated or quiz ID missing.');
+      }
+      setQuizCompleted(true);
     }
   };
 
@@ -124,154 +135,78 @@ const QuizComponents = () => {
     setIndex(0);
     setSelectedOption('');
     setIsCorrect(null);
+    setScore(0);
     setAnswers([]);
-    setShowCheckAnswers(false);
-    setScoreData(null);
-    setShowAnswers(false);
+    setQuizCompleted(false);
   };
 
-  if (questions.length === 0) {
-    return <div className="text-center text-lg text-white">No questions available.</div>;
+  if (!quizData || !quizData?.questions || quizData?.questions?.length === 0) {
+    return (
+      <div className="min-h-screen bg-black text-center text-lg text-white">
+        No questions available.
+        <ToastContainer />
+      </div>
+    );
   }
 
+  const currentQuestion = quizData?.questions?.[currentQuestionIndex];
+  const optionKeys = ['A', 'B', 'C', 'D'];
+
   return (
-    <div className="min-h-screen">
-      <div className="max-w-6xl p-8 mx-auto my-20 rounded-xl shadow-lg">
-        {scoreData && !showAnswers ? (
-          <div className="text-center">
-            <p className="text-2xl font-bold text-white">
-              Your Score: {scoreData.answers.score} / 5
-            </p>
-            <button
-              onClick={() => setShowAnswers(true)}
-              className="mt-4 w-36 h-10 text-lg bg-custom-primary text-white rounded-lg hover:bg-opacity-90"
-            >
-              View Answers
-            </button>
-          </div>
-        ) : showAnswers ? (
-          <div>
-            <h2 className="text-2xl font-bold text-white text-center mb-6">Your Answers</h2>
-            {scoreData?.answers?.answers?.map((answer, idx) => (
-              <div key={answer.questionId} className="mb-6 p-4 bg-gray-800 rounded-md">
-                <p className="text-lg text-white font-semibold">
-                  {idx + 1}. {answer.question}
-                </p>
-                <p className="text-white mt-2">
-                  <span className="font-medium">Your Answer:</span> {answer.userSelect} - {questions[idx].options[answer.userSelect]}
-                </p>
-                <p className={`text-white mt-1 ${answer.isCorrect ? 'text-green-400' : 'text-red-400'}`}>
-                  <span className="font-medium">
-                    {answer.isCorrect ? 'Correct Answer:' : 'Correct Answer:'}
-                  </span>{' '}
-                  {answer.correctAnswer} - {questions[idx].options[answer.correctAnswer]}{' '}
-                  {answer.isCorrect ? (
-                    <span className="text-green-400">(Correct ✅)</span>
-                  ) : (
-                    <span className="text-red-400">(Incorrect ❌)</span>
-                  )}
-                </p>
-                {answer.explanation && (
-                  <p className="text-white mt-2">
-                    <span className="font-medium">Explanation:</span> {answer.explanation}
-                  </p>
-                )}
-              </div>
-            ))}
-            <div className="text-center">
-              <button
-                onClick={reset}
-                className="mt-4 w-36 h-10 text-lg bg-custom-primary text-white rounded-lg hover:bg-opacity-90"
-              >
-                Try Again
-              </button>
+    <div className="min-h-screen bg-black">
+      {quizCompleted ? (
+        <ProfileProvider>
+          <QuizResult
+            answers={answers}
+            score={score}
+            handleReset={handleReset}
+          />
+        </ProfileProvider>
+      ) : (
+        <div className="w-[90%] min-w-[600px] mx-auto bg-gray-900 p-6 rounded-xl border border-gray-700">
+          <h5 className="font-bold text-white mb-2">
+            Question {String(currentQuestionIndex + 1).padStart(2, '0')}
+          </h5>
+          <p className="text-lg font-bold text-white uppercase mb-4">
+            {currentQuestion?.question || 'No question available'}
+          </p>
+          {currentQuestion?.code && (
+            <div className="mb-4 bg-gray-900 p-4 rounded-md border border-gray-700">
+              <pre>
+                <code ref={codeRef} className="language-javascript">
+                  {currentQuestion.code}
+                </code>
+              </pre>
             </div>
-          </div>
-        ) : (
-          <div>
-            <div className="text-left">
-              <h1 className="text-xl font-bold text-white">
-                Question {index + 1}
-              </h1>
-              <p className="text-lg text-white mt-2">
-                {questions[index].question}
-              </p>
-              {questions[index].code && (
-                <div className="mt-4 bg-gray-900 p-4 rounded-md">
-                  <pre>
-                    <code ref={codeRef} className="language-html">
-                      {questions[index].code}
-                    </code>
-                  </pre>
-                </div>
-              )}
-            </div>
-
-            <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
-              {['A', 'B', 'C', 'D'].map((option) => (
-                <label
-                  key={option}
-                  className={`flex items-center p-4 bg-gray-800 rounded-md cursor-pointer relative ${
-                    selectedOption === option
-                      ? isCorrect === true
-                        ? 'bg-green-600'
-                        : isCorrect === false
-                        ? 'bg-red-600'
-                        : 'bg-gray-700'
-                      : 'bg-gray-800'
+          )}
+          <div className="grid grid-cols-2 gap-3">
+            {optionKeys.map((key) =>
+              currentQuestion?.options?.[key] ? (
+                <button
+                  key={key}
+                  onClick={() => handleOptionSelect(key)}
+                  className={`relative w-full py-4 px-4 text-left rounded-md border border-gray-600 transition-all ${
+                    selectedOption === key && "bg-custom-primary"
                   }`}
+                  disabled={isCorrect !== null}
                 >
-                  <input
-                    name="select"
-                    type="radio"
-                    value={option}
-                    onChange={handleInput}
-                    className="w-6 cursor-pointer"
-                    checked={selectedOption === option}
-                  />
-                  <p className="ml-2 text-lg text-white">
-                    {option}: {questions[index].options[option]}
-                  </p>
-                  {selectedOption === option && isCorrect === false && (
-                    <span className="absolute right-4 text-2xl text-white">✖</span>
-                  )}
-                  {selectedOption === option && isCorrect === true && (
-                    <span className="absolute right-4 text-2xl text-white">✔</span>
-                  )}
-                </label>
-              ))}
-            </div>
-
-            <div className="text-center mt-6 flex justify-between">
-              <button
-                onClick={handlePrevious}
-                className={`w-36 h-10 text-lg bg-indigo-600 text-white rounded-lg ${
-                  index === 0 ? 'opacity-50 cursor-not-allowed' : ''
-                }`}
-                disabled={index === 0 || showCheckAnswers}
-              >
-                Previous
-              </button>
-
-              {showCheckAnswers ? (
-                <button
-                  onClick={handleCheckAnswers}
-                  className="w-36 h-10 text-lg bg-custom-primary text-white rounded-lg hover:bg-opacity-90"
-                >
-                  Check Answers
+                  <span className="mr-2 font-semibold">{key}</span>
+                  {currentQuestion.options[key]}
                 </button>
-              ) : (
-                <button
-                  onClick={handleNext}
-                  className="w-36 h-10 text-lg bg-indigo-600 text-white rounded-lg"
-                >
-                  {index === questions.length - 1 ? 'Finish' : 'Next'}
-                </button>
-              )}
-            </div>
+              ) : null
+            )}
           </div>
-        )}
-      </div>
+          <button
+            onClick={handleNextQuestion}
+            disabled={!selectedOption}
+            className={`w-full mt-4 h-12 text-lg bg-custom-primary text-white rounded-md transition-all ${
+              !selectedOption ? 'opacity-50 cursor-not-allowed' : 'hover:bg-custom-half-primary'
+            }`}
+          >
+            {currentQuestionIndex < (quizData?.questions?.length || 0) - 1 ? 'Next Question' : 'Finish Quiz'}
+          </button>
+        </div>
+      )}
       <ToastContainer />
     </div>
   );
