@@ -12,7 +12,7 @@ const LatestBlogs = () => {
   const normalAxios = useNormalAxios()
   const formatRelativeTime= useGetRelativeTime()
 
-  const fetchBlogs= async() => {
+  const fetchLatestBlogs= async() => {
       const params = {
           sort:{_id:-1}, 
           limit:5, 
@@ -24,8 +24,8 @@ const LatestBlogs = () => {
   };
 
   const { isLoading:loading, data:blogs=[], isError, error } = useQuery(
-      ['news'],
-      fetchBlogs,
+      ['latestBlogs'],
+      fetchLatestBlogs,
   );
 
   if (isError) {

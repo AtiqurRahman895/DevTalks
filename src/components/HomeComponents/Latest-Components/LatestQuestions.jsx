@@ -8,20 +8,19 @@ import NotFound from "../../CommonComponents/NotFound";
 const LatestQuestions = () => {
   const normalAxios = useNormalAxios()
 
-  const fetchQuestions= async() => {
+  const fetchLatestQuestions= async() => {
       const params = {
           sort:{_id:-1}, 
           limit:5, 
       };
 
       const res=await normalAxios.get("/questions/questions", {params})
-
       return res.data
   };
 
   const { isLoading:loading, data:questions=[], isError, error } = useQuery(
-      ['questions'],
-      fetchQuestions,
+      ['latestQuestions'],
+      fetchLatestQuestions,
   );
 
   if (isError) {

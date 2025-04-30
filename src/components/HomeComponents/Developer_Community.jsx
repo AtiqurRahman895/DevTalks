@@ -2,8 +2,9 @@ import React from 'react';
 import img_1 from '../../assets/card-img-1.jpg'
 import img_2 from '../../assets/card-img-2.jpg'
 import img_3 from '../../assets/card-img-3.jpg'
+import { Link } from 'react-router';
 
-const Developer_Community = () => {
+const Developer_Community = ({user}) => {
     return (
         <section className="">
             <div className="container lg:px-20 ">
@@ -67,8 +68,10 @@ const Developer_Community = () => {
 
             
                 <div className="mt-10 flex justify-center gap-6">
-                    <button className="primaryButton">Join</button>
-                    <button className="outlineButton">Learn More</button>
+                    {
+                        user || <Link to={'/sign-up'} className="primaryButton">Join</Link>
+                    }
+                    <Link to={"/about"} className="outlineButton">Learn more</Link>
                 </div>
             </div>
         </section>
