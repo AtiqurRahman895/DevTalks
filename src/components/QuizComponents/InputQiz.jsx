@@ -35,7 +35,7 @@ const CreateQuizPage = () => {
         setDaysRemaining(0);
       }
     }
-  }, [userDetails]);
+  }, [quizDate, userDetails]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

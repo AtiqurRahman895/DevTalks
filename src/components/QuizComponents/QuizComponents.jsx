@@ -8,7 +8,6 @@ import { AuthContext } from '../../Provider/AuthProvider';
 import QuizResult from './QuizResult';
 import { ProfileProvider } from '../../Provider/ProfileProvider';
 
-
 const QuizComponents = ({ quizData }) => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedOption, setSelectedOption] = useState(null);
@@ -50,10 +49,14 @@ const QuizComponents = ({ quizData }) => {
       setScore((prev) => prev + 1);
     }
 
-    // Save answer
+    // Format userSelect as "B. var"
+    const optionText = currentQuestion?.options?.[selectedOption] || '';
+    const formattedUserSelect = `${selectedOption}. ${optionText}`;
+
+    // Save answer with formatted userSelect
     const newAnswer = {
       questionId: currentQuestion?.id || currentQuestionIndex,
-      userSelect: selectedOption,
+      userSelect: formattedUserSelect, // e.g., "B. var"
       isCorrect: isCorrectAnswer,
       explanation: currentQuestion?.explanation,
       weakPoint: currentQuestion?.weakPoint,
@@ -73,7 +76,10 @@ const QuizComponents = ({ quizData }) => {
         const payload = {
           email: user.email,
           quizId: quizData._id,
-          userAnswers: [...answers, newAnswer],
+          userAnswers: [...answers, newAnswer].map(answer => ({
+            questionId: answer.questionId,
+            userSelect: answer.userSelect, // Send "B. var" to backend
+          })),
         };
 
         try {
@@ -89,8 +95,6 @@ const QuizComponents = ({ quizData }) => {
       setQuizCompleted(true);
     }
   };
-
-  console.log(answers)
 
   // Reset quiz
   const handleReset = () => {
@@ -111,8 +115,6 @@ const QuizComponents = ({ quizData }) => {
     );
   }
 
-  console.log(quizData)
-
   const currentQuestion = quizData?.questions?.[currentQuestionIndex];
   const optionKeys = ['A', 'B', 'C', 'D'];
 
@@ -120,12 +122,12 @@ const QuizComponents = ({ quizData }) => {
     <div className="min-h-screen bg-black">
       {quizCompleted ? (
         <ProfileProvider>
-       <QuizResult
-       answers={answers} 
-       score={score}
-       handleReset={handleReset}
-       />
-       </ProfileProvider>
+          <QuizResult
+            answers={answers}
+            score={score}
+            handleReset={handleReset}
+          />
+        </ProfileProvider>
       ) : (
         <div className="w-[90%] min-w-[600px] mx-auto bg-gray-900 p-6 rounded-xl border border-gray-700">
           <h5 className="font-bold text-white mb-2">
@@ -150,8 +152,7 @@ const QuizComponents = ({ quizData }) => {
                   key={key}
                   onClick={() => handleOptionSelect(key)}
                   className={`relative w-full py-4 px-4 text-left rounded-md border border-gray-600 transition-all ${
-                    selectedOption === key
-                     && "bg-custom-primary"
+                    selectedOption === key && "bg-custom-primary"
                   }`}
                   disabled={isCorrect !== null}
                 >

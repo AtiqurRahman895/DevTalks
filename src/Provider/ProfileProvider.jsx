@@ -6,6 +6,7 @@ import { normalAxios } from "../Hooks/useNormalAxios";
 import { AuthContext } from "./AuthProvider";
 
 // Create the UserContext
+// eslint-disable-next-line react-refresh/only-export-components
 export const ProfileContext = createContext();
 
 // Create a provider component
