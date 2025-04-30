@@ -47,6 +47,7 @@ const QuizResult = ({ score, answers }) => {
     setLoading(true);
     try {
       const response = await secureAxios.post(`/users/user-feedback/${user?.email}`);
+      console.log(response.data)
       setSuggestion(response.data);
       setShowSuggestion(true);
     } catch (error) {
