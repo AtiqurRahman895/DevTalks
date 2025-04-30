@@ -1,14 +1,13 @@
-import React, { useState, useEffect, useRef, useContext } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import hljs from 'highlight.js';
 import 'highlight.js/styles/monokai.css';
 import useSecureAxios from '../../Hooks/useSecureAxios';
-import { AuthContext } from '../../Provider/AuthProvider';
 import QuizResult from './QuizResult';
 import { ProfileProvider } from '../../Provider/ProfileProvider';
 
-const QuizComponents = ({ quizData }) => {
+const QuizComponents = ({ quizData, email }) => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedOption, setSelectedOption] = useState(null);
   const [isCorrect, setIsCorrect] = useState(null);
@@ -17,7 +16,7 @@ const QuizComponents = ({ quizData }) => {
   const [quizCompleted, setQuizCompleted] = useState(false);
   const codeRef = useRef(null);
   const secureAxios = useSecureAxios();
-  const { user } = useContext(AuthContext);
+  // const { user } = useContext(AuthContext);
 
   // Apply highlight.js to code snippets
   useEffect(() => {
@@ -73,9 +72,9 @@ const QuizComponents = ({ quizData }) => {
       }, 400);
     } else {
       // Submit answers to backend
-      if (user?.email && quizData?._id) {
+      if (email && quizData?._id) {
         const payload = {
-          email: user.email,
+          email,
           quizId: quizData._id,
           userAnswers: [...answers, newAnswer].map(answer => ({
             questionId: answer.questionId,

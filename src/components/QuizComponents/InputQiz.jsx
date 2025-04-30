@@ -2,7 +2,6 @@ import React, { useContext, useState, useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import useSecureAxios from "../../Hooks/useSecureAxios";
-import { AuthContext } from "../../Provider/AuthProvider";
 import QuizComponents from "./QuizComponents";
 import QuizResult from "./QuizResult";
 import SectionBanner from "../CommonComponents/SectionBanner";
@@ -14,13 +13,12 @@ const CreateQuizPage = () => {
   const [loading, setLoading] = useState(false);
   const [quizData, setQuizData] = useState(null);
   const [daysRemaining, setDaysRemaining] = useState(0);
-
   const secureAxios = useSecureAxios();
-  const { user } = useContext(AuthContext);
   const { userDetails } = useContext(ProfileContext);
 
+  console.log(userDetails?.email)
   const quizDate = userDetails?.answers?.quizDate;
-
+  console.log(quizDate)
   useEffect(() => {
     if (quizDate) {
       const lastDate = new Date(quizDate);
@@ -45,7 +43,7 @@ const CreateQuizPage = () => {
       return;
     }
 
-    if (!user || !user.email) {
+    if (!userDetails || !userDetails?.email) {
       toast.error("User not authenticated. Please log in.");
       return;
     }
@@ -58,7 +56,7 @@ const CreateQuizPage = () => {
     const payload = {
       topic: language,
       difficulty: difficulty,
-      email: user.email,
+      email: userDetails?.email,
     };
 
     setLoading(true);
@@ -80,7 +78,7 @@ const CreateQuizPage = () => {
       <SectionBanner title="Quiz Page" />
 
       {quizData ? (
-        <QuizComponents quizData={quizData} />
+        <QuizComponents quizData={quizData} email={userDetails?.email} />
       ) : daysRemaining > 0 ? (
         <div className="p-8">
           <div className="flex justify-between items-center mb-6 mx-3">
