@@ -20,7 +20,7 @@ const Hero_section = ({user}) => {
                         </h5>
                         <div className="flex gap-4">
                             {
-                                user || <Link to={'/sign-up'} className="primaryButton">Join</Link>
+                                user?.email || <Link to={'/sign-up'} className="primaryButton">Join</Link>
                             }
                             <Link to={"/about"} className="outlineButton">Learn more</Link>
                         </div>
