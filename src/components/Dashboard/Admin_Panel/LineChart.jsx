@@ -1,13 +1,13 @@
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
-const data = [
-  { date: '28 Apr', pageViews: 25, uniqueVisitors: 1 },
-  { date: '30 Apr', pageViews: 56, uniqueVisitors: 5 },
-  { date: '1 May', pageViews: 97, uniqueVisitors: 4 },
-  { date: '2 May', pageViews: 10, uniqueVisitors: 1 },
-];
+// const data = [
+//   { date: '28 Apr', pageViews: 25, uniqueVisitors: 1 },
+//   { date: '30 Apr', pageViews: 56, uniqueVisitors: 5 },
+//   { date: '1 May', pageViews: 97, uniqueVisitors: 4 },
+//   { date: '2 May', pageViews: 10, uniqueVisitors: 1 },
+// ];
 
-const CustomLineChart = ({type}) => {
+const CustomLineChart = ({data, type}) => {
   return (
     <div className="w-full min-w-[700px] h-[400px] bg-custom-half-gray py-4 pe-4 rounded-lg">
       <ResponsiveContainer width="100%" height="100%" >

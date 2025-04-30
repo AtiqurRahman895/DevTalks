@@ -1,11 +1,13 @@
 import { useEffect, useMemo, useState } from "react";
 import UseUrlQuery from "../../Hooks/UseUrlQuery";
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 
 const NextPreButtons = ({limit,totalContents}) => {
   const navigate =useNavigate()  
   const {searchQuery,tag,pageNo} = UseUrlQuery();
   const [maxPage,setMaxtPage] = useState()
+  const location = useLocation();
+  const path = location.pathname;
 
   useMemo(()=>{
     setMaxtPage(Math.ceil(totalContents/limit)||1)
@@ -33,9 +35,10 @@ const NextPreButtons = ({limit,totalContents}) => {
   
   useEffect(() => {
     const timer = setTimeout(() => {
-
+      console.log(path)
+      if(path!=="/dashboard"){
         window.scrollTo(0,0)
-      
+      }
     }, 200); 
     return () => clearTimeout(timer); // Cleanup the timeout
   }, [searchQuery, pageNo]);

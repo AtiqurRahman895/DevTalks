@@ -3,7 +3,7 @@ import { FcNews, FcQuestions } from "react-icons/fc";
 import { FcConferenceCall } from "react-icons/fc";
 import { FcComboChart } from "react-icons/fc";
 import LineCharts from './LineChart';
-import PageVisits from './PageVisits';
+import AllUsersTable from './AllUsersTable';
 import SocialTraffic from './SocialTraffic';
 import useSecureAxios from '../../../Hooks/useSecureAxios';
 import { useQuery } from '@tanstack/react-query';
@@ -58,7 +58,7 @@ const Admin_Panel = () => {
                     <div>
                         <p>Total traffic</p>
                         <h4>{totalTraffics}</h4>
-                        <p>Since last 7 days</p>
+                        <p>Since last {traffics.length} days</p>
                     </div>
                     <div>
                         <FcComboChart className='bg-white text-6xl p-3 rounded-full' />
@@ -110,7 +110,7 @@ const Admin_Panel = () => {
             <div className="space-y-6 py-6">
                 <div className="overflow-x-auto space-y-4">
                     <div className="text-center">
-                        <h4>Traffic in the last 7 days</h4>
+                        <h4>Traffic in the last {traffics.length} days</h4>
                         <p className='text-custom-primary'>How many times users viewed pages on the site each day, including repeated views.</p>                        
                     </div>
 
@@ -119,7 +119,7 @@ const Admin_Panel = () => {
 
                 <div className="overflow-x-auto space-y-4">
                     <div className="text-center">
-                        <h4>Unique Visitors in the Last 7 Days</h4>
+                        <h4>Unique Visitors in the Last {traffics.length} Days</h4>
                         <p className='text-custom-primary'>How many different users visited, counting each person only once per day.</p>                        
                     </div>
 
@@ -136,15 +136,8 @@ const Admin_Panel = () => {
                   <TopViewedBlogs />
             </div>
 
-            <div className="grid grid-cols-8 gap-4 my-6">
-                <div className="lg:col-span-5 col-span-8">
-                    
-                    <PageVisits></PageVisits>
-                     
-                </div>
-                <div className="lg:col-span-3 col-span-8">
-                     <SocialTraffic></SocialTraffic>
-                </div>
+            <div className="my-6">
+                <AllUsersTable/>
             </div>
 
 

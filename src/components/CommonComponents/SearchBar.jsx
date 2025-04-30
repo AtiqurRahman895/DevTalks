@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import { ImSearch } from "react-icons/im";
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import UseUrlQuery from "../../Hooks/UseUrlQuery";
 
 const SearchBar = () => {
     const navigate =useNavigate()
     const {tag} = UseUrlQuery();
+    const location = useLocation();
+    const path = location.pathname;
 
     const [searchInput, setSearchInput]= useState("")
     const [filterTag, setFilterTag]= useState("")
@@ -37,19 +39,32 @@ const SearchBar = () => {
 
     }
 
+    const handleAllButton=(e)=>{
+        navigate(`?page=1`);
+        setSearchInput("")
+        e.target.blur();
+
+    }
+
     return (
         <div className="join !items-center">
             <form onSubmit={handleSubmit}>
-                <input type="search" onChange={e=>setSearchInput(e.target.value)} value={searchInput} name="searchInput" className="input join-item bg-[rgba(71,71,71,0.4)] focus:!outline-none !rounded-r-none placeholder:text-white placeholder:text-sm" placeholder="Search.." />
+                <input type="search" onChange={e=>setSearchInput(e.target.value)} value={searchInput} name="searchInput" className={`input join-item bg-[rgba(71,71,71,0.4)] focus:!outline-none !rounded-r-none placeholder:text-white placeholder:text-sm`} placeholder="Search.." />
             </form>
-            <select onChange={handleFilterChange} value={filterTag} name="filterTag" className="select join-item bg-[rgba(71,71,71,0.4)] focus:!outline-none ">
-                <option value="">Filter</option>
-                {
-                    filterOptions.map((option,index)=>(
-                        <option key={index} value={option.value}>{option.label}</option>
-                    ))
-                }
-            </select>
+
+            {
+                (path !== "/dashboard")?
+                <select onChange={handleFilterChange} value={filterTag} name="filterTag" className="select join-item bg-[rgba(71,71,71,0.4)] focus:!outline-none ">
+                    <option value="">Filter</option>
+                    {
+                        filterOptions.map((option,index)=>(
+                            <option key={index} value={option.value}>{option.label}</option>
+                        ))
+                    }
+                </select>
+                :
+                <button type="button" onClick={handleAllButton} className="btn bg-custom-primary hover:bg-custom-primary text-white join-item bg-[rgba(71,71,71,0.4)] focus:!outline-none ">See all</button>
+            }
             
             {/* <button className="join-item primaryButton !px-2.5 !py-4 !rounded-l-none"> <ImSearch/> </button> */}
         </div>
