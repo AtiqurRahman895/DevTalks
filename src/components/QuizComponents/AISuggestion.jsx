@@ -134,7 +134,7 @@ const AISuggestion = ({ suggestion }) => {
         <div className="absolute left-0 top-4 -ml-2 w-4 h-4 bg-bg-custom-half-gray border-l border-b border-gray-600 transform rotate-45"></div>
 
         {/* Summary */}
-        <h4 className="text-lg font-semibold text-white mb-2">Quibly Feedback</h4>
+        <h4 className="font-semibold text-white mb-2">Quibly Feedback</h4>
         <p className={`text-gray-200 mb-4 ${currentSection === 'summary' ? 'blinking-cursor' : ''}`}>
           {displayedSummary}
         </p>
@@ -142,7 +142,7 @@ const AISuggestion = ({ suggestion }) => {
         {/* Main Weak Point */}
         {currentSection !== 'summary' && (
           <div className="mb-4">
-            <h5 className="text-md font-semibold text-white">Main Weak Point</h5>
+            <h5 className="font-semibold text-white">Main Weak Point</h5>
             <p className={`text-gray-300 ${currentSection === 'mainWeakPoint' ? 'blinking-cursor' : ''}`}>
               {displayedMainWeakPoint}
             </p>
@@ -152,7 +152,7 @@ const AISuggestion = ({ suggestion }) => {
         {/* Suggestions */}
         {currentSection !== 'summary' && currentSection !== 'mainWeakPoint' && fullSuggestions.length > 0 && (
           <div className="mb-4">
-            <h5 className="text-md font-semibold text-white">Suggestions</h5>
+            <h5 className="font-semibold text-white">Suggestions</h5>
             <ul className="list-disc list-inside text-gray-300">
               {displayedSuggestions.map((suggestionItem, index) => (
                 <li
@@ -169,7 +169,7 @@ const AISuggestion = ({ suggestion }) => {
         {/* Tips */}
         {currentSection === 'tips' || currentSection === 'done' && fullTips.length > 0 && (
           <div>
-            <h5 className="text-md font-semibold text-white">Tips</h5>
+            <h5 className="font-semibold text-white">Tips</h5>
             <ul className="list-disc list-inside text-gray-300">
               {displayedTips.map((tip, index) => (
                 <li
