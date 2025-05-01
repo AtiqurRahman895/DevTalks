@@ -56,9 +56,7 @@ const SignIn =()=>{
         <div className="w-full max-w-[400px] sm:max-w-[800px] bg-white rounded-lg grid grid-cols-1 sm:grid-cols-2">
 
           <div className="p-4 md:p-8 text-center text-black space-y-2">
-            <h3 className="">Welcome back</h3>
-            <SocialAuthButton/>
-
+            <h3 className="mb-5">Welcome back</h3>
             <form onSubmit={(e)=>handleSignIn(e)} className="space-y-4">
               <label className="input p-2 bg-custom-half-gray flex items-center gap-2">
                 <MdEmail />
@@ -71,6 +69,9 @@ const SignIn =()=>{
             </form>
 
             <p className="pt-2">Don't have an Account? <Link to={'/sign-up'} className="font-bold text-custom-primary hover:underline">Sign Up</Link></p>
+
+            <SocialAuthButton/>
+
 
           </div>
 

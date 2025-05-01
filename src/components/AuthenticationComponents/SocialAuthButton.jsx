@@ -44,21 +44,21 @@ const SocialAuthButton = () => {
         }
     }
 
-    const handleGithubSignInBtn=()=>{
-        toast.info("Sign in with Github is not posible at this moment. Try with Google")
-    }
+    // const handleGithubSignInBtn=()=>{
+    //     toast.info("Sign in with Github is not posible at this moment. Try with Google")
+    // }
 
-    const handleLinkedinSignInBtn=()=>{
-        toast.info("Sign in with LinkedIn is not posible at this moment. Try with Google")
-    }
+    // const handleLinkedinSignInBtn=()=>{
+    //     toast.info("Sign in with LinkedIn is not posible at this moment. Try with Google")
+    // }
     return (
         <>
-        <div className="space-x-3">
-            <button type="button" onClick={handleGoogleSignInBtn} className="p-1.5 border hover:border-black/20 rounded-full duration-300"><FcGoogle className="text-2xl"/></button>
-            <button type="button" onClick={handleGithubSignInBtn} className="p-1.5 border hover:border-black/20 rounded-full duration-300"><TbBrandGithubFilled className="text-2xl"/></button>
-            <button type="button" onClick={handleLinkedinSignInBtn} className="p-1.5 border hover:border-black/20 rounded-full duration-300"><FaLinkedinIn className="text-2xl text-[#006192]"/></button>
-        </div>
         <div className="divider !my-5 before:bg-black after:bg-black before:h-[1px] after:h-[1px] ">OR</div>
+        <div className="space-x-3 flex flex-col items-center gap-2">
+            <button type="button" onClick={handleGoogleSignInBtn} className="py-1.5 px-3 border hover:border-black/20 rounded-full duration-300 flex items-center gap-1"><FcGoogle className="text-2xl"/>Sign in with Google</button>
+            {/* <button type="button" onClick={handleGithubSignInBtn} className="py-1.5 px-3 border hover:border-black/20 rounded-full duration-300 flex items-center gap-1"><TbBrandGithubFilled className="text-2xl"/>Sign in with Github</button>
+            <button type="button" onClick={handleLinkedinSignInBtn} className="py-1.5 px-3 border hover:border-black/20 rounded-full duration-300 flex items-center gap-1"><FaLinkedinIn className="text-2xl text-[#006192]"/>Sign in with LinkedIn</button> */}
+        </div>
         </>
     );
 };

@@ -386,7 +386,7 @@ const extensions = [
   CodeBlockIndentExtension,
 ];
 
-const TextEditor = ({ label, editorContents, setEditorContents }) => {
+const TextEditor = ({ label, editorContents, setEditorContents, forBlog=false }) => {
 
   const handleUpdate = (editor) => {
     const content = editor.getJSON();
@@ -406,7 +406,7 @@ const TextEditor = ({ label, editorContents, setEditorContents }) => {
         slotBefore={<MenuBar />}
         slotAfter={<BubbleMenuBar />}
       >
-        <EditorContent className="tiptap"/>
+        <EditorContent className={`tiptap`}/>
         {/* <FloatingMenuBar/> */}
       </EditorProvider>
     </div>

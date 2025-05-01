@@ -132,9 +132,7 @@ const router = createBrowserRouter([
         path: "/quiz",
         element: (
           <PrivateRoute>
-            <ProfileProvider>
             <CreateQuizPage/>
-            </ProfileProvider>
           </PrivateRoute>
         ),
       },
@@ -241,8 +239,10 @@ createRoot(document.getElementById("root")).render(
   <QueryClientProvider client={queryClient}>
     <HelmetProvider>
       <AuthProvider>
-        <ToastContainer position="top-center" />
-        <RouterProvider router={router} />
+        <ProfileProvider>
+          <ToastContainer position="top-center" />
+          <RouterProvider router={router} />
+        </ProfileProvider>
       </AuthProvider>
     </HelmetProvider>
   </QueryClientProvider>

@@ -35,7 +35,6 @@ const NextPreButtons = ({limit,totalContents}) => {
   
   useEffect(() => {
     const timer = setTimeout(() => {
-      console.log(path)
       if(path!=="/dashboard"){
         window.scrollTo(0,0)
       }

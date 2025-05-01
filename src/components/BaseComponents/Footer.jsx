@@ -33,21 +33,20 @@ const Footer = () => {
 
                             <div className="flex flex-col gap-1">
                                 <h5 className="uppercase text-custom-primary mb-2">Resources</h5>
-                                <Link className=""  >Home</Link>
-                                <Link className="" >Brands </Link>
-                                <Link className=""  >Contact Us </Link>
-                                <Link className=""  >About Dev</Link>
-                                <Link className="" >Support New</Link>
-                            </div>
-                            <div className="flex flex-col gap-1">
-                                <h5 className="uppercase text-custom-primary mb-2">Support</h5>
-                                <a className="" href="/#">Help Center</a>
-                                <a className="" href="/#">Privacy Policy</a>
-                                <a className="" href="/#">Conditions</a>
+                                <Link to="/">Home</Link>
+                                <Link to="/questions">Questions </Link>
+                                <Link to="/blogs">Blogs </Link>
+                                <Link to="/quiz">Quiz</Link>
                             </div>
                             <div className="flex flex-col gap-1">
                                 <h5 className="uppercase text-custom-primary mb-2">Contact us</h5>
-                                <a className="" href="/#">DevTalks Developer</a>
+                                <a className="" target="_blank" href="tel:+8801400447787">Call us</a>
+                                <a className="" target="_blank" href="mailto:devtalks@gmail.com">Email us</a>
+                                <a className="" target="_blank" href="http://maps.apple.com/?q=av.+Washington+165,+NY+CA+54003">Address</a>
+                            </div>
+                            <div className="flex flex-col gap-1">
+                                <h5 className="uppercase text-custom-primary mb-2">More</h5>
+                                <Link to="/about">About us</Link>
                             </div>
                         </div>
                     </div>

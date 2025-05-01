@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, useEffect } from 'react';
-import { FaRobot } from 'react-icons/fa';
+import React, { useState, useEffect } from "react";
+import { FaRobot } from "react-icons/fa";
 
 // Blinking cursor CSS
 const cursorStyle = `
@@ -17,22 +17,22 @@ const cursorStyle = `
 `;
 
 const AISuggestion = ({ suggestion }) => {
-  const [displayedSummary, setDisplayedSummary] = useState('');
-  const [displayedMainWeakPoint, setDisplayedMainWeakPoint] = useState('');
+  const [displayedSummary, setDisplayedSummary] = useState("");
+  const [displayedMainWeakPoint, setDisplayedMainWeakPoint] = useState("");
   const [displayedSuggestions, setDisplayedSuggestions] = useState([]);
   const [displayedTips, setDisplayedTips] = useState([]);
-  const [currentSection, setCurrentSection] = useState('summary'); 
-  const typingSpeed = 3; 
+  const [currentSection, setCurrentSection] = useState("summary");
+  const typingSpeed = 3;
 
   // Full text for each section
-  const fullSummary = suggestion.summary || '';
-  const fullMainWeakPoint = suggestion.mainWeakPoint || '';
+  const fullSummary = suggestion.summary || "";
+  const fullMainWeakPoint = suggestion.mainWeakPoint || "";
   const fullSuggestions = suggestion.suggestions || [];
   const fullTips = suggestion.tips || [];
 
   // Typewriter effect for summary
   useEffect(() => {
-    if (currentSection !== 'summary') return;
+    if (currentSection !== "summary") return;
 
     let index = 0;
     const interval = setInterval(() => {
@@ -41,7 +41,7 @@ const AISuggestion = ({ suggestion }) => {
         index++;
       } else {
         clearInterval(interval);
-        setCurrentSection('mainWeakPoint');
+        setCurrentSection("mainWeakPoint");
       }
     }, typingSpeed);
 
@@ -50,7 +50,7 @@ const AISuggestion = ({ suggestion }) => {
 
   // Typewriter effect for mainWeakPoint
   useEffect(() => {
-    if (currentSection !== 'mainWeakPoint') return;
+    if (currentSection !== "mainWeakPoint") return;
 
     let index = 0;
     const interval = setInterval(() => {
@@ -59,7 +59,7 @@ const AISuggestion = ({ suggestion }) => {
         index++;
       } else {
         clearInterval(interval);
-        setCurrentSection('suggestions');
+        setCurrentSection("suggestions");
       }
     }, typingSpeed);
 
@@ -68,7 +68,7 @@ const AISuggestion = ({ suggestion }) => {
 
   // Typewriter effect for suggestions (one item at a time)
   useEffect(() => {
-    if (currentSection !== 'suggestions') return;
+    if (currentSection !== "suggestions") return;
 
     let itemIndex = 0;
     let charIndex = 0;
@@ -76,7 +76,10 @@ const AISuggestion = ({ suggestion }) => {
       if (itemIndex < fullSuggestions.length) {
         const currentItem = fullSuggestions[itemIndex];
         if (charIndex < currentItem.length) {
-          const newSuggestions = [...fullSuggestions.slice(0, itemIndex), currentItem.slice(0, charIndex + 1)];
+          const newSuggestions = [
+            ...fullSuggestions.slice(0, itemIndex),
+            currentItem.slice(0, charIndex + 1),
+          ];
           setDisplayedSuggestions(newSuggestions);
           charIndex++;
         } else {
@@ -86,7 +89,7 @@ const AISuggestion = ({ suggestion }) => {
         }
       } else {
         clearInterval(interval);
-        setCurrentSection('tips');
+        setCurrentSection("tips");
       }
     }, typingSpeed);
 
@@ -95,7 +98,7 @@ const AISuggestion = ({ suggestion }) => {
 
   // Typewriter effect for tips (one item at a time)
   useEffect(() => {
-    if (currentSection !== 'tips') return;
+    if (currentSection !== "tips") return;
 
     let itemIndex = 0;
     let charIndex = 0;
@@ -103,7 +106,10 @@ const AISuggestion = ({ suggestion }) => {
       if (itemIndex < fullTips.length) {
         const currentItem = fullTips[itemIndex];
         if (charIndex < currentItem.length) {
-          const newTips = [...fullTips.slice(0, itemIndex), currentItem.slice(0, charIndex + 1)];
+          const newTips = [
+            ...fullTips.slice(0, itemIndex),
+            currentItem.slice(0, charIndex + 1),
+          ];
           setDisplayedTips(newTips);
           charIndex++;
         } else {
@@ -113,7 +119,7 @@ const AISuggestion = ({ suggestion }) => {
         }
       } else {
         clearInterval(interval);
-        setCurrentSection('done');
+        setCurrentSection("done");
       }
     }, typingSpeed);
 
@@ -129,59 +135,80 @@ const AISuggestion = ({ suggestion }) => {
       <FaRobot className="text-3xl text-custom-primary mt-1" />
 
       {/* Chat Bubble */}
-      <div className="flex-1 bg-custom-half-gray p-4 rounded-lg border border-gray-600 relative">
+      <div className="flex-1 bg-custom-half-gray p-4 rounded-lg border border-custom-gray relative">
         {/* Chat Bubble Tail */}
-        <div className="absolute left-0 top-4 -ml-2 w-4 h-4 bg-bg-custom-half-gray border-l border-b border-gray-600 transform rotate-45"></div>
+        <div className="absolute left-0 top-4 -ml-2 w-4 h-4 bg-bg-custom-half-gray border-l border-b border-custom-gray transform rotate-45"></div>
 
         {/* Summary */}
         <h4 className="font-semibold text-white mb-2">Quibly Feedback</h4>
-        <p className={`text-gray-200 mb-4 ${currentSection === 'summary' ? 'blinking-cursor' : ''}`}>
+        <p
+          className={`text-gray-200 mb-4 ${
+            currentSection === "summary" ? "blinking-cursor" : ""
+          }`}
+        >
           {displayedSummary}
         </p>
 
         {/* Main Weak Point */}
-        {currentSection !== 'summary' && (
+        {currentSection !== "summary" && (
           <div className="mb-4">
             <h5 className="font-semibold text-white">Main Weak Point</h5>
-            <p className={`text-gray-300 ${currentSection === 'mainWeakPoint' ? 'blinking-cursor' : ''}`}>
+            <p
+              className={`text-gray-300 ${
+                currentSection === "mainWeakPoint" ? "blinking-cursor" : ""
+              }`}
+            >
               {displayedMainWeakPoint}
             </p>
           </div>
         )}
 
         {/* Suggestions */}
-        {currentSection !== 'summary' && currentSection !== 'mainWeakPoint' && fullSuggestions.length > 0 && (
-          <div className="mb-4">
-            <h5 className="font-semibold text-white">Suggestions</h5>
-            <ul className="list-disc list-inside text-gray-300">
-              {displayedSuggestions.map((suggestionItem, index) => (
-                <li
-                  key={index}
-                  className={index === displayedSuggestions.length - 1 && currentSection === 'suggestions' ? 'blinking-cursor' : ''}
-                >
-                  {suggestionItem}
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
+        {currentSection !== "summary" &&
+          currentSection !== "mainWeakPoint" &&
+          fullSuggestions.length > 0 && (
+            <div className="mb-4">
+              <h5 className="font-semibold text-white">Suggestions</h5>
+              <ul className="list-disc list-inside text-gray-300">
+                {displayedSuggestions.map((suggestionItem, index) => (
+                  <li
+                    key={index}
+                    className={
+                      index === displayedSuggestions.length - 1 &&
+                      currentSection === "suggestions"
+                        ? "blinking-cursor"
+                        : ""
+                    }
+                  >
+                    {suggestionItem}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
 
         {/* Tips */}
-        {currentSection === 'tips' || currentSection === 'done' && fullTips.length > 0 && (
-          <div>
-            <h5 className="font-semibold text-white">Tips</h5>
-            <ul className="list-disc list-inside text-gray-300">
-              {displayedTips.map((tip, index) => (
-                <li
-                  key={index}
-                  className={index === displayedTips.length - 1 && currentSection === 'tips' ? 'blinking-cursor' : ''}
-                >
-                  {tip}
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
+        {currentSection === "tips" ||
+          (currentSection === "done" && fullTips.length > 0 && (
+            <div>
+              <h5 className="font-semibold text-white">Tips</h5>
+              <ul className="list-disc list-inside text-gray-300">
+                {displayedTips.map((tip, index) => (
+                  <li
+                    key={index}
+                    className={
+                      index === displayedTips.length - 1 &&
+                      currentSection === "tips"
+                        ? "blinking-cursor"
+                        : ""
+                    }
+                  >
+                    {tip}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
       </div>
     </div>
   );

@@ -10,17 +10,17 @@ import PageTitle from '../CommonComponents/PageTitle'
 
 export default function About() {
   return (
-    <div className='container'>
+    <main className="space-y-10">
         <PageTitle title="About Us" />
-      <SectionBanner title={"About Us"} />
-      
-      <AboutUsHighlight />
-      <AboutUsSolutionCenter />
-      <AboutUsProduct />
-      <AboutUsBrand />
-      <AboutUsCreator />
-      <Join_developer/>
+        <SectionBanner title={"About Us"} />
+        
+        <AboutUsHighlight />
+        <AboutUsSolutionCenter />
+        <AboutUsProduct />
+        <AboutUsBrand />
+        {/* <AboutUsCreator /> */}
+        <Join_developer/>
 
-    </div>
+    </main>
   )
 }

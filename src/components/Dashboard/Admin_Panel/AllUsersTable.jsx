@@ -63,7 +63,7 @@ const AllUsersTable = () => {
 
           {/* Table Body */}
           {
-            loading ? <Loading/> :
+            loading ? <span className="loading loading-spinner loading-lg text-custom-primary mx-auto"></span> :
             <tbody>
               {users.map((user, index) => (
                 <tr key={index} className="border-t border-gray-400">

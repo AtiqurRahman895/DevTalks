@@ -42,25 +42,27 @@ const AboutUsCreator = () => {
     },
   ];
   return (
-    <div className="my-32">
-      {/* title */}
-      <h3 className="text-center mx-auto">
-        {" "}
-        Meet the <strong className="text-custom-primary">
-          Developers
-        </strong>{" "}
-        Behind <br /> This{" "}
-        <strong className="text-custom-primary">
-          <strong className="text-custom-primary">Developers</strong>
-        </strong>{" "}
-        Project Leaders
-      </h3>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 px-10 mt-20">
-        {developers.map((dev, ind) => (
-          <CreatorCard key={ind} developer={dev} />
-        ))}
+    <section className="">
+      <div className="container space-y-10">
+        {/* title */}
+        <h3 className="text-center mx-auto">
+          {" "}
+          Meet the <strong className="text-custom-primary">
+            Developers
+          </strong>{" "}
+          Behind <br /> This{" "}
+          <strong className="text-custom-primary">
+            <strong className="text-custom-primary">Developers</strong>
+          </strong>{" "}
+          Project Leaders
+        </h3>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+          {developers.map((dev, ind) => (
+            <CreatorCard key={ind} developer={dev} />
+          ))}
+        </div>
       </div>
-    </div>
+    </section>
   );
 };
 

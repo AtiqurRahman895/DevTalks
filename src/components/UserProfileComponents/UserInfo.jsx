@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import PropTypes from "prop-types";
 import ProfileLinks from "./ProfileLinks";
 import UserBadge from "./UserBadge";
@@ -8,15 +8,16 @@ import { ProfileContext } from "../../Provider/ProfileProvider";
 import UserInfoModal from "./Modal/UserInfoModal";
 import { FaPencilAlt } from "react-icons/fa";
 import Loading from "../AuthenticationComponents/Loading";
-import ProfileSkeletonLoader from "./ProfileLoader/ProfileLoader";
 
 const UserInfo = () => {
-  const { userDetails, setUserDetails, isLoading } = useContext(ProfileContext) || {};
-  const { user } = useContext(AuthContext) || {};
+  const { userDetails, isLoading, refetch } = useContext(ProfileContext);
+  const { user } = useContext(AuthContext);
+  const [openModal, setOpenModal] =useState(false)
+
   // console.log(userDetails)
   
   // Early return if required context data is missing
-  if (!userDetails || !setUserDetails || !user) {
+  if (!userDetails || !user) {
     console.warn("Missing context data in UserInfo component");
     return (
       <div className="lg:w-96 lg:ml-10 md:ml-8 lg:mt-20 md:mt-12 mt-10">
@@ -27,19 +28,11 @@ const UserInfo = () => {
 
   if(isLoading){
     return(
-      <ProfileSkeletonLoader />
+      <Loading />
     )
   }
 
   const isCurrentUser = user.email === userDetails.email;
-  const modalId = `my_modal_${userDetails.name?.replace(/\s+/g, "_") || "user"}`;
-
-  const handleEditClick = () => {
-    const modal = document.getElementById(modalId);
-    if (modal) {
-      modal.showModal();
-    }
-  };
 
   return (
     <div className="w-full lg:w-3/4 mt-10 md:mt-20">
@@ -70,7 +63,7 @@ const UserInfo = () => {
       {/* Edit Button (only for current user) */}
       {isCurrentUser && (
         <button
-          onClick={handleEditClick}
+          onClick={()=>setOpenModal(true)}
           className="w-full btn text-white bg-custom-half-gray border border-custom-gray"
           aria-label="Edit Profile Details"
         >
@@ -84,9 +77,10 @@ const UserInfo = () => {
 
       {/* Modal */}
       <UserInfoModal
-        modalId={modalId}
+        openModal={openModal}
+        setOpenModal={setOpenModal}
         userDetails={userDetails}
-        setUserDetails={setUserDetails}
+        refetch={refetch}
       />
     </div>
   );

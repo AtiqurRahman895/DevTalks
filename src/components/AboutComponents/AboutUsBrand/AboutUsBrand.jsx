@@ -56,28 +56,31 @@ const AboutUsBrand = () => {
   ];
 
   return (
-    <>
-      {/* title */}
-      <h3 className="text-center">
-        {" "}
-        Trusted by <strong className="text-custom-primary">
-          Industry
-        </strong>{" "}
-        Leaders
-      </h3>
+    <section>
+      <div className="container space-y-10">
+        {/* title */}
+        <h3 className="text-center">
+          {" "}
+          Trusted by <strong className="text-custom-primary">
+            Industry
+          </strong>{" "}
+          Leaders
+        </h3>
 
-        {/* brands cards */}
-        <div className="grid lg:grid-cols-5 md:grid-cols-2 grid-cols-1 gap-6 mt-20 px-10">
-            {brands.map((brand, ind)=>(
-                // card
-                <div className="border border-gray-400 flex items-center justify-center gap-2 p-4 rounded-lg" key={ind}>
-                    <span>{brand.logo}</span>
-                    <h4>{brand.name}</h4>
-                </div>
-            ))}
+          {/* brands cards */}
+          <div className="grid lg:grid-cols-5 sm:grid-cols-2 grid-cols-1 gap-6">
+              {brands.map((brand, ind)=>(
+                  // card
+                  <div className="border border-gray-400 flex items-center justify-center gap-2 p-4 rounded-lg" key={ind}>
+                      <span>{brand.logo}</span>
+                      <h4>{brand.name}</h4>
+                  </div>
+              ))}
+          </div>
+
         </div>
 
-    </>
+    </section>
   );
 };
 

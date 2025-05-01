@@ -14,17 +14,17 @@ const ContactUs = () => {
   const supportInfo = [
     {
       type: "Email",
-      value: "support@stackoverflowclone.com",
+      value: "mailto:devtalks@gmail.com",
       icon: <FaEnvelope />, // Envelope icon
     },
     {
       type: "Phone",
-      value: "+1 (123) 456-7890",
+      value: "tel:+8801400447787",
       icon: <FaPhone />, // Phone icon
     },
     {
       type: "Address",
-      value: "123 Developer Lane, Code City, Techland",
+      value: "http://maps.apple.com/?q=av.+Washington+165,+NY+CA+54003",
       icon: <FaMapMarkerAlt />, // Location pin icon
     },
     {
@@ -45,79 +45,99 @@ const ContactUs = () => {
   ];
 
   return (
-    <div>
+    <main className="space-y-10">
       <PageTitle title={"Contact Us"} />
       <SectionBanner title={"Contact Us"} />
 
-      <h2 className="font-bold border-l-8 border-custom-primary pl-4 mb-6">
-        Get in Touch:
-        <strong className="text-custom-primary ml-2">
-          We're Here to Answer Your Question
-        </strong>
-      </h2>
+      <section className="mb-6">
+        <div className="container">
+          <h3 className="border-l-8 border-custom-primary pl-4">
+            Get in Touch:
+            <strong className="text-custom-primary ml-2">
+              We're Here to Answer Your Question
+            </strong>
+          </h3>
+        </div>
+      </section>
+
       {/* Support Information */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 p-6">
-        {supportInfo.map((item, ind) => (
-          <a
-            href={item.value}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex flex-col items-center gap-4 p-6 border border-gray-300 rounded-lg hover:shadow-lg transition duration-300 ease-in-out text-center"
-            key={ind}
-          >
-            {/* Icon with rounded border */}
-            <div className="flex items-center justify-center w-16 h-16 border-2 border-blue-500 rounded-full">
-              <span className="text-3xl text-blue-500">{item.icon}</span>
-            </div>
-            {/* Type and value */}
-            <div>
-              <h4 className="font-semibold text-gray-700">{item.type}</h4>
-              <a className="text-sm text-gray-500">{item.value}</a>
-            </div>
-          </a>
-        ))}
-      </div>
+      <section className="">
+        <div className="container">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {supportInfo.map((item, ind) => (
+              <a
+                href={item.value}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex flex-col items-center gap-4 p-6 border border-gray-300 rounded-lg hover:shadow-lg transition duration-300 ease-in-out text-center"
+                key={ind}
+              >
+                {/* Icon with rounded border */}
+                <div className="flex items-center justify-center w-16 h-16 border-2 border-blue-500 rounded-full">
+                  <span className="text-3xl text-blue-500">{item.icon}</span>
+                </div>
+                {/* Type and value */}
+                <div>
+                  <h4 className="">{item.type}</h4>
+                  {/* <a className="text-sm text-custom-gray">{item.value}</a> */}
+                </div>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
 
-      <div className="flex flex-col items-center justify-center min-h-scree my-24">
-        {/* Title */}
-        <h1 className="text-4xl font-bold text-custom-primary mb-6 text-center">
-          Let's Connect
-        </h1>
 
-        {/* Form */}
-        <form className="grid grid-cols-1 md:grid-cols-2 gap-4 bg-white/10 backdrop-blur-sm border border-gray-300/20 rounded-lg p-6 shadow-lg mt-10 w-full max-w-3xl">
-          {/* Input Fields */}
-          <input
-            type="text"
-            placeholder="Your Name"
-            className="p-3 rounded-lg border border-gray-300 text-gray-700 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white/10 backdrop-blur-sm"
-          />
-          <input
-            type="email"
-            placeholder="Your Email"
-            className="p-3 rounded-lg border border-gray-300 text-gray-700 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white/10 backdrop-blur-sm"
-          />
-          <input
-            type="text"
-            placeholder="Your Subject"
-            className="col-span-1 md:col-span-2 p-3 rounded-lg border border-gray-300 text-gray-700 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white/10 backdrop-blur-sm"
-          />
-          {/* Textarea */}
-          <textarea
-            placeholder="Your Message"
-            className="col-span-1 md:col-span-2 h-32 p-3 rounded-lg border border-gray-300 text-gray-700 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white/10 backdrop-blur-sm"
-          ></textarea>
+      <section className="pb-10">
+        <div className="container">
+          <div className="flex flex-col items-center justify-center space-y-6">
+            {/* Title */}
+            <h3 className="text-custom-primary text-center">
+              Let's Connect
+            </h3>
 
-          {/* Button */}
-          <button
-            type="submit"
-            className="col-span-1 md:col-span-2 flex items-center justify-center gap-2 px-6 py-3 font-bold rounded-lg border-2 border-custom-primary text-custom-primary hover:bg-custom-primary hover:text-white transition duration-300"
-          >
-            Send Message
-          </button>
-        </form>
-      </div>
-    </div>
+            {/* Form */}
+            <form className="bg-custom-half-gray border border-custom-gray rounded-lg p-6 max-w-[28rem] md:max-w-3xl space-y-4">
+              {/* Input Fields */}
+
+              <div className="flex flex-col md:flex-row gap-4">
+                <input
+                  type="text"
+                  placeholder="Your Name"
+                  className="flex-1 p-2.5 rounded-md border border-custom-half-gray focus:outline-none bg-custom-half-gray"
+                />
+                <input
+                  type="email"
+                  placeholder="Your Email"
+                  className="flex-1 p-2.5 rounded-md border border-custom-half-gray focus:outline-none bg-custom-half-gray"
+                />
+              </div>
+
+              <input
+                type="text"
+                placeholder="Your Subject"
+                className="w-full p-2.5 rounded-md border border-custom-half-gray focus:outline-none bg-custom-half-gray"
+              />
+              {/* Textarea */}
+              <textarea
+                placeholder="Your Message"
+                className="min-h-32 h-auto w-full p-2.5 rounded-md border border-custom-half-gray focus:outline-none bg-custom-half-gray"
+              />
+
+              {/* Button */}
+              <button
+                type="submit"
+                className="primaryButton w-full"
+              >
+                Send Message
+              </button>
+            </form>
+          </div>
+        </div>
+      </section>
+
+
+    </main>
   );
 };
 
