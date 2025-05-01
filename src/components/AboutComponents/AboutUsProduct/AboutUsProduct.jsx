@@ -11,7 +11,7 @@ const AboutUsProduct = () => {
           icon: <FaLightbulb style={{ color: "white" }} /> 
         },
         {
-          subheading: "Earn",
+          subheading: "Earn Badges",
           title: "Earn Badges for Your Expertise",
           icon: <FaMedal style={{ color: "white" }} /> 
         },
@@ -30,15 +30,17 @@ const AboutUsProduct = () => {
     
       
   return (
-    <div className='my-32 px-10'>
-        {/* title */}
-        <h3 className='text-center'><strong className='text-custom-primary'>Empowering</strong> Developers Every Day</h3>
+    <section className="">
+      <div className='container space-y-8'>
+          {/* title */}
+          <h3 className='text-center'><strong className='text-custom-primary'>Empowering</strong> Developers Every Day</h3>
 
-        {/* cards */}
-        <div className='grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-12 mt-20 container mx-auto'>
-            {cards.map(card=><ProductCard card={card} />)}
-        </div>
-    </div>
+          {/* cards */}
+          <div className='grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-8'>
+              {cards.map((card,index)=><ProductCard key={index} card={card} />)}
+          </div>
+      </div>
+    </section>
   )
 }
 

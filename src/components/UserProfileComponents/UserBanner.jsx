@@ -12,9 +12,9 @@ const UserBanner = () => {
 
   // console.log(userDetails);
 
-  const isCurrentUser = user?.email === userDetails?.email;
+  const isCurrentUser = user?.email === user?.email;
   const modalId = `my_modal_${
-    userDetails?.email?.replace(/\s+/g, "_") || "user"
+    user?.email?.replace(/\s+/g, "_") || "user"
   }`;
 
   const handleCoverPhotoEdit = () => {
@@ -82,7 +82,7 @@ const UserBanner = () => {
       <BannerPicEditModal
         isProfileImage={isProfileImage}
         modalId={modalId}
-        userEmail={userDetails?.email}
+        userEmail={user?.email}
         refetch={refetch}
       />
     </div>

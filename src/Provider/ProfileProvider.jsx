@@ -1,47 +1,31 @@
-/* eslint-disable no-unused-vars */
-import React, { createContext, useContext, useState } from "react"; // Add useContext
-import { useParams } from "react-router";
+import React, { createContext, useContext } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { normalAxios } from "../Hooks/useNormalAxios";
 import { AuthContext } from "./AuthProvider";
 
-// Create the UserContext
-// eslint-disable-next-line react-refresh/only-export-components
 export const ProfileContext = createContext();
 
-// Create a provider component
 export const ProfileProvider = ({ children }) => {
-  const {user} = useContext(AuthContext)
-  // const { email:userEmail } = useParams();
-  const userEmail = user?.email
-  const [userDetails, setUserDetails] = useState(null);
+  const { user } = useContext(AuthContext);
+  const email = user?.email;
 
-  // Use TanStack Query to fetch user details
-  const { data, isLoading, error, refetch } = useQuery({
-    queryKey: ["userDetails", userEmail],
+  const { data={}, isLoading, error, refetch } = useQuery({
+    queryKey: ["userProfile", email],
     queryFn: async () => {
-      if (!userEmail) {
-        throw new Error("userName is required");
-      }
-      const res = await normalAxios.get(`/users/profile/${userEmail}`);
+      const res = await normalAxios.get(`/users/user/${email}`);
       return res.data;
     },
-    enabled: !!userEmail,
-    onSuccess: (data) => {
-      setUserDetails(data);
-    },
+    enabled: !!email,
     onError: (err) => {
       console.error("Error fetching user details:", err);
     },
   });
 
-  // Provide the context value
   const value = {
-    userDetails,
-    setUserDetails,
+    userDetails: data,
     loading: isLoading,
-    error: error ? "Failed to fetch user details." : null,
-    refetch
+    error: error ? error.message : null,
+    refetch,
   };
 
   return <ProfileContext.Provider value={value}>{children}</ProfileContext.Provider>;

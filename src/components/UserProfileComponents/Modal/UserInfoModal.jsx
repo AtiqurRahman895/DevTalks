@@ -14,7 +14,7 @@ import FormField from "./FormField";
 import SocialMediaField from "./SocialMediaField";
 import { AuthContext } from "../../../Provider/AuthProvider";
 
-const UserInfoModal = ({ modalId, userDetails, setUserDetails }) => {
+const UserInfoModal = ({ openModal, setOpenModal, userDetails, refetch }) => {
   const [loader, setLoader] = useState(false);
   const { updateUserProfile, user } = useContext(AuthContext);
   
@@ -91,15 +91,15 @@ const UserInfoModal = ({ modalId, userDetails, setUserDetails }) => {
         data
       );
       if (res.data.modifiedCount > 0) {
-        setUserDetails((prev) => ({ ...prev, ...data }));
+        refetch();
         await updateUserProfile(data.name, user?.photoURL);
         toast.success("User Details Updated");
       } else {
         toast.info("No changes were made to the user details");
       }
-      document.getElementById(`${modalId}`).close(); // Close the modal
+      setOpenModal(false)
     } catch (error) {
-      document.getElementById(`${modalId}`).close();
+      setOpenModal(false)
       console.error("Error updating user:", error);
       toast.error("Failed to update user details");
     } finally {
@@ -109,11 +109,11 @@ const UserInfoModal = ({ modalId, userDetails, setUserDetails }) => {
 
   return (
     <>
-      <dialog id={modalId} className="modal">
+      <dialog className="modal" open={openModal} >
         <div className="modal-box shadow-xl rounded-xl bg-white text-black hide-scrollbar border border-custom-gray">
           <form method="dialog">
             {/* Close button */}
-            <button className="btn btn-circle absolute right-3 top-3 hover:text-gray-200 transition-colors">
+            <button onClick={()=>setOpenModal(false)} className="btn btn-circle absolute right-3 top-3 hover:text-gray-200 transition-colors">
               ✕
             </button>
           </form>

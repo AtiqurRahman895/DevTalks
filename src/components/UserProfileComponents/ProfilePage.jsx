@@ -3,13 +3,11 @@ import UserBanner from "./UserBanner";
 import ProfileLayout from "./ProfileLayout/ProfileLayout";
 import PageTitle from "../CommonComponents/PageTitle";
 import UserInfo from "./UserInfo";
-import { ProfileProvider } from "../../Provider/ProfileProvider";
 
 
 const ProfilePage = () => {
 
   return (
-    <ProfileProvider>
       <div className="min-h-screen container py-16">
         <PageTitle title="Profile" />
         {/* user banner image and profile image */}
@@ -22,8 +20,6 @@ const ProfilePage = () => {
           <ProfileLayout />
         </div>
       </div>
-      </ProfileProvider>
-
   );
 };
 

@@ -2,8 +2,8 @@ import React from "react";
 
 const AboutUsSolutionCenter = () => {
   return (
-    <div
-      className="lg:h-[640px] relative flex lg:flex-row flex-col justify-center items-center lg:px-10 md:px-7 px-2 lg:py-0 py-12"
+    <section
+      className="mb-6 h-auto relative bg-fixed"
       style={{
         backgroundImage: "url('/AboutUs4.jpg')", // Replace with your image name
         backgroundRepeat: "no-repeat",
@@ -13,41 +13,42 @@ const AboutUsSolutionCenter = () => {
       {/* Overlay */}
       <div className="absolute inset-0 bg-black bg-opacity-90"></div>
 
-      {/* text and image  */}
-      <div className="relative flex flex-col lg:flex-row">
-        {/* text and description */}
-        <div className="flex flex-col text-left lg:w-[50%] w-full">
-          <h3 className="mb-6">
-            Get Coding Questions{" "}
-            <strong className="text-custom-primary">
-              Answered
-            </strong>{" "}
-            Find{" "}
-            <strong className="text-custom-primary">
-              Solutions
-            </strong>{" "}
-            Fast and Efficient
-          </h3>
-          <p className="mb-6 text-base text-gray-300 tracking-wider">
-            Discover a thriving hub designed to empower you—whether you're
-            seeking answers, solving challenges, or unlocking your true
-            potential. Together, we’re building a collaborative environment that
-            transforms knowledge into action, creating a resource where everyone
-            contributes to growth and success.
-          </p>
-          <div className="flex gap-4">
-            <button className="primaryButton">Join</button>
-            <button className="outlineButton">Learn more</button>
-          </div>
-        </div>
+      <div className="container">
+          <div className="py-12 relative flex flex-col lg:flex-row gap-8">
+            {/* text and description */}
+            <div className="lg:flex-1 w-full space-y-4">
+              <h3 className="">
+                Get Coding Questions{" "}
+                <strong className="text-custom-primary">
+                  Answered
+                </strong>{" "}
+                Find{" "}
+                <strong className="text-custom-primary">
+                  Solutions
+                </strong>{" "}
+                Fast and Efficient
+              </h3>
+              <p className="text-base tracking-wider">
+                Discover a thriving hub designed to empower you—whether you're
+                seeking answers, solving challenges, or unlocking your true
+                potential. Together, we're building a collaborative environment that
+                transforms knowledge into action, creating a resource where everyone
+                contributes to growth and success.
+              </p>
+              <div className="flex gap-4">
+                <button className="primaryButton">Join</button>
+                <button className="outlineButton">Learn more</button>
+              </div>
+            </div>
 
-        <img
-          src="/AboutUs5.jpg"
-          alt=""
-          className="lg:w-[50%] w-full lg:mt-0 mt-8 h-96 object-cover rounded-xl"
-        />
+            <img
+              src="/AboutUs5.jpg"
+              alt=""
+              className="lg:w-1/2 w-full object-cover rounded-lg"
+            />
+          </div>
       </div>
-    </div>
+    </section>
   );
 };
 

@@ -143,7 +143,7 @@ const BlogForm = ({defaultBlogData={}}) => {
 
                     <div className="space-y-3">
                         <h5 className='text-custom-primary'>Type long description</h5>
-                        <TextEditor key={editorKey} label="longDescription" setEditorContents={setEditorContents} editorContents={editorContents.longDescription} />
+                        <TextEditor key={editorKey} label="longDescription" setEditorContents={setEditorContents} editorContents={editorContents.longDescription} forBlog={true} />
                     </div>
 
 

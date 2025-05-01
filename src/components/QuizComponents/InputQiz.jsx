@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import useSecureAxios from "../../Hooks/useSecureAxios";
 import { AuthContext } from "../../Provider/AuthProvider";
@@ -7,6 +7,7 @@ import QuizComponents from "./QuizComponents";
 import QuizResult from "./QuizResult";
 import SectionBanner from "../CommonComponents/SectionBanner";
 import { ProfileContext } from "../../Provider/ProfileProvider";
+import { Link } from "react-router";
 
 const CreateQuizPage = () => {
   const [language, setLanguage] = useState("");
@@ -27,7 +28,7 @@ const CreateQuizPage = () => {
       const now = new Date();
       const diffTime = now - lastDate;
       const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
-      const remaining = 7 - diffDays;
+      const remaining = 1 - diffDays;
 
       if (remaining > 0) {
         setDaysRemaining(remaining);
@@ -36,6 +37,7 @@ const CreateQuizPage = () => {
       }
     }
   }, [quizDate, userDetails]);
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -65,7 +67,7 @@ const CreateQuizPage = () => {
 
     try {
       const response = await secureAxios.post("/quizzes/create-quiz", payload);
-      toast.success("Quiz created successfully!");
+      // toast.success("Quiz created successfully!");
       setQuizData(response.data);
     } catch (error) {
       console.error("Error creating quiz:", error.message);
@@ -80,91 +82,91 @@ const CreateQuizPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-black">
-      <SectionBanner title="Quiz Page" />
+    <main className="space-y-10 min-h-dvh">
+      <SectionBanner title={`${daysRemaining?`Wait ${daysRemaining} Day for More Quiz!`:"Take Today's Quiz Challenge!"}`} />
 
       {!quizData ? (
         quizDate ? (
-          <div className="p-8">
-              <div className="flex justify-between items-center mb-6 mx-3">
-              <h3 className="font-bold text-white">
-                Your Previous Quiz Result
-              </h3>
-              {daysRemaining > 0 && (
-                <div className="bg-custom-primary text-white py-4 px-6 rounded-xl text-center shadow-lg">
-                <p className="text-lg font-semibold">
-                  🚫 You can take a new quiz after{" "}
-                  <span className="font-bold text-lg">{daysRemaining}</span> day(s).
-                </p>
-              </div>
-              )}
+          <section className="pb-10">
+            <div className="container">
+              <div className=" flex justify-between items-center mb-6">
+                <h4>
+                  Your Previous Quiz Result
+                </h4>
+                <Link
+                  to={-1}
+                  className="primaryButton hover:bg-custom-half-primary"
+                >
+                  Go Back
+                </Link>
               </div>
               <QuizResult
                 score={userDetails?.answers?.score}
                 answers={userDetails?.answers?.answers}
               />
-          </div>
+            </div>
+          </section>
         ) : (
-          <div className="flex flex-col md:flex-row justify-center items-center py-12 px-6">
-            <div className="md:w-1/2 max-w-md mx-auto bg-gray-900 p-8 rounded-xl shadow-2xl border border-gray-700">
-              <h2 className="text-3xl font-bold text-white mb-6 text-center">Create Your Quiz</h2>
-              <p className="text-gray-400 text-center mb-8">
-                Select your language and difficulty level to start your custom quiz journey!
-              </p>
+          <section className="pb-10">
+            <div className="container">
+              <div className="md:w-1/2 max-w-md mx-auto bg-custom-primary p-8 rounded-lg">
+                <h3 className="text-center">Create Your Quiz</h3>
+                <p className="text-center mb-8">
+                  Select your language and difficulty level to start your custom quiz journey!
+                </p>
 
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div>
-                  <label htmlFor="language" className="block text-white text-sm font-medium mb-2">
-                    Language
-                  </label>
-                  <input
-                    type="text"
-                    id="language"
-                    value={language}
-                    onChange={(e) => setLanguage(e.target.value)}
-                    placeholder="e.g., JavaScript, Python"
-                    className="w-full px-4 py-2 bg-gray-700 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all"
-                    disabled={loading}
-                  />
-                </div>
+                <form onSubmit={handleSubmit} className="flex flex-col gap-3">
 
-                <div>
-                  <label htmlFor="difficulty" className="block text-white text-sm font-medium mb-2">
-                    Difficulty
-                  </label>
-                  <select
-                    id="difficulty"
-                    value={difficulty}
-                    onChange={(e) => setDifficulty(e.target.value)}
-                    className="w-full px-4 py-2 bg-gray-700 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all"
+                    <label className="space-y-1">
+                      <span>Language</span>
+                      <input
+                        type="text"
+                        id="language"
+                        value={language}
+                        onChange={(e) => setLanguage(e.target.value)}
+                        placeholder="e.g., JavaScript, Python"
+                        className="w-full p-2.5 bg-transparent rounded-md focus:outline-none border border-white placeholder:text-white"
+                        disabled={loading}
+                      />
+                    </label>
+
+                    <label className="space-y-1">
+                      <span>Difficulty</span>
+                      <select
+                        id="difficulty"
+                        value={difficulty}
+                        onChange={(e) => setDifficulty(e.target.value)}
+                        className="w-full ps-1 pe-2 py-2.5 bg-transparent rounded-md focus:outline-none border border-white"
+                        disabled={loading}
+                      >
+                        <option value="">Select difficulty</option>
+                        <option value="Beginner">Beginner</option>
+                        <option value="Intermediate">Intermediate</option>
+                        <option value="Advanced">Advanced</option>
+                      </select>
+                    </label>
+
+
+                  <button
+                    type="submit"
+                    className={`w-full mt-2 p-2 text-lg bg-white font-bold text-custom-primary transition-all rounded-md ${
+                      loading ? "opacity-50 cursor-not-allowed" : ""
+                    }`}
                     disabled={loading}
                   >
-                    <option value="">Select difficulty</option>
-                    <option value="Beginner">Beginner</option>
-                    <option value="Intermediate">Intermediate</option>
-                    <option value="Advanced">Advanced</option>
-                  </select>
-                </div>
-
-                <button
-                  type="submit"
-                  className={`w-full h-12 text-lg bg-custom-primary transition-all ${
-                    loading ? "opacity-50 cursor-not-allowed" : ""
-                  }`}
-                  disabled={loading}
-                >
-                 {loading ? "Thinking..." : "Generate Quiz"}
-                </button>
-              </form>
+                  {loading ? "Thinking..." : "Generate Quiz"}
+                  </button>
+                </form>
+              </div>
             </div>
-          </div>
+
+          </section>
         )
       ) : (
         <QuizComponents quizData={quizData} />
       )}
 
-      <ToastContainer />
-    </div>
+    </main>
   );
 };
 
