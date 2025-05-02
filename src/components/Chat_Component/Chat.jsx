@@ -51,7 +51,7 @@ function Chat() {
    
 
   useEffect(() => {
-    if (user.email) {
+    if (user?.email) {
       socketRef.current.emit('join',user);
       setHasJoined(true);
     }
@@ -66,16 +66,18 @@ function Chat() {
     }
   };
 
-  const handleSelectUser = (user) => {
-    if (user.name === username) {
+  const handleSelectUser = (selected_users) => {
+     
+    if (user?.email === selected_users.email) {
       alert("You can't DM yourself!");
       return;
     }
-    setSelectedUser(user.name);
+    setSelectedUser(selected_users);
   };
 
+  console.log(selectedUser);
 
-  console.log(user?.email);
+  
 
 
   return (
@@ -97,7 +99,7 @@ function Chat() {
                   <li
                     key={index}
                     onClick={() => handleSelectUser(user)}
-                    className={`cursor-pointer p-2 rounded list-none ${selectedUser === user.name ? 'bg-custom-primary text-white' : 'hover:bg-custom-primary'}`}
+                    className={`cursor-pointer p-2 rounded list-none ${selectedUser.name === user.name ? 'bg-custom-primary text-white' : 'hover:bg-custom-primary'}`}
                   >
                     {user.name}
                   </li>
