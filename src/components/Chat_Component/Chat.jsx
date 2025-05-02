@@ -5,14 +5,14 @@ import chat_bg from '../../assets/chat_bg.jpg';
 import { AuthContext } from "../../Provider/AuthProvider";
 
 function Chat() {
-  const { user } = useContext(AuthContext)
+  const { user, loading} = useContext(AuthContext)
   const [username, setUsername] = useState('');
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState([]);
   const [isConnected, setIsConnected] = useState(false);
   const [users, setUsers] = useState([]);
   const [selectedUser, setSelectedUser] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [loadings, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [hasJoined, setHasJoined] = useState(false);
 
@@ -48,11 +48,11 @@ function Chat() {
     fetchData();
   }, []);
 
-   
+
 
   useEffect(() => {
     if (user?.email) {
-      socketRef.current.emit('join',user);
+      socketRef.current.emit('join', user);
       setHasJoined(true);
     }
   }, [user])
@@ -67,7 +67,7 @@ function Chat() {
   };
 
   const handleSelectUser = (selected_users) => {
-     
+
     if (user?.email === selected_users.email) {
       alert("You can't DM yourself!");
       return;
@@ -75,16 +75,17 @@ function Chat() {
     setSelectedUser(selected_users);
   };
 
-  console.log(selectedUser);
 
-  
+ console.log(user);
+
+ if(loading) return <p>Loading---</p>;
 
 
   return (
     <div className="min-h-screen bg-black flex items-center justify-center">
       {!user?.email ? (
         <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
-          {loading && <p className="text-center text-gray-500">Loading users...</p>}
+          {loadings && <p className="text-center text-gray-500">Loading users...</p>}
           {error && <p className="text-center text-red-500">{error}</p>}
         </div>
       ) : (
@@ -99,9 +100,10 @@ function Chat() {
                   <li
                     key={index}
                     onClick={() => handleSelectUser(user)}
-                    className={`cursor-pointer p-2 rounded list-none ${selectedUser.name === user.name ? 'bg-custom-primary text-white' : 'hover:bg-custom-primary'}`}
-                  >
-                    {user.name}
+                    className={`cursor-pointer p-2 rounded list-none flex  items-center ${selectedUser?.name === user?.name ? 'bg-custom-primary text-white' : 'hover:bg-custom-primary'}`}
+                  > 
+                    <img className='w-[50px] h-[50px] rounded-full mr-4' src={user?.photoURL} alt="" />
+                    {user?.name}
                   </li>
                 ))}
             </ul>
@@ -110,10 +112,16 @@ function Chat() {
           {/* Chat Area */}
           <div className="flex-1 flex flex-col p-4">
             <div className="flex justify-between items-center mb-4">
-              <h2 className="text-xl font-semibold">
-                <img src="" alt="" />
-                {selectedUser ? `Chatting with @${selectedUser}` : 'Select a user to start chatting'}
-              </h2>
+              <div className="text-xl font-semibold">
+
+                {selectedUser ? (
+                  <div className='flex justify-center items-center'>
+                    < img className='w-[50px] h-[50px] rounded-full mr-4' src={selectedUser?.photoURL} alt="" />
+                     <h2 className="text-xl font-semibold">{selectedUser?.name}</h2>
+                  </div>
+
+                ) : 'Select a user to start chatting'}
+              </div>
               <span className="text-sm text-gray-500">{isConnected ? '🟢 Connected' : '🔴 Disconnected'}</span>
             </div>
 
@@ -154,7 +162,7 @@ function Chat() {
                   type="text"
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
-                  placeholder={`Message @${selectedUser}...`}
+                  placeholder={`Message @${selectedUser?.name}...`}
                   className="flex-1 p-2 border rounded-full focus:outline-none focus:ring-2 focus:ring-custom-primary"
                 />
                 <button
