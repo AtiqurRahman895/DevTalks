@@ -86,6 +86,7 @@ const BlogForm = ({defaultBlogData={}}) => {
             try {
                 await secureAxios.post("/blogs/creatBlog",credentials)
                 toast.success("You have successfully added a blogs.")
+                window.scrollTo(0, 0);
                 setShowPreview(false)
                 setTitle("")
                 setShortDescription("")

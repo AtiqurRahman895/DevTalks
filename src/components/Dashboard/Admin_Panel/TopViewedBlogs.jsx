@@ -9,7 +9,7 @@ const TopViewedBlogs = () => {
   const fetchTopViewedBlogs= async() => {
       const params = {
           projection: JSON.stringify({title:1, views:1}), 
-          sort: {votes:-1},
+          sort: {views:-1},
           limit:5, 
       };
       const res=await normalAxios.get("/blogs/blogs", {params})

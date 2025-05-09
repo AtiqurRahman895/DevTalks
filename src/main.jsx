@@ -1,19 +1,19 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import './index.css'
-import { createBrowserRouter, RouterProvider } from 'react-router';
-import { HelmetProvider } from 'react-helmet-async';
-import { ToastContainer } from 'react-toastify';
-import Base from './components/BaseComponents/Base';
-import Home from './components/HomeComponents/Home';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import ErrorPage from './components/ErrorPageComponent/ErrorPage';
-import Questions from './components/QuestionsPageComponents.jsx/Questions';
-import ProfilePage from './components/UserProfileComponents/ProfilePage';
-import PfpAllQuestion from './components/UserProfileComponents/ProfileLayout/PfpAllQuestion';
-import PfpAllAnswer from './components/UserProfileComponents/ProfileLayout/PfpAllAnswer';
-import PfpAllBadges from './components/UserProfileComponents/ProfileLayout/PfpAllBadges';
-import QuizComponents from './components/QuizComponents/QuizComponents';
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import "./index.css";
+import { createBrowserRouter, RouterProvider } from "react-router";
+import { HelmetProvider } from "react-helmet-async";
+import { ToastContainer } from "react-toastify";
+import Base from "./components/BaseComponents/Base";
+import Home from "./components/HomeComponents/Home";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import ErrorPage from "./components/ErrorPageComponent/ErrorPage";
+import Questions from "./components/QuestionsPageComponents.jsx/Questions";
+import ProfilePage from "./components/UserProfileComponents/ProfilePage";
+import PfpAllQuestion from "./components/UserProfileComponents/ProfileLayout/PfpAllQuestion";
+import PfpAllAnswer from "./components/UserProfileComponents/ProfileLayout/PfpAllAnswer";
+import PfpAllBadges from "./components/UserProfileComponents/ProfileLayout/PfpAllBadges";
+import QuizComponents from "./components/QuizComponents/Quizzes";
 import TextMessage from "./components/TextMessage/TextMessage";
 import UserInbox from "./components/TextMessage/UserInbox";
 import Dashboard from "./components/Dashboard/Dashboard";
@@ -26,18 +26,18 @@ import SignIn from "./components/AuthenticationComponents/SignIn";
 import SignUp from "./components/AuthenticationComponents/SignUp";
 import ForgotPassword from "./components/AuthenticationComponents/ForgotPassword";
 import AuthProvider from "./Provider/AuthProvider";
-import { normalAxios } from './Hooks/useNormalAxios';
-import Question from './components/QuestionComponent.jsx/Question';
-import AdminRoute from './components/AuthenticationComponents/AdminRoute';
-import Blogs from './components/BlogsPageComponents/blogs';
-import Blog from './components/BlogPageComponents/Blog';
-import ChangePassword from './components/AuthenticationComponents/ChangePassword';
-import PrivateRoute from "./components/AuthenticationComponents/PrivateRoute"
+import { normalAxios } from "./Hooks/useNormalAxios";
+import Question from "./components/QuestionComponent.jsx/Question";
+import AdminRoute from "./components/AuthenticationComponents/AdminRoute";
+import Blogs from "./components/BlogsPageComponents/blogs";
+import Blog from "./components/BlogPageComponents/Blog";
+import ChangePassword from "./components/AuthenticationComponents/ChangePassword";
+import PrivateRoute from "./components/AuthenticationComponents/PrivateRoute";
 import CreateQuizPage from "./components/QuizComponents/InputQiz";
-import Bookmarks from './components/BookMarksComponents/Bookmarks';
-import UpdateBlog from './components/UpdateBlogComponents/UpdateBlog';
-import UpdateQuestion from './components/UpdateQuestionComponents/UpdateQuestion';
-import { ProfileProvider } from './Provider/ProfileProvider';
+import Bookmarks from "./components/BookMarksComponents/Bookmarks";
+import UpdateBlog from "./components/UpdateBlogComponents/UpdateBlog";
+import UpdateQuestion from "./components/UpdateQuestionComponents/UpdateQuestion";
+import { ProfileProvider } from "./Provider/ProfileProvider";
 
 const router = createBrowserRouter([
   {
@@ -72,18 +72,20 @@ const router = createBrowserRouter([
       },
       {
         path: "/update-question/:_id",
-        loader: async({params})=>{
-          const res = await normalAxios.get(`/questions/question/${params._id}`)
-          if(localStorage.getItem("email")!==res.data.askerEmail){
+        loader: async ({ params }) => {
+          const res = await normalAxios.get(
+            `/questions/question/${params._id}`
+          );
+          if (localStorage.getItem("email") !== res.data.askerEmail) {
             throw new Response("Page not found", { status: 404 });
           }
-          return res.data
+          return res.data;
         },
         element: (
           <PrivateRoute>
             <UpdateQuestion />
-          </PrivateRoute> 
-        )
+          </PrivateRoute>
+        ),
       },
       // about
       {
@@ -125,31 +127,31 @@ const router = createBrowserRouter([
       // bookmark
       {
         path: "/bookmark",
-        element: <Bookmarks/>,
+        element: <Bookmarks />,
       },
       // quiz
       {
         path: "/quiz",
         element: (
           <PrivateRoute>
-            <CreateQuizPage/>
+            <CreateQuizPage />
           </PrivateRoute>
         ),
       },
-        // {
-        //   path: "/quiz/questions",
-        //   element:(
-        //     <QuizComponents />
-        //   )
-        // },
+      // {
+      //   path: "/quiz/questions",
+      //   element:(
+      //     <QuizComponents />
+      //   )
+      // },
       // add Blog
       {
         path: "/add-blog",
         element: (
           <AdminRoute>
             <AddBlog />
-          </AdminRoute> 
-        )
+          </AdminRoute>
+        ),
       },
       // blogs
       {
@@ -166,18 +168,18 @@ const router = createBrowserRouter([
       },
       {
         path: "/update-blog/:_id",
-        loader: async({params})=>{
-          const res = await normalAxios.get(`/blogs/blog/${params._id}`)
-          if(localStorage.getItem("email")!==res.data.authorEmail){
+        loader: async ({ params }) => {
+          const res = await normalAxios.get(`/blogs/blog/${params._id}`);
+          if (localStorage.getItem("email") !== res.data.authorEmail) {
             throw new Response("Page not found", { status: 404 });
           }
-          return res.data
+          return res.data;
         },
         element: (
           <AdminRoute>
             <UpdateBlog />
-          </AdminRoute> 
-        )
+          </AdminRoute>
+        ),
       },
       // Authentication
       {
@@ -220,16 +222,15 @@ const router = createBrowserRouter([
     element: <Dashboard></Dashboard>,
     children: [
       {
-        path:'/dashboard',
-        element:(
+        path: "/dashboard",
+        element: (
           <AdminRoute>
-            <Admin_Panel/>
+            <Admin_Panel />
           </AdminRoute>
-        )
-      }
-    ]
-
-  }
+        ),
+      },
+    ],
+  },
 ]);
 
 const queryClient = new QueryClient();

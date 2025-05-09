@@ -81,17 +81,17 @@ const QuizResult = ({ score, answers }) => {
       <QuizExplain answers={answers} />
 
       {/* Get AI Suggestion / Close Button */}
-      <button
+      {/* <button
         onClick={handleAiSuggestion}
         className={`w-full primaryButton hover:bg-custom-half-primary mt-10 flex items-center justify-center gap-2`}
         disabled={loading}
       >
         <FaRobot className="text-xl" />
         {loading ? "Thinking..." : showSuggestion ? "Close Suggestion" : "Ask Quibly"}
-      </button>
+      </button> */}
 
       {/* AI Suggestion Component */}
-      {showSuggestion && suggestion && <AISuggestion suggestion={suggestion} />}
+      {/* {showSuggestion && suggestion && <AISuggestion suggestion={suggestion} />} */}
     </div>
   );
 };

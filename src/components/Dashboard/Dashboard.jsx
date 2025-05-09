@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { FaBars, FaTimes } from 'react-icons/fa';
 import { Link, NavLink, Outlet } from 'react-router';
+import PageTitle from '../CommonComponents/PageTitle';
 
 const Dashboard = () => {
 
@@ -13,6 +14,8 @@ const Dashboard = () => {
     return (
         <main className=''>
             {/* mobile navbar  */}
+            <PageTitle title={`Dashboard`}/>
+
             <section className='sticky top-0 z-50 mx-4 pt-3'>
                 <div className="flex justify-between md:hidden blurNavbar py-4 px-6 items-center rounded-full">
                         <Link to="/">
