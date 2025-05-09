@@ -17,7 +17,7 @@ const QuizExplain = ({ answers }) => {
               {/* User Answer and Correctness */}
               <div className="flex items-center gap-2">
                 <p className="">
-                  Your answer: <span className="font-semibold">{answer.userSelect}</span>
+                  Your answer: <span className="font-semibold">{answer.formattedUserSelect}</span>
                 </p>
                 <span
                   className={`xs:text-xl ${

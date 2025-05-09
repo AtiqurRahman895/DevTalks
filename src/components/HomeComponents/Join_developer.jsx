@@ -18,7 +18,7 @@ const Join_developer = ({user}) => {
                     {/* Buttons */}
                     <div className="pt-4 space-x-4">
                         {
-                            user?.email && <Link to={'/sign-up'} className="primaryButton">Join</Link>
+                            !user?.email && <Link to={'/sign-up'} className="primaryButton">Join</Link>
                         }
                         
                         <Link to={"/about"} className="outlineButton">Learn more</Link>

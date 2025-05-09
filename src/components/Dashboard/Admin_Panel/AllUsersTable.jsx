@@ -20,6 +20,7 @@ const AllUsersTable = () => {
       const params = {
           query:memorizedSearchQuery ? { $text: { $search: memorizedSearchQuery } } : {}, 
           skip:memorizedPageNo == 1? 0: (memorizedPageNo-1)*limit, 
+          sort: {_id:-1},
           limit, 
       };
 

@@ -8,7 +8,7 @@ import { AuthContext } from '../../Provider/AuthProvider';
 import QuizResult from './QuizResult';
 import { ProfileProvider } from '../../Provider/ProfileProvider';
 
-const QuizComponents = ({ quizData }) => {
+const Quizzes = ({ quizData, refetch }) => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedOption, setSelectedOption] = useState(null);
   const [isCorrect, setIsCorrect] = useState(null);
@@ -51,13 +51,15 @@ const QuizComponents = ({ quizData }) => {
 
     // Format userSelect as "B. var"
     const optionText = currentQuestion?.options?.[selectedOption] || '';
+    const userSelect = selectedOption;
     const formattedUserSelect = `${selectedOption}. ${optionText}`;
 
     // Save answer with formatted userSelect and question text
     const newAnswer = {
       questionId: currentQuestion?.id || currentQuestionIndex,
       question: currentQuestion?.question || '', // Add question text
-      userSelect: formattedUserSelect, // e.g., "B. var"
+      userSelect,
+      formattedUserSelect, // e.g., "B. var"
       isCorrect: isCorrectAnswer,
       explanation: currentQuestion?.explanation,
       weakPoint: currentQuestion?.weakPoint,
@@ -80,13 +82,15 @@ const QuizComponents = ({ quizData }) => {
           userAnswers: [...answers, newAnswer].map(answer => ({
             questionId: answer.questionId,
             question: answer.question, // Include question text
-            userSelect: answer.userSelect, // Send "B. var"
+            userSelect: answer.userSelect,
+            formattedUserSelect: answer.formattedUserSelect, // Send "B. var"
           })),
         };
 
         try {
           await secureAxios.post('/users/user-answer', payload);
           toast.success(`Quiz completed! Your score: ${score + (isCorrectAnswer ? 1 : 0)}/${quizData?.questions?.length || 0}`);
+          refetch()
         } catch (error) {
           // console.error('Error submitting answers:', error.message);
           toast.error(`Failed to submit answers. Please try again. Error submitting answers:', ${error.message}`);
@@ -121,7 +125,7 @@ const QuizComponents = ({ quizData }) => {
         ) : (
           <div className=" bg-custom-half-gray p-6 rounded-lg border border-custom-gray space-y-4">
             <h4 className="text-custom-primary">
-              Question {String(currentQuestionIndex + 1).padStart(2, '0')}
+              Question {currentQuestionIndex+1}/{quizData?.questions?.length}
             </h4>
             <h6 className="font-semibold">
               {currentQuestion?.question || 'No question available'}
@@ -168,4 +172,4 @@ const QuizComponents = ({ quizData }) => {
   );
 };
 
-export default QuizComponents;
+export default Quizzes;
